@@ -377,11 +377,31 @@ main .section.guide-text h2 + p {
   }
 
   /* form sits on the right as a fixed-width card */
-  main .section.carousel-hero-container > .form-wrapper:has(.hero-lead) {
+  main .section.carousel-hero-container > .form-wrapper {
     flex: 0 0 320px;
+    width: 320px;
     margin: 0;
     padding: 0;
   }
+}
+
+/* compact lead card inside the hero band (styling keyed off the hero section,
+   not a block-variant class, so it survives the AEM round-trip) */
+main .section.carousel-hero-container .form form {
+  gap: 12px;
+  max-width: none;
+  padding: 20px;
+}
+
+main .section.carousel-hero-container .form h2 {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+main .section.carousel-hero-container .form .selection-wrapper label {
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 /* ---- Need Assistance — two-column layout ----
