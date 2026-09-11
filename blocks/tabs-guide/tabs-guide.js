@@ -12,16 +12,19 @@ function buildCards(panel) {
   const cards = [];
   let current = null;
 
-  const hasImage = (el) => el.querySelector('picture, img');
+  const isHeading = (el) => /^H[1-6]$/.test(el.tagName);
+  const hasImage = (el) => el.querySelector && el.querySelector('picture, img');
 
+  // A new resource card begins at a card image OR a heading (the thumbnails are
+  // dropped during import to keep md2jcr happy, so heading is the reliable
+  // per-card boundary — otherwise every item collapses into one card).
   nodes.forEach((node) => {
-    if (hasImage(node)) {
+    if (hasImage(node) || isHeading(node)) {
       current = document.createElement('div');
       current.className = 'tabs-guide-card';
       cards.push(current);
     }
     if (!current) {
-      // stray leading text with no image — start a card anyway
       current = document.createElement('div');
       current.className = 'tabs-guide-card';
       cards.push(current);
