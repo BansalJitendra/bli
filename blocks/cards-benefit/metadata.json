@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-benefit",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Grid of numbered benefit items (number, title, paragraph — no image)."
+  },
+  "contentPattern": {
+    "structure": "number, title, paragraph per item"
+  },
+  "usage": "Grid of numbered benefit items (number, title, paragraph — no image).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-benefit"
+  ]
+}

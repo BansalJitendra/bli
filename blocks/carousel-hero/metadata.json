@@ -1,0 +1,16 @@
+{
+  "variantName": "carousel-hero",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Rotating hero slides (eyebrow, headline, code, feature bullets, celebrity image + badge)."
+  },
+  "contentPattern": {
+    "structure": "image + rich content (eyebrow, headline, bullets) per slide"
+  },
+  "usage": "Rotating hero slides (eyebrow, headline, code, feature bullets, celebrity image + badge).",
+  "options": [],
+  "memberVariantIds": [
+    "carousel-hero"
+  ]
+}

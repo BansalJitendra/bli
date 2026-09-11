@@ -1,0 +1,16 @@
+{
+  "variantName": "tabs-plans",
+  "baseBlock": "tabs",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Tab switcher across plan sets; each panel holds a plan-cards set."
+  },
+  "contentPattern": {
+    "structure": "tab title + panel content per tab"
+  },
+  "usage": "Tab switcher across plan sets; each panel holds a plan-cards set.",
+  "options": [],
+  "memberVariantIds": [
+    "tabs-plans"
+  ]
+}

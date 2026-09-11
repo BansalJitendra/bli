@@ -1,0 +1,16 @@
+{
+  "variantName": "hero-promo",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Full-width promo banner with background photo, headline, sub-line and CTA."
+  },
+  "contentPattern": {
+    "structure": "background image + headline, sub-line, CTA"
+  },
+  "usage": "Full-width promo banner with background photo, headline, sub-line and CTA.",
+  "options": [],
+  "memberVariantIds": [
+    "hero-promo"
+  ]
+}

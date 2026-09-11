@@ -1,0 +1,23 @@
+/* columns-claimbar — full-width band, two content groups side by side (structural only) */
+.columns-claimbar > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.columns-claimbar > div > div {
+  flex: 1;
+}
+
+.columns-claimbar img {
+  width: 100%;
+}
+
+@media (width >= 900px) {
+  .columns-claimbar > div {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variantName": "video-gallery",
+  "baseBlock": "video",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Video gallery with a featured player and a playlist of thumbnails."
+  },
+  "contentPattern": {
+    "structure": "featured video + playlist items (thumbnail, caption, link)"
+  },
+  "usage": "Video gallery with a featured player and a playlist of thumbnails.",
+  "options": [],
+  "memberVariantIds": [
+    "video-gallery"
+  ]
+}

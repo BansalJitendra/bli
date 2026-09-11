@@ -1,0 +1,29 @@
+/* cards-quicklink — icon+label shortcut cards (structural layout only) */
+.cards-quicklink > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px;
+}
+
+.cards-quicklink > ul > li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-quicklink .cards-quicklink-card-body {
+  margin: 16px;
+}
+
+.cards-quicklink .cards-quicklink-card-image {
+  line-height: 0;
+}
+
+.cards-quicklink .cards-quicklink-card-image img {
+  width: 100%;
+  object-fit: cover;
+}

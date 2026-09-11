@@ -1,0 +1,16 @@
+{
+  "variantName": "accordion-disclaim",
+  "baseBlock": "accordion",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Single expandable disclosure row revealing long legal fine print."
+  },
+  "contentPattern": {
+    "structure": "label (summary) + long fine print (body)"
+  },
+  "usage": "Single expandable disclosure row revealing long legal fine print.",
+  "options": [],
+  "memberVariantIds": [
+    "accordion-disclaim"
+  ]
+}

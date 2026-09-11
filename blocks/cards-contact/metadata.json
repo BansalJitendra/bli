@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-contact",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Row of contact info cards (title tab, phones/timings/emails, optional button)."
+  },
+  "contentPattern": {
+    "structure": "title tab, contact details, optional button per card"
+  },
+  "usage": "Row of contact info cards (title tab, phones/timings/emails, optional button).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-contact"
+  ]
+}

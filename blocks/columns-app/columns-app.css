@@ -1,0 +1,31 @@
+/* columns-app — image left, content right promo band (structural only) */
+.columns-app > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.columns-app > div > div {
+  flex: 1;
+  order: 1;
+}
+
+.columns-app > div > .columns-app-img-col {
+  order: 0;
+}
+
+.columns-app img {
+  width: 100%;
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-app > div {
+    flex-direction: row;
+  }
+
+  .columns-app > div > div {
+    order: unset;
+  }
+}

@@ -1,0 +1,39 @@
+/* cards-resource — resource cards (horizontally scrolling card set, structural only) */
+.cards-resource > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 12px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.cards-resource > ul > li {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-resource .cards-resource-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px;
+}
+
+.cards-resource .cards-resource-card-image {
+  line-height: 0;
+}
+
+.cards-resource .cards-resource-card-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cards-resource .cards-resource-card-body a {
+  align-self: flex-start;
+}

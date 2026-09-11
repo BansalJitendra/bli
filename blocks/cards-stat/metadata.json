@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-stat",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Grid of stat tiles (icon, figure, label)."
+  },
+  "contentPattern": {
+    "structure": "icon, figure, label per tile"
+  },
+  "usage": "Grid of stat tiles (icon, figure, label).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-stat"
+  ]
+}

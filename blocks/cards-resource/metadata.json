@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-resource",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Scrolling set of resource cards (thumbnail, title, description, Watch Now)."
+  },
+  "contentPattern": {
+    "structure": "thumbnail, title, description, CTA per card"
+  },
+  "usage": "Scrolling set of resource cards (thumbnail, title, description, Watch Now).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-resource"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Row of promotional product mini-cards (icon, tag pill, title, benefit line)."
+  },
+  "contentPattern": {
+    "structure": "icon, tag pill, title, benefit line per card"
+  },
+  "usage": "Row of promotional product mini-cards (icon, tag pill, title, benefit line).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-product"
+  ]
+}

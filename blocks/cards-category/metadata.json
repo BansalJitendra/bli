@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-category",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Row of life-insurance category cards (icon, title, benefit pill)."
+  },
+  "contentPattern": {
+    "structure": "icon, title, benefit pill per card"
+  },
+  "usage": "Row of life-insurance category cards (icon, title, benefit pill).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-category"
+  ]
+}

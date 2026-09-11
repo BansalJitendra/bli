@@ -1,0 +1,16 @@
+{
+  "variantName": "tabs-guide",
+  "baseBlock": "tabs",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Tab switcher across resource categories (Videos, Articles, Calculators)."
+  },
+  "contentPattern": {
+    "structure": "tab title + panel content per tab"
+  },
+  "usage": "Tab switcher across resource categories (Videos, Articles, Calculators).",
+  "options": [],
+  "memberVariantIds": [
+    "tabs-guide"
+  ]
+}

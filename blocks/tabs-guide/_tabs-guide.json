@@ -1,0 +1,65 @@
+{
+  "definitions": [
+    {
+      "title": "Tabs Guide",
+      "id": "tabs-guide",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Tabs Guide",
+              "filter": "tabs-guide"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tabs Guide Item",
+      "id": "tabs-guide-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Tab",
+              "model": "tabs-guide-item",
+              "title": "Tab Name",
+              "content_headingType": "h3"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "tabs-guide-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "value": "",
+          "label": "Tab Title"
+        },
+        {
+          "component": "richtext",
+          "name": "content_richtext",
+          "value": "",
+          "label": "Content",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "tabs-guide",
+      "components": [
+        "tabs-guide-item"
+      ]
+    }
+  ]
+}

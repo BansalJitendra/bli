@@ -1,0 +1,42 @@
+/* hero-promo — full-bleed promo banner with background image (structural only) */
+.hero-promo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 280px;
+  padding: 40px 24px;
+  overflow: hidden;
+}
+
+.hero-promo .hero-promo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-promo .hero-promo-bg picture,
+.hero-promo .hero-promo-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-promo .hero-promo-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-promo .hero-promo-content a {
+  display: inline-block;
+}
+
+@media (width >= 900px) {
+  .hero-promo {
+    padding: 56px 32px;
+  }
+}

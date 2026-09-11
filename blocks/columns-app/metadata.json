@@ -1,0 +1,16 @@
+{
+  "variantName": "columns-app",
+  "baseBlock": "columns",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Mobile-app promo band: phone mockup image on one side, content + store badges + QR on the other."
+  },
+  "contentPattern": {
+    "structure": "image column + content column"
+  },
+  "usage": "Mobile-app promo band: phone mockup image on one side, content + store badges + QR on the other.",
+  "options": [],
+  "memberVariantIds": [
+    "columns-app"
+  ]
+}

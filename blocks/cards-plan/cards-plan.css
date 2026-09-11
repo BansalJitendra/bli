@@ -1,0 +1,39 @@
+/* cards-plan — plan cards (horizontally scrolling card set, structural only) */
+.cards-plan > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 12px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.cards-plan > ul > li {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-plan .cards-plan-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px;
+}
+
+.cards-plan .cards-plan-card-image {
+  line-height: 0;
+}
+
+.cards-plan .cards-plan-card-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cards-plan .cards-plan-card-body a {
+  align-self: flex-start;
+}

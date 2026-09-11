@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-quicklink",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Row of service shortcut cards (icon + label)."
+  },
+  "contentPattern": {
+    "structure": "icon and label per shortcut"
+  },
+  "usage": "Row of service shortcut cards (icon + label).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-quicklink"
+  ]
+}

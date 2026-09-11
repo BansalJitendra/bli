@@ -1,0 +1,16 @@
+{
+  "variantName": "cards-plan",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Scrolling set of plan cards (eyebrow, name, benefits list, Buy Now / Know More)."
+  },
+  "contentPattern": {
+    "structure": "eyebrow, name, benefits list, two CTA buttons per card"
+  },
+  "usage": "Scrolling set of plan cards (eyebrow, name, benefits list, Buy Now / Know More).",
+  "options": [],
+  "memberVariantIds": [
+    "cards-plan"
+  ]
+}

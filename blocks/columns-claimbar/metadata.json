@@ -1,0 +1,16 @@
+{
+  "variantName": "columns-claimbar",
+  "baseBlock": "columns",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Full-width band with a claims-settled counter and an \"I want to\" help selector, side by side."
+  },
+  "contentPattern": {
+    "structure": "two content groups side by side on a band"
+  },
+  "usage": "Full-width band with a claims-settled counter and an \"I want to\" help selector, side by side.",
+  "options": [],
+  "memberVariantIds": [
+    "columns-claimbar"
+  ]
+}

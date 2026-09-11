@@ -1,0 +1,44 @@
+/*
+ * Brand design tokens — extracted from https://www.bajajlifeinsurance.com/
+ * Rubik typeface; Bajaj Life blue (#005eac) + orange accent (#ff6f00).
+ */
+:root {
+  /* fonts */
+  --heading-font-family: rubik, rubik-fallback, sans-serif;
+  --body-font-family: rubik, rubik-fallback, sans-serif;
+
+  /* brand colors */
+  --background-color: #fff;
+  --text-color: #131619;
+  --heading-color: #0a0a0a;
+  --link-color: #0072bc;
+  --link-hover-color: #005eac;
+
+  --brand-primary: #005eac;
+  --brand-primary-dark: #004a87;
+  --brand-accent: #ff6f00;
+  --brand-accent-dark: #e65c00;
+
+  /* section background variants */
+  --background-light: #f4f8fc;
+  --background-light-blue: #eaf3fb;
+  --background-grey: #f5f5f5;
+  --background-dark-blue: #003b73;
+
+  --light-color: #f4f8fc;
+  --dark-color: #003b73;
+
+  /* spacing */
+  --section-padding: 48px;
+  --nav-height: 54px;
+  --header-height: var(--nav-height);
+  --content-max-width: 1200px;
+
+  /* heading sizes (desktop) */
+  --heading-size-xxl: 32px;
+  --heading-size-xl: 26px;
+  --heading-size-l: 22px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}

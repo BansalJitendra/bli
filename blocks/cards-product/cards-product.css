@@ -1,0 +1,29 @@
+/* cards-product — promo product mini-cards (structural layout only) */
+.cards-product > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.cards-product > ul > li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-product .cards-product-card-body {
+  margin: 16px;
+}
+
+.cards-product .cards-product-card-image {
+  line-height: 0;
+}
+
+.cards-product .cards-product-card-image img {
+  width: 100%;
+  object-fit: cover;
+}

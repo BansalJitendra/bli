@@ -1,0 +1,16 @@
+{
+  "variantName": "carousel-review",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Rotating testimonial cards (title, quote, review, avatar + name + stars)."
+  },
+  "contentPattern": {
+    "structure": "quote, review, avatar, name, star rating per slide"
+  },
+  "usage": "Rotating testimonial cards (title, quote, review, avatar + name + stars).",
+  "options": [],
+  "memberVariantIds": [
+    "carousel-review"
+  ]
+}

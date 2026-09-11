@@ -1,0 +1,66 @@
+/* accordion-faq — accordion fork (structural layout only) */
+.accordion-faq .accordion-faq-item {
+  border: 1px solid #dadada;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.accordion-faq .accordion-faq-item + .accordion-faq-item {
+  margin-top: 16px;
+}
+
+.accordion-faq .accordion-faq-item p {
+  margin-bottom: 0.8em;
+}
+
+.accordion-faq .accordion-faq-item-label {
+  position: relative;
+  padding: 16px;
+  padding-right: 46px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.accordion-faq .accordion-faq-item-label:focus,
+.accordion-faq .accordion-faq-item-label:hover {
+  background-color: var(--light-color);
+}
+
+.accordion-faq .accordion-faq-item[open] .accordion-faq-item-label {
+  background-color: var(--light-color);
+}
+
+.accordion-faq .accordion-faq-item-label::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq .accordion-faq-item-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%) rotate(135deg);
+  width: 8px;
+  height: 8px;
+  border: 2px solid;
+  border-width: 2px 2px 0 0;
+  transition: transform 0.2s;
+}
+
+.accordion-faq .accordion-faq-item[open] .accordion-faq-item-label::after {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.accordion-faq .accordion-faq-item-body {
+  padding: 0 16px 16px;
+}
+
+.accordion-faq .accordion-faq-item:not([open]) .accordion-faq-item-body {
+  display: none;
+}
+
+.accordion-faq .accordion-faq-item[open] .accordion-faq-item-body {
+  border-top: 1px solid #dadada;
+  background-color: var(--background-color);
+}

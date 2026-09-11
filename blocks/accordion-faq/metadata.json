@@ -1,0 +1,16 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Expandable FAQ Q&A rows."
+  },
+  "contentPattern": {
+    "structure": "question (summary) + answer (body) per row"
+  },
+  "usage": "Expandable FAQ Q&A rows.",
+  "options": [],
+  "memberVariantIds": [
+    "accordion-faq"
+  ]
+}

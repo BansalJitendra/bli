@@ -1,0 +1,404 @@
+{
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://www.bajajlifeinsurance.com/"
+      ],
+      "representativeUrl": "https://www.bajajlifeinsurance.com/",
+      "description": "",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [
+            ".newhomebanner .newhero-container",
+            ".newhomebanner"
+          ]
+        },
+        {
+          "name": "form",
+          "instances": [
+            ".newhomebanner form",
+            ".need-assistance form",
+            "form"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".newhero-contbottom"
+          ]
+        },
+        {
+          "name": "columns-claimbar",
+          "instances": [
+            ".nhcontb-one",
+            ".newhero-contbottom .nhcontb-one"
+          ]
+        },
+        {
+          "name": "cards-category",
+          "instances": [
+            ".cardsproduct"
+          ]
+        },
+        {
+          "name": "tabs-plans",
+          "instances": [
+            ".asyncTabs",
+            ".lifeGoal"
+          ]
+        },
+        {
+          "name": "cards-plan",
+          "instances": [
+            ".asyncTabs .life-comp2-card",
+            ".lifeGoal .life-comp2-card"
+          ]
+        },
+        {
+          "name": "cards-quicklink",
+          "instances": [
+            ".cardsV4 section.our_offering",
+            "section.our_offering"
+          ]
+        },
+        {
+          "name": "cards-stat",
+          "instances": [
+            ".w-li-container"
+          ]
+        },
+        {
+          "name": "hero-promo",
+          "instances": [
+            ".promotionalbanner"
+          ]
+        },
+        {
+          "name": "cards-benefit",
+          "instances": [
+            ".howdoes .cards-row-two",
+            ".cards-row-two"
+          ]
+        },
+        {
+          "name": "video-gallery",
+          "instances": [
+            ".fundVideo"
+          ]
+        },
+        {
+          "name": "tabs-guide",
+          "instances": [
+            ".guide"
+          ]
+        },
+        {
+          "name": "cards-resource",
+          "instances": [
+            ".guide .lifeitembox"
+          ]
+        },
+        {
+          "name": "carousel-review",
+          "instances": [
+            ".customerSpeaks"
+          ]
+        },
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".faq"
+          ]
+        },
+        {
+          "name": "cards-contact",
+          "instances": [
+            ".needHelp"
+          ]
+        },
+        {
+          "name": "carousel-banner",
+          "instances": [
+            ".revampCarousel"
+          ]
+        },
+        {
+          "name": "columns-app",
+          "instances": [
+            ".mobileApp .alip-container",
+            ".alip-container"
+          ]
+        },
+        {
+          "name": "accordion-disclaim",
+          "instances": [
+            ".disclaimer"
+          ]
+        }
+      ],
+      "urlPattern": "/",
+      "sections": [
+        {
+          "id": "sec-1",
+          "name": "Hero banner + lead-capture form",
+          "selector": [
+            ".newhomebanner"
+          ],
+          "style": "dark-blue",
+          "blocks": [
+            "carousel-hero",
+            "form"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-2",
+          "name": "Product highlight cards + claims-settled counter bar",
+          "selector": [
+            ".newhero-contbottom"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-product",
+            "columns-claimbar"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-3",
+          "name": "Life Insurance intro + category cards",
+          "selector": [
+            ".cardsproduct"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-category"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-4",
+          "name": "Most Preferred Plans (tabbed plan cards)",
+          "selector": [
+            ".asyncTabs"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-plans",
+            "cards-plan"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-5",
+          "name": "Quick Links (service shortcuts)",
+          "selector": [
+            ".cardsV4",
+            "section.our_offering"
+          ],
+          "style": "light-blue",
+          "blocks": [
+            "cards-quicklink"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-6",
+          "name": "Plans For Your Every Life Goal (tabbed plan cards + illustration)",
+          "selector": [
+            ".lifeGoal"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs-plans",
+            "cards-plan"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-7",
+          "name": "Why Bajaj Life Insurance? (stats + chart)",
+          "selector": [
+            ".w-li-container"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-stat"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-8",
+          "name": "Types Of Life Insurance (informational text)",
+          "selector": [
+            ".howdoes"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-9",
+          "name": "Promotional banner 'We Are Now Bajaj Life'",
+          "selector": [
+            ".promotionalbanner"
+          ],
+          "style": "blue-image",
+          "blocks": [
+            "hero-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-10",
+          "name": "Benefits Of Life Insurance (numbered grid)",
+          "selector": [
+            ".howdoes .howits-container",
+            ".cards-row-two"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-benefit"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-11",
+          "name": "Need Assistance? (call-back form)",
+          "selector": [
+            ".need-assistance",
+            ".needAssistance"
+          ],
+          "style": "grey",
+          "blocks": [
+            "form"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-12",
+          "name": "Understanding How Life Insurance Works + Why Should I Buy (informational text)",
+          "selector": [
+            ".titleText"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-13",
+          "name": "Our Customer Stories (video gallery)",
+          "selector": [
+            ".fundVideo"
+          ],
+          "style": "grey",
+          "blocks": [
+            "video-gallery"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-14",
+          "name": "Life Insurance Guide (tabbed resource cards)",
+          "selector": [
+            ".guide"
+          ],
+          "style": "grey",
+          "blocks": [
+            "tabs-guide",
+            "cards-resource"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-15",
+          "name": "Customer Speaks (testimonial carousel)",
+          "selector": [
+            ".customerSpeaks"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-review"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-16",
+          "name": "Frequently Asked Questions (accordion groups)",
+          "selector": [
+            ".faq"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-17",
+          "name": "Contact Us (info cards)",
+          "selector": [
+            ".needHelp"
+          ],
+          "style": "grey",
+          "blocks": [
+            "cards-contact"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-18",
+          "name": "Claim Settlement Process for Flood-affected (carousel banner)",
+          "selector": [
+            ".revampCarousel"
+          ],
+          "style": "dark-blue",
+          "blocks": [
+            "carousel-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-19",
+          "name": "Mobile App promo",
+          "selector": [
+            ".mobileApp"
+          ],
+          "style": "blue-gradient",
+          "blocks": [
+            "columns-app"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-20",
+          "name": "Popular Searches (tag link cloud)",
+          "selector": [
+            ".callToBuy",
+            ".popular-searches"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "sec-21",
+          "name": "Disclaimers (single accordion)",
+          "selector": [
+            ".disclaimer"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-disclaim"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "xwalk"
+  }
+}

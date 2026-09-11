@@ -1,0 +1,29 @@
+/* cards-stat — stat tiles (structural layout only) */
+.cards-stat > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.cards-stat > ul > li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-stat .cards-stat-card-body {
+  margin: 16px;
+}
+
+.cards-stat .cards-stat-card-image {
+  line-height: 0;
+}
+
+.cards-stat .cards-stat-card-image img {
+  width: 100%;
+  object-fit: cover;
+}

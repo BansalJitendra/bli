@@ -1,0 +1,16 @@
+{
+  "variantName": "carousel-banner",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Rotating full-width informational banner (title, paragraph, detail lists, fine print)."
+  },
+  "contentPattern": {
+    "structure": "title, paragraph, two detail-list columns, fine print per slide"
+  },
+  "usage": "Rotating full-width informational banner (title, paragraph, detail lists, fine print).",
+  "options": [],
+  "memberVariantIds": [
+    "carousel-banner"
+  ]
+}

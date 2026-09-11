@@ -1,0 +1,15 @@
+{
+  "type": "xwalk",
+  "sites": {
+    "bli": {
+      "previewOrg": "bansaljitendra",
+      "previewSite": "bli",
+      "contentHostUrl": "author-p121857-e1377564.adobeaemcloud.com",
+      "aemSitePath": "/content/bajaj-life-insurance",
+      "aemAssetsFolderPath": "/content/dam/bajaj-life-insurance",
+      "aemSiteName": "bajaj-life-insurance",
+      "aemSiteTitle": "Bajaj Life Insurance",
+      "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

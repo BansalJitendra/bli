@@ -9,22 +9,53 @@
     "id": "section",
     "components": [
       "accordion",
+      "accordion-faq",
+      "accordion-disclaim",
       "button",
       "cards",
+      "cards-product",
+      "cards-category",
+      "cards-plan",
+      "cards-quicklink",
+      "cards-stat",
+      "cards-benefit",
+      "cards-resource",
+      "cards-contact",
       "carousel",
+      "carousel-hero",
+      "carousel-review",
+      "carousel-banner",
       "columns",
+      "columns-claimbar",
+      "columns-app",
       "embed",
       "fragment",
       "form",
       "hero",
+      "hero-promo",
       "image",
       "quote",
       "search",
       "tabs",
+      "tabs-plans",
+      "tabs-guide",
       "table",
       "text",
       "title",
-      "video"
+      "video",
+      "video-gallery"
+    ]
+  },
+  {
+    "id": "accordion-disclaim",
+    "components": [
+      "accordion-disclaim-item"
+    ]
+  },
+  {
+    "id": "accordion-faq",
+    "components": [
+      "accordion-faq-item"
     ]
   },
   {
@@ -34,15 +65,93 @@
     ]
   },
   {
+    "id": "cards-benefit",
+    "components": [
+      "cards-benefit-item"
+    ]
+  },
+  {
+    "id": "cards-category",
+    "components": [
+      "cards-category-item"
+    ]
+  },
+  {
+    "id": "cards-contact",
+    "components": [
+      "cards-contact-item"
+    ]
+  },
+  {
+    "id": "cards-plan",
+    "components": [
+      "cards-plan-item"
+    ]
+  },
+  {
+    "id": "cards-product",
+    "components": [
+      "cards-product-item"
+    ]
+  },
+  {
+    "id": "cards-quicklink",
+    "components": [
+      "cards-quicklink-item"
+    ]
+  },
+  {
+    "id": "cards-resource",
+    "components": [
+      "cards-resource-item"
+    ]
+  },
+  {
+    "id": "cards-stat",
+    "components": [
+      "cards-stat-item"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
     ]
   },
   {
+    "id": "carousel-banner",
+    "components": [
+      "carousel-banner-item"
+    ]
+  },
+  {
+    "id": "carousel-hero",
+    "components": [
+      "carousel-hero-item"
+    ]
+  },
+  {
+    "id": "carousel-review",
+    "components": [
+      "carousel-review-item"
+    ]
+  },
+  {
     "id": "carousel",
     "components": [
       "carousel-item"
+    ]
+  },
+  {
+    "id": "columns-app",
+    "components": [
+      "columns-app-item"
+    ]
+  },
+  {
+    "id": "columns-claimbar",
+    "components": [
+      "columns-claimbar-item"
     ]
   },
   {
@@ -85,9 +194,27 @@
     ]
   },
   {
+    "id": "tabs-guide",
+    "components": [
+      "tabs-guide-item"
+    ]
+  },
+  {
+    "id": "tabs-plans",
+    "components": [
+      "tabs-plans-item"
+    ]
+  },
+  {
     "id": "tabs",
     "components": [
       "tabs-item"
+    ]
+  },
+  {
+    "id": "video-gallery",
+    "components": [
+      "video-gallery-item"
     ]
   },
   {

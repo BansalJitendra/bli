@@ -1,0 +1,44 @@
+/* tabs-guide — tabs fork (structural layout only) */
+.tabs-guide .tabs-guide-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5ch;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.tabs-guide .tabs-guide-list button {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: 1px solid #dadada;
+  border-radius: 0;
+  padding: 0.5em 1em;
+  background-color: var(--light-color);
+  color: initial;
+  font-weight: bold;
+  line-height: unset;
+  text-align: initial;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.tabs-guide .tabs-guide-list button p {
+  margin: 0;
+}
+
+.tabs-guide .tabs-guide-list button[aria-selected='true'] {
+  border-bottom: 1px solid var(--background-color);
+  background-color: var(--background-color);
+  cursor: initial;
+}
+
+.tabs-guide .tabs-guide-panel {
+  margin-top: -1px;
+  padding: 24px;
+  border: 1px solid #dadada;
+  overflow: auto;
+}
+
+.tabs-guide .tabs-guide-panel[aria-hidden='true'] {
+  display: none;
+}
