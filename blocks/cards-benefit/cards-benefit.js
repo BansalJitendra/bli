@@ -25,7 +25,19 @@ export default function decorate(block) {
       body.append(child);
     });
 
-    li.append(icon, body);
+    // "numbered" variant: a short numeric leading paragraph (e.g. "01") is the
+    // card's step number rather than an icon. Tag it so it can be styled as
+    // the leading number and skip the empty icon slot.
+    const firstP = body.querySelector(':scope > p');
+    if (!picture && firstP && /^\d{1,2}$/.test(firstP.textContent.trim())) {
+      firstP.classList.add('cards-benefit-card-num');
+      // The paragraph right after the number is the benefit title.
+      const titleP = firstP.nextElementSibling;
+      if (titleP && titleP.tagName === 'P') titleP.classList.add('cards-benefit-card-title');
+      li.append(body);
+    } else {
+      li.append(icon, body);
+    }
     ul.append(li);
   });
 

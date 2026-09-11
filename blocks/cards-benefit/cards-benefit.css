@@ -78,3 +78,44 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ---- numbered variant — "Benefits of Life Insurance" ----
+   3-column grid of numbered cards (step number, title, description).
+   Source: .howdoes .cards-row. */
+.cards-benefit.numbered > ul > li {
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cards-benefit.numbered .cards-benefit-card-body p {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.cards-benefit.numbered .cards-benefit-card-body p.cards-benefit-card-num {
+  margin: 0;
+  color: var(--brand-primary, #005eac);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* the benefit title is a bold paragraph (no heading in source) */
+.cards-benefit.numbered .cards-benefit-card-body p.cards-benefit-card-title {
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (width >= 600px) {
+  .cards-benefit.numbered > ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-benefit.numbered > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
