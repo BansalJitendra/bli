@@ -236,6 +236,35 @@ function sectionLabel(md) {
   return m ? m[1].trim() : '(text)';
 }
 
+/**
+ * Rename top-level (6-space-indented) `<section>` sibling nodes to unique names
+ * (section, section_1, section_2, ...) and their matching `</section>` closers.
+ * Nested nodes are untouched. Node depth is tracked by the leading indentation
+ * of the open/close tag lines (md2jcr indents each level by 2 spaces; sections
+ * live at 6 spaces under jcr:content>root).
+ */
+function renumberSections(body) {
+  // Top-level section nodes sit at column 0 in the assembled body (their nested
+  // children are indented). Track the current section index; rename its open tag
+  // and the close tag that returns to column 0.
+  const lines = body.split('\n');
+  let idx = -1;
+  const out = lines.map((line) => {
+    if (/^<section(\s|>)/.test(line)) {
+      idx += 1;
+      const name = idx === 0 ? 'section' : `section_${idx}`;
+      return line.replace(/^<section/, `<${name}`);
+    }
+    const closeMatch = line.match(/^(\s*)<\/section>\s*$/);
+    if (closeMatch) {
+      const name = idx === 0 ? 'section' : `section_${idx}`;
+      return line.replace(/<\/section>/, `</${name}>`);
+    }
+    return line;
+  });
+  return out.join('\n');
+}
+
 async function main() {
   const inHtml = process.argv[2] || 'content/index.plain.html';
   const base = path.basename(inHtml, '.plain.html');
@@ -289,13 +318,17 @@ async function main() {
     const xml = await convertFragment(withRefs, opts, label);
     if (xml) {
       const children = extractRootChildren(xml);
-      if (children.trim()) { parts.push(children); ok += 1; } else {
+      if (children.trim()) { parts.push(children.trim()); ok += 1; } else {
         console.warn(`  ⚠️  section "${label}" produced empty output`);
       }
     }
   }
   console.log(`sections converted: ${ok}/${frags.length}`);
-  const bodyChildren = parts.join('\n');
+  // Each fragment's <root> contains a top-level <section> node all named
+  // "section". Sibling JCR nodes MUST have unique names or AEM keeps only the
+  // last — so renumber every top-level <section ...> across the assembled body
+  // to section, section_1, section_2, ... (matching AEM's own convention).
+  const bodyChildren = renumberSections(parts.join('\n'));
 
   const esc = (s) => (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const pageProps = [
