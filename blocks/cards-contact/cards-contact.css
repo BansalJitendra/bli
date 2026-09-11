@@ -5,36 +5,45 @@
 .cards-contact > ul {
   list-style: none;
   margin: 0;
-  padding: 20px 0 0;
+
+  /* top padding clears the blue title tab that overhangs each card by 24px */
+  padding: 36px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   justify-content: center;
 }
 
 .cards-contact > ul > li {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--background-color);
   border: 1px solid var(--brand-primary);
   border-radius: 8px;
-  padding: 36px 24px 24px;
+  padding: 0 24px 24px;
 }
 
 .cards-contact .cards-contact-card-body {
   margin: 0;
   display: flex;
   flex-direction: column;
+
+  /* leave room for the overhanging blue title tab */
+  padding-top: 36px;
 }
 
-/* blue title tab — first heading in each card */
+/* blue title tab — first heading in each card, overhangs the card top edge */
 .cards-contact .cards-contact-card-body h3 {
-  margin: 0 0 16px;
+  position: absolute;
+  top: -24px;
+  left: 24px;
+  margin: 0;
   padding: 12px;
   border-radius: 8px;
   background-color: var(--brand-primary);
   color: #fff;
-  font-size: var(--heading-font-size-m);
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -42,9 +51,9 @@
 /* body text — phones, timings, addresses */
 .cards-contact .cards-contact-card-body p {
   margin: 0 0 8px;
-  font-size: var(--body-font-size-s);
-  line-height: 1.5;
-  color: var(--text-color);
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000;
 }
 
 .cards-contact .cards-contact-card-body p:last-child {
@@ -54,25 +63,33 @@
 /* helpline labels rendered bold */
 .cards-contact .cards-contact-card-body strong {
   font-weight: 700;
-  color: var(--text-color);
+  color: #000;
 }
 
 /* phone / email links inside content read as plain text */
 .cards-contact .cards-contact-card-body a:not(.button) {
-  color: var(--text-color);
+  color: #000;
   font-weight: 400;
   text-decoration: none;
 }
 
-/* Locate Branch CTA — global a.button already provides the orange
-   accent (#ff6f00), 10px radius, 12px 24px padding that match source.
-   Keep it left-aligned and spaced from the content above. */
+/* Locate Branch CTA — source uses an orange left-to-right gradient
+   (#ff6700 -> #ff8900), 10px radius, 12px 25px padding, 14px/500 white text. */
 .cards-contact .button-container {
   margin: 16px 0 0;
 }
 
-.cards-contact a.button:any-link {
+main .cards-contact a.button:any-link {
   margin: 0;
+  padding: 12px 25px;
+  border: 0;
+  border-radius: 10px;
+  background-color: var(--brand-accent);
+  background-image: linear-gradient(90deg, #ff6700 0%, #ff8900 100%);
+  color: #fcfcfc;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
 }
 
 /* image cell (only used if a card carries a picture) */
@@ -88,13 +105,13 @@
 
 @media (width >= 900px) {
   .cards-contact > ul {
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     align-items: stretch;
+    gap: 24px;
   }
 
   .cards-contact > ul > li {
     flex: 1 1 0;
-    min-width: 240px;
-    max-width: 320px;
+    min-width: 0;
   }
 }

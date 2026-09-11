@@ -7,7 +7,7 @@
   padding: 24px 0 0; /* room for icons overhanging the top edge */
   display: flex;
   flex-wrap: wrap;
-  gap: 34px 20px;
+  gap: 34px; /* uniform spacing between cards, matches source .services_box */
   justify-content: center;
 }
 
