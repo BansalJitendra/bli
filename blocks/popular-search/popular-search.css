@@ -25,7 +25,7 @@ main .popular-search a.popular-search-chip:any-link {
   border: 0;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 0 8px 0 rgba(37, 56, 88, 0.2);
+  box-shadow: 0 0 8px 0 rgb(37 56 88 / 20%);
   color: #363c41;
   font-size: 12px;
   font-weight: 400;
@@ -37,7 +37,7 @@ main .popular-search a.popular-search-chip:any-link {
 
 main .popular-search a.popular-search-chip:hover {
   color: var(--brand-primary, #005eac);
-  box-shadow: 0 0 8px 0 rgba(37, 56, 88, 0.35);
+  box-shadow: 0 0 8px 0 rgb(37 56 88 / 35%);
 }
 
 @media (width >= 900px) {
