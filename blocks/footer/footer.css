@@ -1,20 +1,112 @@
+/* Bajaj Life footer — dark-blue, multi-column link grid, social row, notice */
 footer {
-  background-color: var(--light-color);
+  background-color: var(--brand-primary, #005eac);
+  color: #fff;
   font-size: var(--body-font-size-xs);
 }
 
-footer .footer > div {
+footer .footer > div > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: 1400px;
+  padding: 32px 24px;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer a:any-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- social / app-store row (first section) --- */
+footer .footer > div > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid rgb(255 255 255 / 25%);
+}
+
+footer .footer > div > div:first-child p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+footer .footer > div > div:first-child img {
+  height: 32px;
+  width: auto;
+}
+
+/* --- link columns (second section) --- */
+footer .footer > div > div:nth-child(2) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 32px;
+  border-bottom: 1px solid rgb(255 255 255 / 25%);
+}
+
+footer .footer > div > div:nth-child(2) h3 {
+  margin: 20px 0 8px;
+  color: #fff;
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+}
+
+footer .footer > div > div:nth-child(2) ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+footer .footer > div > div:nth-child(2) ul li {
+  font-size: var(--body-font-size-xs);
+  font-weight: 300;
+}
+
+/* --- notice / copyright (third section) --- */
+footer .footer > div > div:last-child {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 85%);
+}
+
+footer .footer > div > div:last-child p {
+  margin: 0 0 10px;
+}
+
+footer .footer > div > div:last-child a:any-link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media (width >= 600px) {
+  footer .footer > div > div:nth-child(2) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer > div > div {
+    padding: 40px 32px;
+  }
+
+  footer .footer > div > div:nth-child(2) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (width >= 1200px) {
+  footer .footer > div > div:nth-child(2) {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
