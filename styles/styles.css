@@ -299,6 +299,32 @@ main .section.blue-gradient h3 {
   color: #fff;
 }
 
+/* disclaimer — small muted footnote text (e.g. the "Why Bajaj" stat notes) */
+main .section.disclaimer {
+  padding: 12px 0 24px;
+}
+
+main .section.disclaimer p {
+  margin: 0;
+  color: #5c666e;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+main .section.disclaimer sup {
+  font-size: 0.85em;
+}
+
+main .section.disclaimer a {
+  color: var(--link-color, #005eac);
+  text-decoration: none;
+}
+
+main .section.disclaimer a:hover {
+  text-decoration: underline;
+}
+
 /* guide-text — explanatory prose sections (e.g. "Understanding How Life
    Insurance Works"). Smaller, lighter type scale than the global headings,
    matching the source .titleText component. */
