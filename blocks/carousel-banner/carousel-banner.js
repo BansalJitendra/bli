@@ -63,6 +63,23 @@ function createSlide(row, slideIndex, id) {
   });
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
+
+  // If the content cell carries a link, make the whole banner image clickable
+  // (source banners are fully clickable). The text link is then redundant.
+  const picture = slide.querySelector('.carousel-banner-slide-image picture, .carousel-banner-slide-image img');
+  const link = slide.querySelector('.carousel-banner-slide-content a');
+  if (picture && link) {
+    const anchor = document.createElement('a');
+    anchor.href = link.getAttribute('href');
+    if (link.title) anchor.title = link.title;
+    anchor.setAttribute('aria-label', link.textContent.trim());
+    const host = picture.closest('p') || picture;
+    host.parentElement.insertBefore(anchor, host);
+    anchor.append(host);
+    // hide the now-redundant text link
+    const content = slide.querySelector('.carousel-banner-slide-content');
+    if (content) content.setAttribute('hidden', '');
+  }
   return slide;
 }
 
