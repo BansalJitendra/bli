@@ -577,10 +577,7 @@ var CustomImportScript = (() => {
     const action = form && (form.getAttribute("action") || form.dataset.action) || "";
     const cells = [];
     const refCell = [document2.createComment(" field:reference ")];
-    const refLink = document2.createElement("a");
-    refLink.href = "/forms/need-assistance";
-    refLink.textContent = "/forms/need-assistance";
-    refCell.push(refLink);
+    refCell.push(document2.createTextNode("/forms/need-assistance"));
     cells.push([refCell]);
     const actionCell = [document2.createComment(" field:action ")];
     actionCell.push(document2.createTextNode(action));
@@ -598,23 +595,21 @@ var CustomImportScript = (() => {
       return;
     }
     const cells = [];
-    const imageCell = [];
-    if (desktopImg) {
-      imageCell.push(document2.createComment(" field:image "));
-      imageCell.push(desktopImg);
-    }
-    cells.push([imageCell.length ? imageCell : ""]);
-    const textCell = [document2.createComment(" field:text ")];
+    cells.push([desktopImg || ""]);
+    const alt = (desktopImg && desktopImg.getAttribute("alt") || "").trim();
+    const p = document2.createElement("p");
     if (link && link.getAttribute("href")) {
+      const lead = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "Explore this offer";
+      p.append(document2.createTextNode(`${lead}. `));
       const a = document2.createElement("a");
       a.href = link.getAttribute("href");
-      const alt = desktopImg && desktopImg.getAttribute("alt");
-      a.textContent = alt && alt.trim() || "View offer";
-      textCell.push(a);
+      const linkText = (link.textContent || "").trim();
+      a.textContent = linkText && linkText !== alt ? linkText : "Check Now";
+      p.append(a);
     } else {
-      textCell.push(document2.createElement("p"));
+      p.textContent = alt || "Promotional banner";
     }
-    cells.push([textCell]);
+    cells.push([[p]]);
     const block = WebImporter.Blocks.createBlock(document2, { name: "hero-promo", cells });
     element.replaceWith(block);
   }
@@ -663,7 +658,7 @@ var CustomImportScript = (() => {
           resourceItems.forEach((item) => contentCell.push(buildResourceContent(document2, item)));
         } else {
           const p = document2.createElement("p");
-          p.textContent = labelText;
+          p.textContent = `${labelText} content coming soon.`;
           contentCell.push(p);
         }
         cells.push([titleCell, contentCell]);

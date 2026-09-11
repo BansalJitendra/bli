@@ -23,28 +23,31 @@ export default function parse(element, { document }) {
     return;
   }
 
+  // hero-promo is a SIMPLE model block (model: hero-promo, no container filter).
+  // md2jcr maps its rows to model fields POSITIONALLY, so we must NOT emit
+  // field:* hint comments here — a hinted single-column row is otherwise parsed
+  // as a separate block header. Row 1 -> image, Row 2 -> text (richtext).
   const cells = [];
 
-  // Row 1: image
-  const imageCell = [];
-  if (desktopImg) {
-    imageCell.push(document.createComment(' field:image '));
-    imageCell.push(desktopImg);
-  }
-  cells.push([imageCell.length ? imageCell : '']);
+  // Row 1: image (positional -> field "image")
+  cells.push([desktopImg || '']);
 
-  // Row 2: text — the promo destination link
-  const textCell = [document.createComment(' field:text ')];
+  // Row 2: text (positional -> field "text"). A paragraph with a short lead-in
+  // plus the inline CTA link (a lone link is misread as a component header).
+  const alt = (desktopImg && desktopImg.getAttribute('alt') || '').trim();
+  const p = document.createElement('p');
   if (link && link.getAttribute('href')) {
+    const lead = (alt && alt.toLowerCase() !== 'promotional desktop') ? alt : 'Explore this offer';
+    p.append(document.createTextNode(`${lead}. `));
     const a = document.createElement('a');
     a.href = link.getAttribute('href');
-    const alt = desktopImg && desktopImg.getAttribute('alt');
-    a.textContent = (alt && alt.trim()) || 'View offer';
-    textCell.push(a);
+    const linkText = (link.textContent || '').trim();
+    a.textContent = (linkText && linkText !== alt) ? linkText : 'Check Now';
+    p.append(a);
   } else {
-    textCell.push(document.createElement('p'));
+    p.textContent = alt || 'Promotional banner';
   }
-  cells.push([textCell]);
+  cells.push([[p]]);
 
   const block = WebImporter.Blocks.createBlock(document, { name: 'hero-promo', cells });
   element.replaceWith(block);

@@ -64,8 +64,11 @@ export default function parse(element, { document }) {
       if (isActive && resourceItems.length) {
         resourceItems.forEach((item) => contentCell.push(buildResourceContent(document, item)));
       } else {
+        // Placeholder for tabs whose resource cards aren't in the initial DOM.
+        // Must not be a lone token equal to the tab title — md2jcr misreads a
+        // bare single-word cell as a component header.
         const p = document.createElement('p');
-        p.textContent = labelText;
+        p.textContent = `${labelText} content coming soon.`;
         contentCell.push(p);
       }
       cells.push([titleCell, contentCell]);

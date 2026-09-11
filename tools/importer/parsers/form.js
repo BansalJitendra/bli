@@ -21,13 +21,11 @@ export default function parse(element, { document }) {
 
   const cells = [];
 
-  // Row 1: reference (path to the form model). No rendered value in source — leave
-  // an empty anchor placeholder so the author can point it at the form resource.
+  // Row 1: reference (path to the form model). aem-content expects a plain path
+  // string, NOT a link — a lone link here is misread by md2jcr as a component
+  // header, so emit the path as text.
   const refCell = [document.createComment(' field:reference ')];
-  const refLink = document.createElement('a');
-  refLink.href = '/forms/need-assistance';
-  refLink.textContent = '/forms/need-assistance';
-  refCell.push(refLink);
+  refCell.push(document.createTextNode('/forms/need-assistance'));
   cells.push([refCell]);
 
   // Row 2: action URL
