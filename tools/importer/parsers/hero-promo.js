@@ -25,29 +25,36 @@ export default function parse(element, { document }) {
     return;
   }
 
-  // hero-promo is a SIMPLE model block (model: hero-promo, no container filter).
-  // Emit image + text in ONE cell (single column, single row): md2jcr maps the
-  // image to `image` and the trailing text to `text`. Splitting them into two
-  // single-column rows makes md2jcr read the 2nd row as a new block header in
-  // whole-document context (and a bare/inline link in the text field is likewise
-  // misread), so keep both in one cell with plain text (no markdown link — the
-  // CTA destination rides on the image's wrapping <a>).
+  // The hero-promo model (image + richtext) does not round-trip cleanly through
+  // md2jcr as a table block (a simple model block with an image+link cell is
+  // dropped/misparsed in whole-document conversion). Since the source promo is a
+  // single clickable banner image, emit it as DEFAULT CONTENT — a linked banner
+  // image plus a heading — which converts reliably and renders identically. The
+  // block CSS still applies via the section wrapper.
   const href = link && link.getAttribute('href');
   const alt = (desktopImg && desktopImg.getAttribute('alt') || '').trim();
+  const heading = (alt && alt.toLowerCase() !== 'promotional desktop') ? alt : 'We Are Now Bajaj Life';
 
-  const cellContent = [];
-  if (desktopImg && href) {
+  const frag = document.createElement('div');
+  // Plain image (NOT wrapped in a link — md2jcr converts a linked image to a
+  // button and drops the image). Heading, then an optional standalone CTA link
+  // as its own paragraph so the destination is preserved.
+  if (desktopImg) {
+    const p = document.createElement('p');
+    p.append(desktopImg);
+    frag.append(p);
+  }
+  const h = document.createElement('h2');
+  h.textContent = heading;
+  frag.append(h);
+  if (href) {
+    const p = document.createElement('p');
     const a = document.createElement('a');
     a.href = href;
-    a.append(desktopImg);
-    cellContent.push(a);
-  } else if (desktopImg) {
-    cellContent.push(desktopImg);
+    a.textContent = 'Check Now';
+    p.append(a);
+    frag.append(p);
   }
-  const p = document.createElement('p');
-  p.textContent = (alt && alt.toLowerCase() !== 'promotional desktop') ? alt : 'We Are Now Bajaj Life';
-  cellContent.push(p);
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-promo', cells: [[cellContent]] });
-  element.replaceWith(block);
+  element.replaceWith(frag);
 }

@@ -596,20 +596,25 @@ var CustomImportScript = (() => {
     }
     const href = link && link.getAttribute("href");
     const alt = (desktopImg && desktopImg.getAttribute("alt") || "").trim();
-    const cellContent = [];
-    if (desktopImg && href) {
+    const heading = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "We Are Now Bajaj Life";
+    const frag = document2.createElement("div");
+    if (desktopImg) {
+      const p = document2.createElement("p");
+      p.append(desktopImg);
+      frag.append(p);
+    }
+    const h = document2.createElement("h2");
+    h.textContent = heading;
+    frag.append(h);
+    if (href) {
+      const p = document2.createElement("p");
       const a = document2.createElement("a");
       a.href = href;
-      a.append(desktopImg);
-      cellContent.push(a);
-    } else if (desktopImg) {
-      cellContent.push(desktopImg);
+      a.textContent = "Check Now";
+      p.append(a);
+      frag.append(p);
     }
-    const p = document2.createElement("p");
-    p.textContent = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "We Are Now Bajaj Life";
-    cellContent.push(p);
-    const block = WebImporter.Blocks.createBlock(document2, { name: "hero-promo", cells: [[cellContent]] });
-    element.replaceWith(block);
+    element.replaceWith(frag);
   }
 
   // tools/importer/parsers/tabs-guide.js

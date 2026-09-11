@@ -63,71 +63,42 @@ function repadSingleColTables(md) {
   return out.join('\n');
 }
 
+// Reflow is intentionally a no-op: grid re-padding proved too fragile against
+// html2md's wrapped multi-line cells. Overflow from long URLs is instead solved
+// by swapping long URLs for short placeholder tokens BEFORE md2jcr and restoring
+// them in the produced XML (see swapLongUrls / restoreLongUrls). Kept as a hook
+// so callers referencing repadSingleColTables stay valid.
 function reflowTable(run) {
-  // Full grid reflow that tolerates content overflowing its border and wrapped
-  // (multi-physical-line) cells. Strategy:
-  //  1. Column boundaries come from the FIRST separator line's interior '+'.
-  //  2. Each separator line starts a new grid ROW; '|' data lines between two
-  //     separators accumulate into that row's cells (one text line per cell per
-  //     physical line), split at the column boundaries.
-  //  3. Re-emit with per-column widths sized to the longest cell line, so no
-  //     content ever overflows its border.
-  const firstSep = run.find((l) => /^\+[-=+]+\+$/.test(l));
-  if (!firstSep) return run;
-  const cols = [];
-  for (let i = 0; i < firstSep.length; i += 1) if (firstSep[i] === '+') cols.push(i);
-  const ncol = cols.length - 1;
-  if (ncol < 1) return run;
+  return run;
+}
 
-  // Split a data line into ncol raw segments using the ORIGINAL column
-  // boundaries; the last column extends to end-of-line to keep overflow content.
-  const segsOf = (l) => {
-    const out = [];
-    for (let c = 0; c < ncol; c += 1) {
-      const start = cols[c];
-      const end = (c === ncol - 1) ? l.length : cols[c + 1];
-      // slice between the border chars, drop the leading '|' pad
-      let seg = l.slice(start + 1, end);
-      seg = seg.replace(/^\s/, '').replace(/\s*\|?\s*$/, '');
-      out.push(seg);
-    }
-    return out;
+/**
+ * Replace every long URL (in markdown image/link syntax) with a short opaque
+ * token so grid-table cells never overflow their borders. Returns { md, map }.
+ * Tokens are plain (no punctuation that markdown/grid parsing cares about).
+ */
+function swapLongUrls(md) {
+  const map = new Map();
+  let n = 0;
+  const swap = (url) => {
+    if (url.length < 48) return url;
+    const token = `httptoken${n}zz`;
+    n += 1;
+    map.set(token, url);
+    return token;
   };
+  // image: ![alt](url)   and link: ](url)
+  const out = md.replace(/(!?\[[^\]]*\]\()([^)]+)(\))/g, (f, pre, url, post) => `${pre}${swap(url)}${post}`);
+  return { md: out, map };
+}
 
-  // Build rows: group '|' lines that fall between separator lines.
-  const rows = []; // each row = array of ncol arrays of text lines
-  let cur = null;
-  const isSep = (l) => /^\+[-=+]+\+$/.test(l);
-  const seps = []; // remember separator style (= vs -) in order
-  for (const l of run) {
-    if (isSep(l)) { seps.push(l.includes('=') ? '=' : '-'); cur = null; continue; }
-    if (!l.startsWith('|')) continue;
-    if (!cur) { cur = Array.from({ length: ncol }, () => []); rows.push(cur); }
-    const segs = segsOf(l);
-    for (let c = 0; c < ncol; c += 1) if (segs[c] !== '') cur[c].push(segs[c]);
+function restoreLongUrls(xml, map) {
+  let out = xml;
+  for (const [token, url] of map) {
+    // token may appear XML-escaped; restore both plain and escaped forms.
+    out = out.split(token).join(url);
   }
-
-  const widths = new Array(ncol).fill(3);
-  for (const row of rows) {
-    for (let c = 0; c < ncol; c += 1) {
-      for (const line of row[c]) widths[c] = Math.max(widths[c], line.length);
-    }
-  }
-  const sepFor = (ch) => `+${widths.map((w) => (ch || '-').repeat(w + 2)).join('+')}+`;
-
-  // Re-emit: separator, then each row's cells (multi-line cells emit multiple
-  // physical lines, padding shorter columns with blank cells).
-  const outLines = [];
-  let si = 0;
-  outLines.push(sepFor(seps[si] || '-')); si += 1;
-  for (const row of rows) {
-    const h = Math.max(1, ...row.map((c) => c.length));
-    for (let r = 0; r < h; r += 1) {
-      outLines.push(`| ${row.map((c, ci) => (c[r] || '').padEnd(widths[ci])).join(' | ')} |`);
-    }
-    outLines.push(sepFor(seps[si] || '-')); si += 1;
-  }
-  return outLines;
+  return out;
 }
 
 /**
@@ -218,15 +189,38 @@ function extractRootChildren(xml) {
 const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>';
 const JCR_OPEN = '<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:sling="http://sling.apache.org/jcr/sling/1.0" jcr:primaryType="cq:Page">';
 
+/** Parse all `[id]: url` reference definitions from markdown into a Map. */
+function collectRefDefs(md) {
+  const refs = new Map();
+  const re = /^\[([^\]]+)\]:\s+(\S+)\s*$/gm;
+  let m;
+  // eslint-disable-next-line no-cond-assign
+  while ((m = re.exec(md)) !== null) refs.set(m[1], m[2]);
+  return refs;
+}
+
+/** Append the ref definitions a fragment references (`![x][id]` / `[x][id]`). */
+function appendRefs(frag, allRefs) {
+  const ids = new Set();
+  const re = /\]\[([^\]]+)\]/g;
+  let m;
+  // eslint-disable-next-line no-cond-assign
+  while ((m = re.exec(frag)) !== null) if (allRefs.has(m[1])) ids.add(m[1]);
+  if (ids.size === 0) return frag;
+  const defs = [...ids].map((id) => `[${id}]: ${allRefs.get(id)}`).join('\n\n');
+  return `${frag}\n\n${defs}\n`;
+}
+
 async function convertFragment(md, opts, label) {
+  // Keep reference-style images (md2jcr resolves those; inline images are dropped).
   const repairs = [
-    (s) => repadSingleColTables(inlineRefs(s)),
-    (s) => repadSingleColTables(s), // keep refs (some container blocks prefer this)
-    (s) => repadSingleColTables(shortenInlineImages(inlineRefs(s))),
+    (s) => s,
+    (s) => inlineRefs(s), // fallback for blocks that prefer inline
   ];
   let lastErr;
   for (const repair of repairs) {
     try {
+      // eslint-disable-next-line no-await-in-loop
       const xml = await md2jcr(repair(md), opts);
       return xml;
     } catch (e) {
@@ -269,45 +263,39 @@ async function main() {
     log,
   };
 
-  // CRITICAL: resolve all reference-style images/links to inline URLs BEFORE any
-  // splitting, so per-section fragments don't lose the shared trailing ref
-  // definitions (which would leave `![alt][id]` unresolved in block attributes).
-  let prepared = repadSingleColTables(inlineRefs(md));
-  // Pull the trailing page "Metadata" block out of the body — it must become
-  // page-level jcr:content properties, not a section text node. Capture Title
-  // and Description for the page node.
+  // md2jcr resolves images ONLY in reference style (`![alt][id]` + trailing
+  // `[id]: url` definitions); inline `![alt](url)` images are silently dropped.
+  // So we keep the reference style html2md emits and, when converting a section
+  // fragment, append exactly the ref definitions that fragment uses. We also pull
+  // the page "Metadata" block into page-level properties.
   const meta = {};
-  prepared = extractMetadataBlock(prepared, meta);
+  const allRefs = collectRefDefs(md);
+  let body = extractMetadataBlock(md, meta);
+  // Drop any leftover trailing ref-definition lines from the body (re-appended
+  // per-fragment below); keeps section splitting clean.
+  body = body.replace(/^\[[^\]]+\]:\s+\S+\s*$/gm, '').replace(/\n{3,}/g, '\n\n');
 
-  // Try the whole (prepared) document first.
-  let bodyChildren = null;
-  try {
-    const whole = await md2jcr(prepared, opts);
-    bodyChildren = extractRootChildren(whole);
-    console.log('whole-document conversion succeeded');
-  } catch (e) {
-    console.log(`whole-document conversion failed (${e.message.split('\n')[0]}); converting per-section`);
-  }
-
-  if (bodyChildren === null) {
-    const frags = splitSections(prepared);
-    console.log(`split into ${frags.length} sections`);
-    const parts = [];
-    let ok = 0;
-    for (const frag of frags) {
-      const label = sectionLabel(frag);
-      // eslint-disable-next-line no-await-in-loop
-      const xml = await convertFragment(frag, opts, label);
-      if (xml) {
-        const children = extractRootChildren(xml);
-        if (children.trim()) { parts.push(children); ok += 1; } else {
-          console.warn(`  ⚠️  section "${label}" produced empty output`);
-        }
+  // Convert per section (each section = content between `---` breaks), appending
+  // the ref defs each fragment references. Per-section keeps md2jcr's cross-block
+  // state from corrupting (the whole-doc parse is fragile on this content).
+  const frags = splitSections(body);
+  console.log(`split into ${frags.length} sections`);
+  const parts = [];
+  let ok = 0;
+  for (const frag of frags) {
+    const label = sectionLabel(frag);
+    const withRefs = appendRefs(frag, allRefs);
+    // eslint-disable-next-line no-await-in-loop
+    const xml = await convertFragment(withRefs, opts, label);
+    if (xml) {
+      const children = extractRootChildren(xml);
+      if (children.trim()) { parts.push(children); ok += 1; } else {
+        console.warn(`  ⚠️  section "${label}" produced empty output`);
       }
     }
-    console.log(`sections converted: ${ok}/${frags.length}`);
-    bodyChildren = parts.join('\n');
   }
+  console.log(`sections converted: ${ok}/${frags.length}`);
+  const bodyChildren = parts.join('\n');
 
   const esc = (s) => (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const pageProps = [
