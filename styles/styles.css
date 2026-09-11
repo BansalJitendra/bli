@@ -330,6 +330,26 @@ main .section.guide-text h2 + p {
   margin-top: 10px;
 }
 
+/* ---- Hero lead form — overlaid on the right of the hero banner ----
+   Source: .newherothi-formbox — a compact white lead card floating over the
+   right side of the hero banner. */
+@media (width >= 900px) {
+  main .section.carousel-hero-container {
+    position: relative;
+  }
+
+  main .section.carousel-hero-container > .form-wrapper:has(.hero-lead) {
+    position: absolute;
+    top: 50%;
+    right: max(24px, calc((100% - var(--section-width, 1200px)) / 2));
+    z-index: 2;
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    transform: translateY(-50%);
+  }
+}
+
 /* ---- Need Assistance — two-column layout ----
    Source: .need-assistance — info column (title, copy, stat rows) on the left,
    lead-capture form on the right. */

@@ -200,3 +200,23 @@
   font-size: 12px;
   color: #d00;
 }
+
+/* --- hero-lead variant — compact lead card overlaid on the hero banner --- */
+.form.hero-lead form {
+  gap: 12px;
+  max-width: none;
+  padding: 20px;
+}
+
+.form.hero-lead h2,
+.form.hero-lead .heading-wrapper h2 {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* tighten the consent line so the compact card stays short */
+.form.hero-lead .selection-wrapper label {
+  font-size: 11px;
+  line-height: 1.3;
+}

@@ -1,0 +1,63 @@
+{
+  "total": 5,
+  "offset": 0,
+  "limit": 5,
+  "data": [
+    {
+      "Name": "title",
+      "Type": "heading",
+      "Label": "Get a Call Back",
+      "Value": "Get a Call Back",
+      "Placeholder": "",
+      "Mandatory": "",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "Name",
+      "Type": "text",
+      "Label": "Full Name",
+      "Value": "",
+      "Placeholder": "Name",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "Mobile Number",
+      "Type": "tel",
+      "Label": "Mobile Number",
+      "Value": "",
+      "Placeholder": "Mobile Number",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "consent",
+      "Type": "checkbox",
+      "Label": "I authorize Bajaj Life Insurance to contact me. This overrides my registration on DNC/NDNC.",
+      "Value": "agree",
+      "Placeholder": "",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "submit",
+      "Type": "submit",
+      "Label": "Buy Now",
+      "Value": "",
+      "Placeholder": "",
+      "Mandatory": "",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    }
+  ],
+  ":type": "sheet"
+}
