@@ -66,10 +66,35 @@ function groupCards(panel) {
     });
   });
 
-  const grid = document.createElement('div');
-  grid.className = 'tabs-plans-cards';
-  cards.forEach((c) => grid.appendChild(c));
-  cell.appendChild(grid);
+  // Horizontal-scrolling carousel of plan cards (matches the source): a scroll
+  // track wrapped in a viewport with prev/next arrow controls.
+  const carousel = document.createElement('div');
+  carousel.className = 'tabs-plans-carousel';
+
+  const track = document.createElement('div');
+  track.className = 'tabs-plans-cards';
+  cards.forEach((c) => track.appendChild(c));
+
+  const prev = document.createElement('button');
+  prev.type = 'button';
+  prev.className = 'tabs-plans-arrow tabs-plans-prev';
+  prev.setAttribute('aria-label', 'Previous plans');
+
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'tabs-plans-arrow tabs-plans-next';
+  next.setAttribute('aria-label', 'Next plans');
+
+  const scrollByCard = (dir) => {
+    const first = track.querySelector('.tabs-plans-card');
+    const step = first ? first.getBoundingClientRect().width + 24 : track.clientWidth * 0.8;
+    track.scrollBy({ left: dir * step, behavior: 'smooth' });
+  };
+  prev.addEventListener('click', () => scrollByCard(-1));
+  next.addEventListener('click', () => scrollByCard(1));
+
+  carousel.append(prev, track, next);
+  cell.appendChild(carousel);
 }
 
 export default async function decorate(block) {

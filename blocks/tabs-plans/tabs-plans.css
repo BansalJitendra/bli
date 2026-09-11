@@ -60,15 +60,76 @@
   display: none;
 }
 
-/* ---- Card grid ---- */
+/* ---- Card carousel (horizontal scroll + arrows, matches source) ---- */
+.tabs-plans .tabs-plans-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .tabs-plans .tabs-plans-cards {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex: 1 1 auto;
   gap: 24px;
+  padding: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.tabs-plans .tabs-plans-cards::-webkit-scrollbar {
+  display: none;
+}
+
+/* prev/next arrow buttons */
+.tabs-plans .tabs-plans-arrow {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--brand-primary, #005eac);
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.tabs-plans .tabs-plans-arrow:hover {
+  background-color: var(--brand-primary, #005eac);
+}
+
+.tabs-plans .tabs-plans-arrow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--brand-primary, #005eac);
+  border-width: 2px 2px 0 0;
+  transition: border-color 0.2s;
+}
+
+.tabs-plans .tabs-plans-arrow:hover::after {
+  border-color: #fff;
+}
+
+.tabs-plans .tabs-plans-prev::after {
+  transform: translate(-30%, -50%) rotate(-135deg);
+}
+
+.tabs-plans .tabs-plans-next::after {
+  transform: translate(-70%, -50%) rotate(45deg);
 }
 
 /* ---- Plan card ---- */
 .tabs-plans .tabs-plans-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   border: 1px solid #2d607c;
@@ -198,7 +259,7 @@
 
 /* ---- Desktop ---- */
 @media (width >= 900px) {
-  .tabs-plans .tabs-plans-cards {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  .tabs-plans .tabs-plans-card {
+    flex-basis: 320px;
   }
 }
