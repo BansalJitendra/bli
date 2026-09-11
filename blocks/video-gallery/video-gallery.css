@@ -78,9 +78,13 @@
   display: block;
 }
 
-.video-gallery .video-gallery-caption,
-.video-gallery .video-gallery-link {
+.video-gallery .video-gallery-caption {
   padding: 8px 12px;
+}
+
+/* the link cell only carries the video href (used by JS) — never show the raw URL */
+.video-gallery .video-gallery-link {
+  display: none;
 }
 
 @media (width >= 900px) {
