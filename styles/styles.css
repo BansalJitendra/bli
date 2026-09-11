@@ -329,3 +329,71 @@ main .section.guide-text p {
 main .section.guide-text h2 + p {
   margin-top: 10px;
 }
+
+/* ---- Need Assistance — two-column layout ----
+   Source: .need-assistance — info column (title, copy, stat rows) on the left,
+   lead-capture form on the right. */
+main .section.form-container {
+  padding: 48px 0;
+}
+
+main .section.form-container .default-content-wrapper h2 {
+  margin: 0;
+  color: #000;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* stat number / label lines */
+main .section.form-container .default-content-wrapper p {
+  margin: 2px 0;
+  color: #363c41;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* intro copy under the title */
+main .section.form-container .default-content-wrapper h2 + p {
+  margin: 8px 0 24px;
+  color: #131619;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* stat icons (PAN India, Consultants) */
+main .section.form-container .default-content-wrapper p img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+@media (width >= 900px) {
+  /* place the info block and the form side by side */
+  main .section.form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+    max-width: var(--section-width, 1200px);
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  main .section.form-container > .default-content-wrapper,
+  main .section.form-container > .form-wrapper {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* form sits on the right, aligned to the end of its column */
+  main .section.form-container > .form-wrapper {
+    justify-self: end;
+    width: 100%;
+  }
+
+  main .section.form-container > .form-wrapper .form form {
+    margin-left: auto;
+  }
+}
