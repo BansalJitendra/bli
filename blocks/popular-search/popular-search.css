@@ -1,0 +1,47 @@
+/* popular-search — "Popular Searches" tag cloud.
+   Source: bajajlifeinsurance.com .popular_search_section .links > .link-box
+   White chip pills (8px radius, soft shadow), 12px links, wrapping into rows. */
+
+.popular-search .popular-search-title {
+  margin: 0 0 20px;
+  color: #000;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.popular-search .popular-search-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+main .popular-search a.popular-search-chip:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 8px 0 rgba(37, 56, 88, 0.2);
+  color: #363c41;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: box-shadow 0.2s, color 0.2s;
+}
+
+main .popular-search a.popular-search-chip:hover {
+  color: var(--brand-primary, #005eac);
+  box-shadow: 0 0 8px 0 rgba(37, 56, 88, 0.35);
+}
+
+@media (width >= 900px) {
+  .popular-search .popular-search-title {
+    font-size: 32px;
+  }
+}
