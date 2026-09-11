@@ -55,8 +55,13 @@
 
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
   height: auto;
+
+  /* Source banner-img display ratio 1411.19 / 320.234 = 4.407,
+   * identical to the asset's natural 1322/300. Locking it keeps the
+   * band shape stable even if EDS strips the intrinsic width/height. */
+  aspect-ratio: 1322 / 300;
   object-fit: cover;    /* source img object-fit: cover */
-  border-radius: 0;     /* source imgRadius 0px */
+  border-radius: 0;     /* source imgRadius 0px (rounded corners baked into asset) */
   box-shadow: none;     /* source none */
 }
 
