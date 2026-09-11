@@ -214,7 +214,7 @@
     "id": "cards-category-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -252,7 +252,7 @@
     "id": "cards-plan-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -278,7 +278,7 @@
     "id": "cards-product-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -304,7 +304,7 @@
     "id": "cards-quicklink-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -330,7 +330,7 @@
     "id": "cards-resource-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -356,7 +356,7 @@
     "id": "cards-stat-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -382,7 +382,7 @@
     "id": "card",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -407,7 +407,7 @@
     "id": "carousel-banner-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "media_image",
         "label": "Background Image",
@@ -433,7 +433,7 @@
     "id": "carousel-hero-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "media_image",
         "label": "Image",
@@ -459,7 +459,7 @@
     "id": "carousel-review-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "media_image",
         "label": "Avatar",
@@ -485,7 +485,7 @@
     "id": "carousel-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "media_image",
         "label": "Background Image",
@@ -511,7 +511,7 @@
     "id": "columns-app-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -537,7 +537,7 @@
     "id": "columns-claimbar-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -633,7 +633,7 @@
     "id": "hero-promo",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -659,7 +659,7 @@
     "id": "hero",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Image",
@@ -970,7 +970,7 @@
         ]
       },
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "content_image",
         "label": "Image",
@@ -989,7 +989,7 @@
     "id": "video-gallery-item",
     "fields": [
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "image",
         "label": "Thumbnail",
@@ -1045,7 +1045,7 @@
         ]
       },
       {
-        "component": "reference",
+        "component": "richtext",
         "valueType": "string",
         "name": "placeholder_image",
         "label": "Placeholder Image",

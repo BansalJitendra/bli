@@ -39,7 +39,12 @@ export default function parse(element, { document }) {
   // Plain image (NOT wrapped in a link — md2jcr converts a linked image to a
   // button and drops the image). Heading, then an optional standalone CTA link
   // as its own paragraph so the destination is preserved.
-  if (desktopImg) {
+  // Skip the banner image when it exceeds AEM's 40 KB asset-replication limit
+  // (promotional-banner-web-1.webp is ~45 KB). As default content it would be a
+  // core <image> reference node that replication ingests and rejects, blocking
+  // publish. The headline + CTA carry the promo; the banner is decorative.
+  const OVERSIZED_BANNER = /promotional-banner-web-1\.webp/i;
+  if (desktopImg && !OVERSIZED_BANNER.test(desktopImg.getAttribute('src') || '')) {
     const p = document.createElement('p');
     p.append(desktopImg);
     frag.append(p);

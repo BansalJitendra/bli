@@ -539,6 +539,11 @@ var CustomImportScript = (() => {
     const frag = document2.createElement("div");
     if (left) Array.from(left.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
     if (right) Array.from(right.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+    frag.querySelectorAll("img").forEach((img) => {
+      if (/mobile-app-1\.svg/i.test(img.getAttribute("src") || "")) {
+        (img.closest("p") || img.closest("picture") || img).remove();
+      }
+    });
     element.replaceWith(frag);
   }
 
@@ -592,7 +597,8 @@ var CustomImportScript = (() => {
     const alt = (desktopImg && desktopImg.getAttribute("alt") || "").trim();
     const heading = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "We Are Now Bajaj Life";
     const frag = document2.createElement("div");
-    if (desktopImg) {
+    const OVERSIZED_BANNER = /promotional-banner-web-1\.webp/i;
+    if (desktopImg && !OVERSIZED_BANNER.test(desktopImg.getAttribute("src") || "")) {
       const p = document2.createElement("p");
       p.append(desktopImg);
       frag.append(p);

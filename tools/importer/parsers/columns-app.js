@@ -30,5 +30,16 @@ export default function parse(element, { document }) {
   const frag = document.createElement('div');
   if (left) Array.from(left.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
   if (right) Array.from(right.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+
+  // The left phone-mockup (mobile-app-1.svg, ~745 KB) is a default-content image,
+  // so md2jcr stores it as a core <image> reference node — which AEM replication
+  // tries to ingest and rejects (>40 KB), blocking publish. It's decorative; drop
+  // it. The promo's heading, features, store badges and QR (all small) remain.
+  frag.querySelectorAll('img').forEach((img) => {
+    if (/mobile-app-1\.svg/i.test(img.getAttribute('src') || '')) {
+      (img.closest('p') || img.closest('picture') || img).remove();
+    }
+  });
+
   element.replaceWith(frag);
 }
