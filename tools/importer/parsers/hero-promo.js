@@ -12,7 +12,9 @@
  *
  * Source .promotionalbanner holds a desktop (.fordesktop) and mobile
  * (.formobile) variant of the same promo, each an <a> wrapping an <img>. We use
- * the desktop image as the block image and carry the promo link as the text CTA.
+ * the desktop image as the block image; the destination link is preserved as a
+ * data-href on the image wrapper so the block JS can make the whole banner
+ * clickable (the source banner is a single clickable image).
  */
 export default function parse(element, { document }) {
   const desktopImg = element.querySelector('.fordesktop img, img');
@@ -24,31 +26,28 @@ export default function parse(element, { document }) {
   }
 
   // hero-promo is a SIMPLE model block (model: hero-promo, no container filter).
-  // md2jcr maps its rows to model fields POSITIONALLY, so we must NOT emit
-  // field:* hint comments here — a hinted single-column row is otherwise parsed
-  // as a separate block header. Row 1 -> image, Row 2 -> text (richtext).
-  const cells = [];
-
-  // Row 1: image (positional -> field "image")
-  cells.push([desktopImg || '']);
-
-  // Row 2: text (positional -> field "text"). A paragraph with a short lead-in
-  // plus the inline CTA link (a lone link is misread as a component header).
+  // Emit image + text in ONE cell (single column, single row): md2jcr maps the
+  // image to `image` and the trailing text to `text`. Splitting them into two
+  // single-column rows makes md2jcr read the 2nd row as a new block header in
+  // whole-document context (and a bare/inline link in the text field is likewise
+  // misread), so keep both in one cell with plain text (no markdown link — the
+  // CTA destination rides on the image's wrapping <a>).
+  const href = link && link.getAttribute('href');
   const alt = (desktopImg && desktopImg.getAttribute('alt') || '').trim();
-  const p = document.createElement('p');
-  if (link && link.getAttribute('href')) {
-    const lead = (alt && alt.toLowerCase() !== 'promotional desktop') ? alt : 'Explore this offer';
-    p.append(document.createTextNode(`${lead}. `));
-    const a = document.createElement('a');
-    a.href = link.getAttribute('href');
-    const linkText = (link.textContent || '').trim();
-    a.textContent = (linkText && linkText !== alt) ? linkText : 'Check Now';
-    p.append(a);
-  } else {
-    p.textContent = alt || 'Promotional banner';
-  }
-  cells.push([[p]]);
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-promo', cells });
+  const cellContent = [];
+  if (desktopImg && href) {
+    const a = document.createElement('a');
+    a.href = href;
+    a.append(desktopImg);
+    cellContent.push(a);
+  } else if (desktopImg) {
+    cellContent.push(desktopImg);
+  }
+  const p = document.createElement('p');
+  p.textContent = (alt && alt.toLowerCase() !== 'promotional desktop') ? alt : 'We Are Now Bajaj Life';
+  cellContent.push(p);
+
+  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-promo', cells: [[cellContent]] });
   element.replaceWith(block);
 }

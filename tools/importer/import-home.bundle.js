@@ -594,34 +594,30 @@ var CustomImportScript = (() => {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const cells = [];
-    cells.push([desktopImg || ""]);
+    const href = link && link.getAttribute("href");
     const alt = (desktopImg && desktopImg.getAttribute("alt") || "").trim();
-    const p = document2.createElement("p");
-    if (link && link.getAttribute("href")) {
-      const lead = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "Explore this offer";
-      p.append(document2.createTextNode(`${lead}. `));
+    const cellContent = [];
+    if (desktopImg && href) {
       const a = document2.createElement("a");
-      a.href = link.getAttribute("href");
-      const linkText = (link.textContent || "").trim();
-      a.textContent = linkText && linkText !== alt ? linkText : "Check Now";
-      p.append(a);
-    } else {
-      p.textContent = alt || "Promotional banner";
+      a.href = href;
+      a.append(desktopImg);
+      cellContent.push(a);
+    } else if (desktopImg) {
+      cellContent.push(desktopImg);
     }
-    cells.push([[p]]);
-    const block = WebImporter.Blocks.createBlock(document2, { name: "hero-promo", cells });
+    const p = document2.createElement("p");
+    p.textContent = alt && alt.toLowerCase() !== "promotional desktop" ? alt : "We Are Now Bajaj Life";
+    cellContent.push(p);
+    const block = WebImporter.Blocks.createBlock(document2, { name: "hero-promo", cells: [[cellContent]] });
     element.replaceWith(block);
   }
 
   // tools/importer/parsers/tabs-guide.js
   function buildResourceContent(document2, item) {
     const frag = document2.createElement("div");
-    const img = item.querySelector(".box-img img, img");
     const title = item.querySelector(".box-img .h5, .h5");
     const desc = item.querySelector(".box-details p, .box-details");
     const link = item.querySelector("a[href]");
-    if (img) frag.append(img.cloneNode(true));
     if (title && title.textContent.trim()) {
       const h = document2.createElement("h4");
       h.textContent = title.textContent.trim();
@@ -633,10 +629,13 @@ var CustomImportScript = (() => {
       frag.append(p);
     }
     if (link && link.getAttribute("href")) {
+      const p = document2.createElement("p");
       const a = document2.createElement("a");
       a.href = link.getAttribute("href");
-      a.textContent = title && title.textContent.trim() || link.textContent.trim() || link.getAttribute("href");
-      frag.append(a);
+      a.textContent = link.textContent.trim() || "Watch Now";
+      p.append(document2.createTextNode("Learn more: "));
+      p.append(a);
+      frag.append(p);
     }
     return frag;
   }

@@ -17,11 +17,14 @@
  */
 function buildResourceContent(document, item) {
   const frag = document.createElement('div');
-  const img = item.querySelector('.box-img img, img');
   const title = item.querySelector('.box-img .h5, .h5');
   const desc = item.querySelector('.box-details p, .box-details');
   const link = item.querySelector('a[href]');
-  if (img) frag.append(img.cloneNode(true));
+  // NOTE: intentionally NOT embedding the thumbnail <img> here. Multiple inline
+  // images with long DM URLs inside this single richtext cell (a multi-line grid
+  // cell) break md2jcr's grid-table parser (it misreads a later tab title as a
+  // component). Titles, descriptions and links carry the content; thumbnails are
+  // decorative and reintroducible later if needed.
   if (title && title.textContent.trim()) {
     const h = document.createElement('h4');
     h.textContent = title.textContent.trim();
@@ -33,10 +36,14 @@ function buildResourceContent(document, item) {
     frag.append(p);
   }
   if (link && link.getAttribute('href')) {
+    const p = document.createElement('p');
     const a = document.createElement('a');
     a.href = link.getAttribute('href');
-    a.textContent = (title && title.textContent.trim()) || link.textContent.trim() || link.getAttribute('href');
-    frag.append(a);
+    a.textContent = link.textContent.trim() || 'Watch Now';
+    // Lead-in text before the link so the paragraph isn't a lone link.
+    p.append(document.createTextNode('Learn more: '));
+    p.append(a);
+    frag.append(p);
   }
   return frag;
 }
