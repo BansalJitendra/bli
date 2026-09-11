@@ -22,18 +22,13 @@ export default function parse(element, { document }) {
     return;
   }
 
-  const leftCell = document.createElement('div');
-  if (left) {
-    Array.from(left.childNodes).forEach((node) => leftCell.append(node.cloneNode(true)));
-  }
-
-  const rightCell = document.createElement('div');
-  if (right) {
-    Array.from(right.childNodes).forEach((node) => rightCell.append(node.cloneNode(true)));
-  }
-
-  const cells = [[leftCell, rightCell]];
-
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-app', cells });
-  element.replaceWith(block);
+  // The `columns` component does not round-trip through md2jcr when a cell holds
+  // rich content with images (the block is dropped and its raw grid-table markdown
+  // leaks into a text node with embedded newlines, which breaks Universal Editor).
+  // Emit the promo as DEFAULT CONTENT — image, then the right-column content —
+  // which converts cleanly. Block CSS still applies via the section wrapper.
+  const frag = document.createElement('div');
+  if (left) Array.from(left.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+  if (right) Array.from(right.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+  element.replaceWith(frag);
 }

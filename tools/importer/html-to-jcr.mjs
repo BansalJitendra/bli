@@ -146,7 +146,18 @@ function extractMetadataBlock(md, meta) {
     const re = new RegExp(`\\|\\s*${key}\\s*\\|([\\s\\S]*?)(?=\\n\\+)`, 'i');
     const m = tableText.match(re);
     if (!m) return '';
-    return m[1].split('\n').map((l) => l.replace(/^\|/, '').replace(/\|$/, '').trim()).join(' ').replace(/\s+/g, ' ').trim();
+    // Each physical line is `| <value> |` or a continuation `| | <value> |`.
+    // Take the LAST pipe-delimited segment on every line (the value column),
+    // so interior key-column pipes don't leak into the joined value.
+    return m[1].split('\n')
+      .map((l) => {
+        const segs = l.split('|').map((s) => s.trim()).filter((s) => s !== '');
+        return segs.length ? segs[segs.length - 1] : '';
+      })
+      .filter(Boolean)
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   };
   meta.title = cell('Title');
   meta.description = cell('Description');
@@ -155,6 +166,40 @@ function extractMetadataBlock(md, meta) {
   while (before.length && (before[before.length - 1].trim() === '' || before[before.length - 1].trim() === '---')) before.pop();
   const after = lines.slice(end + 1);
   return [...before, ...after].join('\n');
+}
+
+/**
+ * Split a section fragment into individual units: each block TABLE (a run of
+ * consecutive +/| lines) and each run of default-content text between tables.
+ * Section Metadata tables are dropped (they're page/section chrome). Used as a
+ * fallback when a whole-section conversion fails so good blocks aren't lost.
+ */
+function splitBlockTables(frag) {
+  const lines = frag.split('\n');
+  const units = [];
+  let i = 0;
+  const isT = (l) => l.startsWith('+') || l.startsWith('|');
+  while (i < lines.length) {
+    if (isT(lines[i])) {
+      const run = [];
+      while (i < lines.length && isT(lines[i])) { run.push(lines[i]); i += 1; }
+      const md = run.join('\n');
+      if (!/^\|\s*Section Metadata\s*\|/m.test(md)) units.push(md);
+    } else {
+      // gather a default-content text run
+      const text = [];
+      while (i < lines.length && !isT(lines[i])) { text.push(lines[i]); i += 1; }
+      const md = text.join('\n').trim();
+      if (md) units.push(md);
+    }
+  }
+  return units;
+}
+
+/** Strip the outer <section>…</section> wrapper, returning just its children. */
+function stripSectionWrapper(xml) {
+  const m = xml.match(/<section[^>]*>([\s\S]*)<\/section>\s*$/);
+  return m ? m[1].replace(/^\s*\n/, '').replace(/\n\s*$/, '') : xml;
 }
 
 // ---- section splitting ------------------------------------------------------
@@ -311,16 +356,45 @@ async function main() {
   console.log(`split into ${frags.length} sections`);
   const parts = [];
   let ok = 0;
+
+  // Convert a fragment; return its <root> children only if clean (no leaked raw
+  // grid-table markdown, which has `+---+` borders + embedded newlines in an
+  // attribute and breaks Universal Editor). Returns null on failure/leak.
+  const tryConvert = async (fragMd, label) => {
+    const xml = await convertFragment(appendRefs(fragMd, allRefs), opts, label);
+    if (!xml) return null;
+    const children = extractRootChildren(xml);
+    if (/text="(&lt;p&gt;)?\s*\+-{3,}/.test(children)) return null;
+    return children.trim() || null;
+  };
+
   for (const frag of frags) {
     const label = sectionLabel(frag);
-    const withRefs = appendRefs(frag, allRefs);
     // eslint-disable-next-line no-await-in-loop
-    const xml = await convertFragment(withRefs, opts, label);
-    if (xml) {
-      const children = extractRootChildren(xml);
-      if (children.trim()) { parts.push(children.trim()); ok += 1; } else {
-        console.warn(`  ⚠️  section "${label}" produced empty output`);
+    let children = await tryConvert(frag, label);
+    if (children === null) {
+      // A block inside this fragment failed (leaked/errored) and md2jcr couldn't
+      // parse the whole section. Fall back to converting each block table in the
+      // fragment independently, keeping the ones that succeed. This preserves the
+      // good blocks instead of dropping the entire section.
+      console.warn(`  ⚠️  section "${label}" failed as a unit — converting its blocks individually`);
+      const units = splitBlockTables(frag);
+      const kept = [];
+      for (const unit of units) {
+        // eslint-disable-next-line no-await-in-loop
+        const c = await tryConvert(unit, sectionLabel(unit));
+        if (c) kept.push(stripSectionWrapper(c));
       }
+      if (kept.length) {
+        // Wrap the salvaged block nodes in a single section (reuse the fragment's
+        // section-metadata style if present).
+        const styleMatch = frag.match(/\|\s*style\s*\|\s*([a-z-]+)\s*\|/i);
+        const styleAttr = styleMatch ? ` style="[${styleMatch[1]}]"` : '';
+        children = `<section sling:resourceType="core/franklin/components/section/v1/section" jcr:primaryType="nt:unstructured"${styleAttr} model="section" modelFields="[name,style]">\n${kept.join('\n')}\n      </section>`;
+      }
+    }
+    if (children) { parts.push(children); ok += 1; } else {
+      console.warn(`  ⚠️  section "${label}" produced no usable content`);
     }
   }
   console.log(`sections converted: ${ok}/${frags.length}`);

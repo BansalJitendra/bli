@@ -22,21 +22,21 @@ export default function parse(element, { document }) {
     return;
   }
 
-  // Column 1: the label
-  const labelCell = document.createElement('div');
-  if (label) labelCell.append(label.cloneNode(true));
-
-  // Column 2: the settled-claims number, assembled from the digit boxes
-  const numberCell = document.createElement('div');
+  // The `columns` component does not round-trip through md2jcr (block is dropped
+  // and raw grid markdown leaks into a text node, breaking Universal Editor).
+  // Emit as DEFAULT CONTENT — label + assembled claims number — which converts
+  // cleanly. Block CSS still applies via the section wrapper.
+  const frag = document.createElement('div');
+  if (label) {
+    const p = document.createElement('p');
+    p.append(...label.cloneNode(true).childNodes);
+    frag.append(p);
+  }
   const digits = digitEls.map((d) => d.textContent.trim()).join('');
   if (digits) {
-    const p = document.createElement('p');
-    p.textContent = digits;
-    numberCell.append(p);
+    const h = document.createElement('h3');
+    h.textContent = digits;
+    frag.append(h);
   }
-
-  const cells = [[labelCell, numberCell]];
-
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-claimbar', cells });
-  element.replaceWith(block);
+  element.replaceWith(frag);
 }

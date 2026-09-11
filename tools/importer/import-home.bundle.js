@@ -536,17 +536,10 @@ var CustomImportScript = (() => {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const leftCell = document2.createElement("div");
-    if (left) {
-      Array.from(left.childNodes).forEach((node) => leftCell.append(node.cloneNode(true)));
-    }
-    const rightCell = document2.createElement("div");
-    if (right) {
-      Array.from(right.childNodes).forEach((node) => rightCell.append(node.cloneNode(true)));
-    }
-    const cells = [[leftCell, rightCell]];
-    const block = WebImporter.Blocks.createBlock(document2, { name: "columns-app", cells });
-    element.replaceWith(block);
+    const frag = document2.createElement("div");
+    if (left) Array.from(left.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+    if (right) Array.from(right.childNodes).forEach((n) => frag.append(n.cloneNode(true)));
+    element.replaceWith(frag);
   }
 
   // tools/importer/parsers/columns-claimbar.js
@@ -557,18 +550,19 @@ var CustomImportScript = (() => {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const labelCell = document2.createElement("div");
-    if (label) labelCell.append(label.cloneNode(true));
-    const numberCell = document2.createElement("div");
+    const frag = document2.createElement("div");
+    if (label) {
+      const p = document2.createElement("p");
+      p.append(...label.cloneNode(true).childNodes);
+      frag.append(p);
+    }
     const digits = digitEls.map((d) => d.textContent.trim()).join("");
     if (digits) {
-      const p = document2.createElement("p");
-      p.textContent = digits;
-      numberCell.append(p);
+      const h = document2.createElement("h3");
+      h.textContent = digits;
+      frag.append(h);
     }
-    const cells = [[labelCell, numberCell]];
-    const block = WebImporter.Blocks.createBlock(document2, { name: "columns-claimbar", cells });
-    element.replaceWith(block);
+    element.replaceWith(frag);
   }
 
   // tools/importer/parsers/form.js
