@@ -1,6 +1,6 @@
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: var(--background-color);
+  background-color: var(--brand-primary, #005eac);
   width: 100%;
   z-index: 2;
   position: fixed;
@@ -320,3 +320,110 @@ header .breadcrumbs ol li[aria-current] {
     padding: 0 32px;
   }
 }
+
+/* stylelint-disable no-descending-specificity, no-duplicate-selectors */
+
+/* ============================================================
+   Bajaj Life brand header — dark-blue bar, white nav, dropdowns
+   ============================================================ */
+
+header nav {
+  max-width: 1400px;
+  color: #fff;
+}
+
+/* white nav text on the blue bar */
+header nav a:any-link {
+  color: #fff;
+}
+
+header .nav-brand img {
+  width: 88px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/* hamburger visible on the blue bar */
+header nav .nav-hamburger button {
+  background-color: transparent;
+  color: #fff;
+}
+
+/* tools row: call/search/login, right-aligned, white */
+header nav .nav-tools ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+header nav .nav-tools ul li {
+  margin: 0;
+}
+
+header nav .nav-tools a:any-link {
+  color: #fff;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (width >= 900px) {
+  header nav .nav-sections ul {
+    gap: 20px;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li {
+    font-size: var(--body-font-size-xs);
+    font-weight: 600;
+  }
+
+  /* open dropdown on HOVER (matches source) as well as click */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop:hover > ul,
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+    display: block;
+    position: absolute;
+    left: -16px;
+    top: 200%;
+    width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 12px 0;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
+    white-space: initial;
+    z-index: 5;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
+    display: none;
+  }
+
+  /* dropdown links: dark text on white panel */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+    padding: 0;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:any-link {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-color, #131619);
+    font-size: var(--body-font-size-xs);
+    font-weight: 400;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li a:hover {
+    background-color: var(--background-light, #f4f8fc);
+    color: var(--brand-primary, #005eac);
+  }
+
+  /* keep the dropdown caret white */
+  header nav .nav-sections .nav-drop::after {
+    border-color: #fff;
+  }
+}
+

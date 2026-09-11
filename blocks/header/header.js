@@ -174,10 +174,12 @@ async function buildBreadcrumbs() {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // load nav as fragment
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  // load nav as fragment — metadata-independent dual path: /content/nav (local
+  // preview / aem up serves the project file) then /nav (DA/EDS production root).
+  let fragment = await loadFragment('/content/nav');
+  if (!fragment || !fragment.firstElementChild) {
+    fragment = await loadFragment('/nav');
+  }
 
   // decorate nav DOM
   block.textContent = '';
