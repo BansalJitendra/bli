@@ -298,3 +298,34 @@ main .section.blue-gradient h2,
 main .section.blue-gradient h3 {
   color: #fff;
 }
+
+/* guide-text — explanatory prose sections (e.g. "Understanding How Life
+   Insurance Works"). Smaller, lighter type scale than the global headings,
+   matching the source .titleText component. */
+main .section.guide-text h2 {
+  margin: 0;
+  color: #000;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+main .section.guide-text h3 {
+  margin: 20px 0 0;
+  color: #131619;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+main .section.guide-text p {
+  margin: 10px 0 0;
+  color: #131619;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.375;
+}
+
+main .section.guide-text h2 + p {
+  margin-top: 10px;
+}
