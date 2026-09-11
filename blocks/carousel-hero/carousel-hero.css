@@ -1,4 +1,15 @@
-/* carousel-hero — carousel fork (structural layout only) */
+/* carousel-hero — carousel fork, styled to match source .newhomebanner
+ * Source: single wide banner image (natural 1322x300, ratio ~4.4:1),
+ * object-fit cover, no radius/shadow, sits near full-width on a dark-blue band.
+ */
+
+/* Full-bleed: source banner spans ~full viewport width (small gutters),
+ * so escape the 1200px section wrapper. */
+.carousel-hero-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
 .carousel-hero .carousel-hero-slides-container {
   position: relative;
 }
@@ -24,34 +35,50 @@
 .carousel-hero .carousel-hero-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
+  position: relative;
+  width: 100%;
+
+  /* height is driven by the banner image's natural aspect ratio,
+   * NOT a forced tall crop */
+}
+
+/* Banner image flows normally and defines slide height (source: object-fit cover) */
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image {
+  line-height: 0;
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture,
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
+  display: block;
+  width: 100%;
+}
+
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
+  height: auto;
+  object-fit: cover;    /* source img object-fit: cover */
+  border-radius: 0;     /* source imgRadius 0px */
+  box-shadow: none;     /* source none */
+}
+
+/* Content cell overlays the banner (empty in this instance → invisible).
+ * Kept for slides that carry copy. */
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  position: relative;
-  width: 100%;
-  min-height: min(60vw, 560px);
-}
-
-.carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture {
-  position: absolute;
-  inset: 0;
-}
-
-.carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
-  z-index: 1;
-  margin: 32px;
-  padding: 16px;
-  position: relative;
+  padding: 16px 24px;
   background-color: transparent;
 }
 
+.carousel-hero .carousel-hero-slide .carousel-hero-slide-content:empty {
+  display: none;
+}
+
+/* --- Slide indicators (multi-slide only) --- */
 .carousel-hero .carousel-hero-slide-indicators {
   display: flex;
   flex-wrap: wrap;
@@ -62,11 +89,12 @@
 }
 
 .carousel-hero .carousel-hero-slide-indicator button {
-  width: 12px;
+  width: 12px;                 /* source dot 12x12 */
   height: 12px;
   margin: 0;
   padding: 0;
-  border-radius: 50%;
+  border: 0;
+  border-radius: 50%;          /* source radius 50% */
   background-color: #dadada;
   transition: background-color 0.2s;
 }
@@ -74,9 +102,10 @@
 .carousel-hero .carousel-hero-slide-indicator button:disabled,
 .carousel-hero .carousel-hero-slide-indicator button:hover,
 .carousel-hero .carousel-hero-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: var(--brand-primary);   /* source active dot rgb(0,86,179) */
 }
 
+/* --- Prev/next navigation (multi-slide only) --- */
 .carousel-hero .carousel-hero-navigation-buttons {
   position: absolute;
   top: 50%;
@@ -95,21 +124,22 @@
   width: 44px;
   height: 44px;
   margin: 0;
+  border: 0;
   border-radius: 50%;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
+  background-color: rgb(0 94 172 / 55%);   /* brand-primary tint */
   transition: background-color 0.2s;
 }
 
 .carousel-hero .carousel-hero-navigation-buttons button:hover,
 .carousel-hero .carousel-hero-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: rgb(0 94 172 / 85%);
 }
 
 .carousel-hero .carousel-hero-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
+  border: 2px solid #fff;
   border-bottom: 0;
   border-left: 0;
   height: 12px;
@@ -125,13 +155,9 @@
   left: calc(50% - 2px);
 }
 
-@media (width >= 600px) {
+@media (width >= 900px) {
   .carousel-hero .carousel-hero-navigation-buttons {
     left: 24px;
     right: 24px;
-  }
-
-  .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
-    margin: 48px;
   }
 }

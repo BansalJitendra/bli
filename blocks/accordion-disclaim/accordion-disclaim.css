@@ -1,66 +1,70 @@
-/* accordion-disclaim — accordion fork (structural layout only) */
+/* accordion-disclaim — single expandable "Disclaimers:" fine-print card.
+   Values extracted from source computed styles (.disclaimer .item). */
+
+/* Card wrapper (source .item) */
 .accordion-disclaim .accordion-disclaim-item {
-  border: 1px solid #dadada;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 20px 14px;
+  margin: 18px 0 24px;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion-disclaim .accordion-disclaim-item + .accordion-disclaim-item {
-  margin-top: 16px;
-}
-
-.accordion-disclaim .accordion-disclaim-item p {
-  margin-bottom: 0.8em;
-}
-
+/* Clickable header row (source .item-head) */
 .accordion-disclaim .accordion-disclaim-item-label {
-  position: relative;
-  padding: 16px;
-  padding-right: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
   cursor: pointer;
   list-style: none;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.accordion-disclaim .accordion-disclaim-item-label:focus,
-.accordion-disclaim .accordion-disclaim-item-label:hover {
-  background-color: var(--light-color);
-}
-
-.accordion-disclaim .accordion-disclaim-item[open] .accordion-disclaim-item-label {
-  background-color: var(--light-color);
 }
 
 .accordion-disclaim .accordion-disclaim-item-label::-webkit-details-marker {
   display: none;
 }
 
+/* Header title "Disclaimers:" (source .item-head .h2) */
+.accordion-disclaim .accordion-disclaim-item-label p {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--text-color); /* #131619 */
+}
+
+/* Plus / minus toggle (source Plus.webp 20x20, swaps on expand) */
 .accordion-disclaim .accordion-disclaim-item-label::after {
   content: '';
-  position: absolute;
-  top: 50%;
-  right: 18px;
-  transform: translateY(-50%) rotate(135deg);
-  width: 8px;
-  height: 8px;
-  border: 2px solid;
-  border-width: 2px 2px 0 0;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  background:
+    linear-gradient(var(--text-color), var(--text-color)) center / 2px 16px no-repeat,
+    linear-gradient(var(--text-color), var(--text-color)) center / 16px 2px no-repeat;
   transition: transform 0.2s;
 }
 
 .accordion-disclaim .accordion-disclaim-item[open] .accordion-disclaim-item-label::after {
-  transform: translateY(-50%) rotate(-45deg);
+  /* minus */
+  background: linear-gradient(var(--text-color), var(--text-color)) center / 16px 2px no-repeat;
 }
 
+/* Fine-print body (source .hidden-box-disclaimer) */
 .accordion-disclaim .accordion-disclaim-item-body {
-  padding: 0 16px 16px;
+  margin-top: 16px;
 }
 
 .accordion-disclaim .accordion-disclaim-item:not([open]) .accordion-disclaim-item-body {
   display: none;
 }
 
-.accordion-disclaim .accordion-disclaim-item[open] .accordion-disclaim-item-body {
-  border-top: 1px solid #dadada;
-  background-color: var(--background-color);
+.accordion-disclaim .accordion-disclaim-item-body p {
+  margin: 0 0 16px;
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  line-height: 18px;
+  color: #000;
 }

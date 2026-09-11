@@ -1,29 +1,100 @@
-/* cards-contact — contact info cards (structural layout only) */
+/* cards-contact — contact info cards
+   Source: bajajlifeinsurance.com .card-box > .card
+   Blue title tab (#005eac) + white card with body text; Branch Locator CTA. */
+
 .cards-contact > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  padding: 20px 0 0;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  justify-content: center;
 }
 
 .cards-contact > ul > li {
   display: flex;
   flex-direction: column;
-  border: 1px solid #dadada;
   background-color: var(--background-color);
+  border: 1px solid var(--brand-primary);
+  border-radius: 8px;
+  padding: 36px 24px 24px;
 }
 
 .cards-contact .cards-contact-card-body {
-  margin: 16px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
+/* blue title tab — first heading in each card */
+.cards-contact .cards-contact-card-body h3 {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--brand-primary);
+  color: #fff;
+  font-size: var(--heading-font-size-m);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* body text — phones, timings, addresses */
+.cards-contact .cards-contact-card-body p {
+  margin: 0 0 8px;
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.cards-contact .cards-contact-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* helpline labels rendered bold */
+.cards-contact .cards-contact-card-body strong {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* phone / email links inside content read as plain text */
+.cards-contact .cards-contact-card-body a:not(.button) {
+  color: var(--text-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+/* Locate Branch CTA — global a.button already provides the orange
+   accent (#ff6f00), 10px radius, 12px 24px padding that match source.
+   Keep it left-aligned and spaced from the content above. */
+.cards-contact .button-container {
+  margin: 16px 0 0;
+}
+
+.cards-contact a.button:any-link {
+  margin: 0;
+}
+
+/* image cell (only used if a card carries a picture) */
 .cards-contact .cards-contact-card-image {
   line-height: 0;
+  margin-bottom: 16px;
 }
 
 .cards-contact .cards-contact-card-image img {
   width: 100%;
   object-fit: cover;
+}
+
+@media (width >= 900px) {
+  .cards-contact > ul {
+    flex-flow: row wrap;
+    align-items: stretch;
+  }
+
+  .cards-contact > ul > li {
+    flex: 1 1 0;
+    min-width: 240px;
+    max-width: 320px;
+  }
 }

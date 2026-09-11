@@ -1,29 +1,89 @@
-/* cards-category — category cards (structural layout only) */
+/* cards-category — category cards with circular icon, blue title, green benefit pill.
+ * Values extracted from source .cardsproduct computed styles.
+ * Source colors: title/border rgb(38,92,167); pill text rgb(12,137,52); pill bg rgb(225,247,232). */
+
+/* grid of cards — source wrapper is flex-wrap, gap 12px, centered.
+   Mobile-first: 2 columns; desktop: single row of 6. */
 .cards-category > ul {
   list-style: none;
-  margin: 0;
+  margin: 24px 0 0; /* top space so overhanging icons of first row are not clipped */
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 12px; /* clears the 24px icon overhang of the row below */
 }
 
+/* card container = source .card_box_text (bordered box a.card_box) */
 .cards-category > ul > li {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #dadada;
+  position: relative;
+  display: block;
+  border: 1px solid rgb(38 92 167);
+  border-radius: 8px;
   background-color: var(--background-color);
+  overflow: visible;
+  text-align: center;
 }
 
-.cards-category .cards-category-card-body {
-  margin: 16px;
-}
-
+/* circular icon — source img.cardIcon: 48x48, absolute, centered, overlaps top border */
 .cards-category .cards-category-card-image {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
   line-height: 0;
+  z-index: 1;
 }
 
 .cards-category .cards-category-card-image img {
-  width: 100%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   object-fit: cover;
+  background-color: var(--background-color);
+}
+
+/* card body — source a.card_box padding 32px 8px 18px, centered */
+.cards-category .cards-category-card-body {
+  margin: 0;
+  padding: 32px 8px 18px;
+  text-align: center;
+}
+
+/* title — source p.card_box_heading */
+.cards-category .cards-category-card-body h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(38 92 167);
+  text-align: center;
+}
+
+/* green benefit pill — source p.card_box_nudge (first plain paragraph) */
+.cards-category .cards-category-card-body p:not(.button-container) {
+  display: block;
+  margin: 10px 0 0;
+  padding: 6px 5px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+  color: rgb(12 137 52);
+  background-color: rgb(225 247 232);
+  text-align: center;
+}
+
+/* source card carries no CTA button — the card itself is the link.
+   Suppress the EDS-decorated button so it matches the source visual. */
+.cards-category .cards-category-card-body .button-container {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .cards-category > ul {
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 12px;
+  }
 }

@@ -1,42 +1,37 @@
-/* hero-promo — full-bleed promo banner with background image (structural only) */
+/* hero-promo — full-bleed promotional banner.
+ * Source: a single wide clickable artwork (person photo + "WE ARE NOW BAJAJ LIFE"
+ * headline + baked-in CTA). Values extracted from source computed styles:
+ *   desktop image 1200x180 (aspect-ratio 20/3), no border-radius, object-fit natural,
+ *   centered within the content container, ~8px vertical / 72px horizontal insets. */
+
 .hero-promo {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 280px;
-  padding: 40px 24px;
-  overflow: hidden;
+  display: block;
+  margin: 8px 0;
+  padding: 0;
 }
 
-.hero-promo .hero-promo-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-promo .hero-promo-bg picture,
-.hero-promo .hero-promo-bg img {
-  position: absolute;
-  inset: 0;
+.hero-promo .hero-promo-link {
+  display: block;
   width: 100%;
-  height: 100%;
+  line-height: 0;
+}
+
+.hero-promo picture,
+.hero-promo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
   object-fit: cover;
-}
-
-.hero-promo .hero-promo-content {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.hero-promo .hero-promo-content a {
-  display: inline-block;
 }
 
 @media (width >= 900px) {
   .hero-promo {
-    padding: 56px 32px;
+    margin: 8px 0;
+  }
+
+  /* Desktop artwork native ratio (1200 x 180). */
+  .hero-promo img {
+    aspect-ratio: 20 / 3;
   }
 }

@@ -1,0 +1,74 @@
+{
+  "total": 6,
+  "offset": 0,
+  "limit": 6,
+  "data": [
+    {
+      "Name": "title",
+      "Type": "heading",
+      "Label": "Have Us Call You",
+      "Value": "Have Us Call You",
+      "Placeholder": "",
+      "Mandatory": "",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "Name",
+      "Type": "text",
+      "Label": "Your Name",
+      "Value": "",
+      "Placeholder": "Your Name",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "Mobile Number",
+      "Type": "tel",
+      "Label": "Mobile Number",
+      "Value": "",
+      "Placeholder": "Mobile Number",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "planType",
+      "Type": "select",
+      "Label": "Select Plan Type",
+      "Value": "",
+      "Placeholder": "",
+      "Mandatory": "true",
+      "Options": "Term Insurance Plan, ULIP Plan",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "consent",
+      "Type": "checkbox",
+      "Label": "I agree and consent to the Terms & Conditions and the Privacy Policy",
+      "Value": "agree",
+      "Placeholder": "",
+      "Mandatory": "true",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    },
+    {
+      "Name": "submit",
+      "Type": "submit",
+      "Label": "Buy Now",
+      "Value": "",
+      "Placeholder": "",
+      "Mandatory": "",
+      "Options": "",
+      "Style": "",
+      "Fieldset": ""
+    }
+  ],
+  ":type": "sheet"
+}

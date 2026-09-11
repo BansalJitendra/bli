@@ -1,29 +1,93 @@
-/* cards-quicklink — icon+label shortcut cards (structural layout only) */
+/* cards-quicklink — icon + label shortcut cards ("Quick Links")
+ * Values extracted from source section.our_offering computed styles. */
+
 .cards-quicklink > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 24px;
+  padding: 24px 0 0; /* room for icons overhanging the top edge */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 34px 20px;
+  justify-content: center;
 }
 
 .cards-quicklink > ul > li {
+  position: relative;
+  box-sizing: border-box;
+  width: 132px;
+  min-height: 110px;
+  margin-top: 27px; /* clearance for the icon that overhangs the top */
   display: flex;
   flex-direction: column;
-  border: 1px solid #dadada;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 8px 16px;
+  border: 1px solid var(--brand-primary);
+  border-radius: 8px;
   background-color: var(--background-color);
 }
 
-.cards-quicklink .cards-quicklink-card-body {
-  margin: 16px;
-}
-
+/* icon sits half above the card's top border, horizontally centred */
 .cards-quicklink .cards-quicklink-card-image {
+  position: absolute;
+  top: -27px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
   line-height: 0;
 }
 
+.cards-quicklink .cards-quicklink-card-image p {
+  margin: 0;
+}
+
+.cards-quicklink .cards-quicklink-card-image picture,
 .cards-quicklink .cards-quicklink-card-image img {
-  width: 100%;
-  object-fit: cover;
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+/* label */
+.cards-quicklink .cards-quicklink-card-body {
+  margin: 0;
+  text-align: center;
+}
+
+.cards-quicklink .cards-quicklink-card-body p {
+  margin: 0;
+}
+
+/* undo EDS auto button decoration — the label is a plain centred text link */
+.cards-quicklink .cards-quicklink-card-body p.button-container {
+  margin: 0;
+}
+
+.cards-quicklink .cards-quicklink-card-body a.button:any-link {
+  display: inline;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: #265ca7;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.cards-quicklink .cards-quicklink-card-body a.button:any-link:hover,
+.cards-quicklink .cards-quicklink-card-body a.button:any-link:focus {
+  background: none;
+  border: none;
+  color: var(--brand-primary);
+  text-decoration: none;
 }

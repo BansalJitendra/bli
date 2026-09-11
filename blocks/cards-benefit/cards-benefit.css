@@ -1,29 +1,80 @@
-/* cards-benefit — numbered benefit items (structural layout only) */
+/* cards-benefit — "Types of Life Insurance" grid.
+   Source: .cards-row-two — 2-col grid; each card is a flex row of a small
+   icon + a text column (bold title + descriptive paragraphs). No card
+   chrome (no border/background/shadow). Values from source computed styles. */
+
 .cards-benefit > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;   /* mobile: single column */
+  gap: 20px;
 }
 
 .cards-benefit > ul > li {
   display: flex;
-  flex-direction: column;
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: start;
 }
 
-.cards-benefit .cards-benefit-card-body {
-  margin: 16px;
-}
-
-.cards-benefit .cards-benefit-card-image {
+/* leading icon */
+.cards-benefit .cards-benefit-card-icon {
+  flex: 0 0 auto;
   line-height: 0;
 }
 
-.cards-benefit .cards-benefit-card-image img {
-  width: 100%;
-  object-fit: cover;
+.cards-benefit .cards-benefit-card-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* text column */
+.cards-benefit .cards-benefit-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.cards-benefit .cards-benefit-card-body h3 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+.cards-benefit .cards-benefit-card-body p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-color);
+}
+
+.cards-benefit .cards-benefit-card-body a {
+  color: var(--link-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.cards-benefit .cards-benefit-card-body a:hover {
+  text-decoration: underline;
+}
+
+/* desktop: two columns, matching source layout */
+@media (width >= 900px) {
+  .cards-benefit > ul {
+    grid-template-columns: 1fr 1fr;
+  }
 }

@@ -8,7 +8,6 @@ function updateActiveSlide(slide) {
 
   const slides = block.querySelectorAll('.carousel-review-slide');
   slides.forEach((aSlide, idx) => {
-    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
     aSlide.querySelectorAll('a').forEach((link) => {
       if (idx !== slideIndex) link.setAttribute('tabindex', '-1');
       else link.removeAttribute('tabindex');
@@ -48,8 +47,23 @@ function bindEvents(block) {
   });
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => { if (entry.isIntersecting) updateActiveSlide(entry.target); });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.5, root: block.querySelector('.carousel-review-slides') });
   block.querySelectorAll('.carousel-review-slide').forEach((slide) => slideObserver.observe(slide));
+}
+
+function buildStars(count = 5) {
+  const stars = document.createElement('div');
+  stars.classList.add('carousel-review-stars');
+  stars.setAttribute('aria-label', `${count} out of 5 stars`);
+  stars.setAttribute('role', 'img');
+  for (let i = 0; i < count; i += 1) {
+    const star = document.createElement('span');
+    star.classList.add('carousel-review-star');
+    star.setAttribute('aria-hidden', 'true');
+    star.textContent = '★';
+    stars.append(star);
+  }
+  return stars;
 }
 
 function createSlide(row, slideIndex, id) {
@@ -57,10 +71,60 @@ function createSlide(row, slideIndex, id) {
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-review-${id}-slide-${slideIndex}`);
   slide.classList.add('carousel-review-slide');
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-review-slide-${colIdx === 0 ? 'image' : 'content'}`);
-    slide.append(column);
+
+  const cells = [...row.querySelectorAll(':scope > div')];
+  const imageCell = cells[0];
+  const contentCell = cells[1] || cells[0];
+
+  // --- white body: title (+ quote glyph) and review text ---
+  const body = document.createElement('div');
+  body.classList.add('carousel-review-card-body');
+
+  const heading = contentCell.querySelector('h1, h2, h3, h4, h5, h6');
+  const head = document.createElement('div');
+  head.classList.add('carousel-review-card-head');
+  if (heading) head.append(heading);
+  const quote = document.createElement('span');
+  quote.classList.add('carousel-review-quote');
+  quote.setAttribute('aria-hidden', 'true');
+  quote.textContent = '”';
+  head.append(quote);
+  body.append(head);
+
+  // review paragraph = paragraphs that are not the reviewer name (<strong>)
+  let nameText = '';
+  contentCell.querySelectorAll(':scope > p').forEach((p) => {
+    const strong = p.querySelector('strong');
+    if (strong && p.textContent.trim() === strong.textContent.trim()) {
+      nameText = strong.textContent.trim();
+    } else {
+      p.classList.add('carousel-review-text');
+      body.append(p);
+    }
   });
+  slide.append(body);
+
+  // --- blue footer: avatar, name, stars ---
+  const footer = document.createElement('div');
+  footer.classList.add('carousel-review-card-footer');
+
+  const avatar = document.createElement('div');
+  avatar.classList.add('carousel-review-avatar');
+  const picture = imageCell.querySelector('picture');
+  if (picture) avatar.append(picture);
+  footer.append(avatar);
+
+  const meta = document.createElement('div');
+  meta.classList.add('carousel-review-meta');
+  const name = document.createElement('div');
+  name.classList.add('carousel-review-name');
+  name.textContent = nameText;
+  meta.append(name);
+  meta.append(buildStars(5));
+  footer.append(meta);
+
+  slide.append(footer);
+
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   return slide;
@@ -82,41 +146,46 @@ export default async function decorate(block) {
   container.classList.add('carousel-review-slides-container');
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-review-slides');
-  block.prepend(slidesWrapper);
-
-  let slideIndicators;
-  if (!isSingleSlide) {
-    const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
-    slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-review-slide-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
-
-    const slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-review-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class="slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
-      <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
-    `;
-    container.append(slideNavButtons);
-  }
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, id);
     moveInstrumentation(row, slide);
     slidesWrapper.append(slide);
-    if (slideIndicators) {
+    row.remove();
+  });
+
+  container.append(slidesWrapper);
+  block.append(container);
+
+  if (!isSingleSlide) {
+    const controls = document.createElement('nav');
+    controls.classList.add('carousel-review-controls');
+    controls.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
+
+    const prev = document.createElement('button');
+    prev.type = 'button';
+    prev.classList.add('slide-prev');
+    prev.setAttribute('aria-label', placeholders.previousSlide || 'Previous Slide');
+    controls.append(prev);
+
+    const slideIndicators = document.createElement('ol');
+    slideIndicators.classList.add('carousel-review-slide-indicators');
+    rows.forEach((row, idx) => {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-review-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}"></button>`;
       slideIndicators.append(indicator);
-    }
-    row.remove();
-  });
+    });
+    controls.append(slideIndicators);
 
-  container.append(slidesWrapper);
-  block.prepend(container);
-  if (!isSingleSlide) bindEvents(block);
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.classList.add('slide-next');
+    next.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
+    controls.append(next);
+
+    block.append(controls);
+    bindEvents(block);
+  }
 }

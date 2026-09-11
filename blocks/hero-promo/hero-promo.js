@@ -1,19 +1,24 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
 export default function decorate(block) {
-  // Full-width promo banner: a background image cell + a content cell (headline, sub-line, CTA).
-  [...block.children].forEach((row) => {
-    [...row.children].forEach((col) => {
-      const pic = col.querySelector('picture');
-      if (pic && col.children.length === 1 && col.querySelector('p, h1, h2, h3, h4, h5, h6, a') === null) {
-        col.classList.add('hero-promo-bg');
-      } else {
-        col.classList.add('hero-promo-content');
-      }
-    });
-  });
-  block.querySelectorAll('picture > img').forEach((img) => {
-    const optimized = createOptimizedPicture(img.src, img.alt, false, [{ width: '1600' }]);
-    img.closest('picture').replaceWith(optimized);
-  });
+  // Source promo banner is a single full-width clickable artwork (photo + headline +
+  // baked-in CTA). Content is authored as two rows: the banner image and a CTA link.
+  // Collapse them into one clickable image so the whole banner navigates like the source.
+  const picture = block.querySelector('picture');
+  const link = block.querySelector('a[href]');
+  const href = link ? link.getAttribute('href') : null;
+  const label = link ? link.textContent.trim() : '';
+  const img = picture && picture.querySelector('img');
+  if (img) img.setAttribute('loading', 'eager');
+
+  block.textContent = '';
+
+  if (href) {
+    const a = document.createElement('a');
+    a.className = 'hero-promo-link';
+    a.href = href;
+    if (label) a.setAttribute('aria-label', label);
+    if (picture) a.append(picture);
+    block.append(a);
+  } else if (picture) {
+    block.append(picture);
+  }
 }

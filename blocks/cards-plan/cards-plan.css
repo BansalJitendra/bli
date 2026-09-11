@@ -1,4 +1,15 @@
-/* cards-plan — plan cards (horizontally scrolling card set, structural only) */
+/* cards-plan — plan cards migrated from source .asyncTabs .life-comp2-card.
+   Values extracted verbatim from source computed styles
+   (https://www.bajajlifeinsurance.com/). Eyebrow banner, plan name,
+   plan-type sub-line, green-check benefit checklist, and Buy Now (orange) +
+   Know More (outline) actions.
+
+   NOTE: On the migrated homepage the plan-card content is authored inside the
+   tabs-plans block (tabbed panels), so no standalone .cards-plan renders there;
+   tabs-plans.css carries the same design. This file styles the standalone
+   .cards-plan block faithfully for any page that uses it directly. */
+
+/* ---- Card track ---- */
 .cards-plan > ul {
   list-style: none;
   margin: 0;
@@ -9,31 +20,154 @@
   scroll-snap-type: x mandatory;
 }
 
+/* ---- Plan card (.life-comp2-card) ---- */
 .cards-plan > ul > li {
-  flex: 0 0 300px;
+  flex: 0 0 344px;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  border: 1px solid #dadada;
+  border: 1px solid #2d607c;
+  border-radius: 10px;
+  padding: 12px;
   background-color: var(--background-color);
 }
 
-.cards-plan .cards-plan-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 16px;
-}
-
+/* optional lead image (.cards-plan-card-image) */
 .cards-plan .cards-plan-card-image {
   line-height: 0;
+  margin-bottom: 8px;
 }
 
 .cards-plan .cards-plan-card-image img {
   width: 100%;
+  border-radius: 8px;
   object-fit: cover;
 }
 
-.cards-plan .cards-plan-card-body a {
-  align-self: flex-start;
+.cards-plan .cards-plan-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+/* ---- Eyebrow banner (.termplan .h4) ---- */
+.cards-plan .cards-plan-eyebrow {
+  order: -1;
+  margin: 0;
+  color: #3d3d3d;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ---- Plan name (.bajaj-smart .h2) ---- */
+.cards-plan .cards-plan-card-body h3 {
+  margin: 25px 0 0;
+  padding: 6px 0;
+  color: #131619;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* ---- Plan-type sub-line (.subheading-asynctabs) ---- */
+.cards-plan .cards-plan-sub {
+  margin: 6px 0 0;
+  color: #131619;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* ---- Disclaimer / note text ---- */
+.cards-plan .cards-plan-note {
+  margin: 6px 0 0;
+  color: #5c666e;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* ---- Benefit checklist (.card2-middle) ---- */
+.cards-plan .cards-plan-checklist {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-plan .cards-plan-checklist li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 24px;
+  color: #131619;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* green check bullet (.card2-dot), 16x16 */
+.cards-plan .cards-plan-checklist li::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%2321a038'/%3E%3Cpath d='M4.2 8.2l2.3 2.3 5-5' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+.cards-plan .cards-plan-checklist li sup {
+  font-size: 0.7em;
+}
+
+/* ---- Action buttons (Buy Now / Know More) ---- */
+.cards-plan .cards-plan-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 12px 0 0;
+}
+
+.cards-plan .cards-plan-actions a.cards-plan-buy:any-link,
+.cards-plan .cards-plan-actions a.cards-plan-know:any-link {
+  flex: 1 1 0;
+  margin: 0;
+  border: 1px solid var(--brand-accent);
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+.cards-plan .cards-plan-actions a.cards-plan-buy:any-link {
+  background-color: var(--brand-accent);
+  color: #fff;
+}
+
+.cards-plan .cards-plan-actions a.cards-plan-buy:hover {
+  background-color: var(--brand-accent-dark);
+  border-color: var(--brand-accent-dark);
+  color: #fff;
+}
+
+.cards-plan .cards-plan-actions a.cards-plan-know:any-link {
+  background-color: #fff;
+  color: var(--brand-accent);
+}
+
+.cards-plan .cards-plan-actions a.cards-plan-know:hover {
+  background-color: var(--brand-accent);
+  color: #fff;
 }

@@ -1,170 +1,202 @@
+/* Block: form — "Have Us Call You" lead-capture / call-back card
+ * Visual design extracted from source `.need-assistance form`
+ * on https://www.bajajlifeinsurance.com/ (computed styles).
+ * White card, blue rounded inputs, orange gradient "Buy Now" CTA.
+ */
+
+/* --- Card container (EDS wraps the generated <form> in .form block) --- */
+.form form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 360px;
+  margin: 0;
+  padding: 24px;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 25%);
+}
+
+/* --- Field wrappers: gap on the form handles spacing, so reset margins --- */
 .form .field-wrapper {
-  display: grid;
-  grid-auto-flow: row;
-  align-items: center;
+  display: block;
+  margin: 0;
+}
+
+.form form > .field-wrapper + .field-wrapper,
+.form form fieldset .field-wrapper + .field-wrapper {
+  margin-top: 0;
 }
 
 .form fieldset {
-  display: grid;
-  grid-auto-flow: row;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin: 0;
   border: none;
   padding: 0;
 }
 
-.form form > .field-wrapper + .field-wrapper,
-.form form fieldset .field-wrapper + .field-wrapper {
-  margin-top: 24px;
-}
-
-.form form > .selection-wrapper + .selection-wrapper,
-.form form fieldset .selection-wrapper + .selection-wrapper {
-  margin-top: 0.25em;
-}
-
-@media (width >= 600px) {
-  .form fieldset {
-    grid-template-columns: repeat(2, auto);
-    gap: 0.25em 24px;
-  }
-
-  .form form > .selection-wrapper + .selection-wrapper,
-  .form form fieldset .field-wrapper + .field-wrapper,
-  .form form fieldset .selection-wrapper + .selection-wrapper {
-    margin-top: 0;
-  }
-}
-
-@media (width >= 900px) {
-  .form fieldset {
-    grid-template-columns: repeat(3, auto);
-  }
-}
-
-.form label,
-.form fieldset > legend {
-  margin-bottom: 0.25em;
-  font-size: var(--body-font-size-s);
-  font-weight: 700;
-}
-
-.form .selection-wrapper label {
+/* --- Form title (heading field) --- */
+.form h2,
+.form .heading-wrapper h2 {
   margin: 0;
-  font-weight: normal;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  color: #000;
 }
 
+/* --- Field labels: compact, sit above the control --- */
+.form label {
+  display: block;
+  margin: 0 0 6px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form label[data-required]::after {
+  content: '*';
+  margin-inline-start: 4px;
+  color: var(--brand-accent);
+}
+
+/* --- Text inputs & selects: blue-bordered, rounded --- */
 .form input,
 .form select,
 .form textarea {
   box-sizing: border-box;
   display: block;
   width: 100%;
+  height: 45px;
   margin: 0;
-  padding: 0.5em;
-  border-radius: 4px;
-  border: 1px solid var(--dark-color);
+  padding: 12px 16px;
+  border: 1px solid var(--brand-primary);
+  border-radius: 10px;
   background-color: var(--background-color);
-  color: var(--text-color);
-  font-size: var(--body-font-size-s);
-  transition: border-color 0.2s;
+  color: #5c666e;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form textarea {
+  height: auto;
   resize: vertical;
+}
+
+.form input::placeholder {
+  color: #5c666e;
+  opacity: 1;
+}
+
+.form select {
+  padding-right: 32px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23005eac' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
 }
 
 .form input:hover,
 .form select:hover,
 .form textarea:hover {
-  border: 1px solid var(--text-color);
+  border-color: var(--brand-primary-dark);
 }
 
 .form input:focus,
 .form select:focus,
 .form textarea:focus {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgb(0 94 172 / 20%);
 }
 
-.form .selection-wrapper input {
-  width: max-content;
+/* --- Consent checkbox (selection-wrapper) --- */
+.form .selection-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
 }
 
-@media (width >= 600px) {
-  .form input,
-  .form select,
-  .form textarea {
-    max-width: 50vw;
-  }
-
-  .form .button {
-    max-width: max-content;
-  }
+.form .selection-wrapper input[type="checkbox"],
+.form .selection-wrapper input[type="radio"] {
+  width: auto;
+  height: auto;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  accent-color: var(--brand-primary);
 }
 
-@media (width >= 900px) {
-  .form input,
-  .form select,
-  .form textarea {
-    max-width: 33vw;
-  }
+.form .selection-wrapper label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #000;
 }
 
-.form .field-wrapper.selection-wrapper {
-  grid-auto-flow: column;
-  justify-content: start;
-  gap: 1ch;
+.form .selection-wrapper label[data-required]::after {
+  content: none;
 }
 
-.form label[data-required]::after {
-  content: '*';
-  color: firebrick;
-  margin-inline-start: 1ch;
+/* --- Submit button: full-width orange gradient CTA --- */
+.form .submit-wrapper {
+  margin: 0;
 }
 
-.form .toggle-wrapper .switch {
-  position: relative;
-  display: inline-block;
-  width: 52px;
-  height: 28px;
-}
-
-.form .toggle-wrapper input {
-  opacity: 0;
-  width: 52px;
-  height: 28px;
-}
-
-.form .toggle-wrapper .slider {
-  position: absolute;
+.form button[type="submit"],
+.form .submit-wrapper .button {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 45px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #ff6700;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ff6700 0%, #ff8900 100%);
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: none;
   cursor: pointer;
-  inset: 0;
-  border-radius: 28px;
-  background-color: var(--dark-color);
-  transition: background-color 0.2s;
+  transition: filter 0.2s;
 }
 
-.form .toggle-wrapper .slider::before {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 2px;
-  left: 2px;
-  border-radius: 50%;
-  background-color: var(--background-color);
-  transition: transform 0.2s;
+.form button[type="submit"]:hover,
+.form .submit-wrapper .button:hover {
+  border-color: #e65c00;
+  background: linear-gradient(90deg, #e65c00 0%, #ff6700 100%);
+  color: #fff;
+  filter: none;
 }
 
-.form .toggle-wrapper input:checked + .slider {
-  background-color: var(--link-color);
+.form button[type="submit"]:disabled {
+  filter: grayscale(30%);
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.form .toggle-wrapper input:focus + .slider {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
-}
-
-.form .toggle-wrapper input:checked + .slider::before {
-  transform: translateX(24px);
+/* --- Validation error text --- */
+.form .field-wrapper .error-field,
+.form small.error-field {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #d00;
 }

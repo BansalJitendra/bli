@@ -1,44 +1,164 @@
-/* tabs-guide — tabs fork (structural layout only) */
+/* Block: tabs-guide — Life Insurance Guide tabs (Videos / Articles / Calculators) */
+
+/* Values extracted from source .guide computed styles. */
+
+.tabs-guide {
+  color: var(--text-color);
+}
+
+/* ---- Tab strip: underline style ---- */
 .tabs-guide .tabs-guide-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5ch;
+  flex-wrap: nowrap;
+  gap: 24px;
   max-width: 100%;
+  margin: 0 0 24px;
+  padding: 0;
   overflow-x: auto;
 }
 
 .tabs-guide .tabs-guide-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid #dadada;
+  border: 0;
+  border-bottom: 4px solid transparent;
   border-radius: 0;
-  padding: 0.5em 1em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
+  padding: 10px 0;
+  background: none;
+  color: rgb(92 102 110);
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
   white-space: nowrap;
-  transition: background-color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
 }
 
 .tabs-guide .tabs-guide-list button p {
   margin: 0;
 }
 
+.tabs-guide .tabs-guide-list button:hover,
+.tabs-guide .tabs-guide-list button:focus {
+  background: none;
+  border-color: transparent;
+  color: var(--brand-primary);
+}
+
 .tabs-guide .tabs-guide-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
+  border-bottom-color: rgb(0 93 172);
+  color: rgb(0 93 172);
   cursor: initial;
 }
 
+/* ---- Panels ---- */
 .tabs-guide .tabs-guide-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
-  overflow: auto;
+  padding: 0;
 }
 
 .tabs-guide .tabs-guide-panel[aria-hidden='true'] {
   display: none;
+}
+
+/* ---- Card grid: horizontal scroll row (mobile-first) ---- */
+.tabs-guide .tabs-guide-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+  padding: 12px 2px;
+  overflow-x: auto;
+}
+
+/* ---- Card ---- */
+.tabs-guide .tabs-guide-card {
+  display: flex;
+  flex: 0 0 320px;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 320px;
+  min-height: 280px;
+  padding: 12px 24px;
+  border: 1px solid rgb(0 116 201);
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+/* card head: image + title inline */
+.tabs-guide .tabs-guide-card-head {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.tabs-guide .tabs-guide-card-head p {
+  margin: 0;
+  line-height: 0;
+}
+
+.tabs-guide .tabs-guide-card img {
+  width: 58px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.tabs-guide .tabs-guide-card-title {
+  margin: 0 0 0 18px;
+  color: rgb(19 22 25);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* card body: description */
+.tabs-guide .tabs-guide-card-body {
+  margin: 16px 0 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.tabs-guide .tabs-guide-card-body p {
+  margin: 0;
+  color: rgb(19 22 25);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* card footer: gradient CTA button */
+.tabs-guide .tabs-guide-card-footer {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 0;
+}
+
+.tabs-guide .tabs-guide-card-footer .tabs-guide-card-btn:any-link {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 36px;
+  background-image: linear-gradient(90deg, rgb(255 103 0) 0%, rgb(255 137 0) 100%);
+  color: rgb(252 252 252);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tabs-guide .tabs-guide-card-footer .tabs-guide-card-btn:hover,
+.tabs-guide .tabs-guide-card-footer .tabs-guide-card-btn:focus {
+  background-image: linear-gradient(90deg, rgb(230 92 0) 0%, rgb(255 103 0) 100%);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ---- Desktop ---- */
+@media (width >= 900px) {
+  .tabs-guide .tabs-guide-list {
+    margin-bottom: 24px;
+  }
 }

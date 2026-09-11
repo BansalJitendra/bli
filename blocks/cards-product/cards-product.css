@@ -1,29 +1,117 @@
-/* cards-product — promo product mini-cards (structural layout only) */
+/*
+ * cards-product — full-width promotional band from source `.newhero-contbottom`.
+ * Source is a blue bar: left panel = "Number of Claims Settled" digit tiles,
+ * right panel = "How can we help you today?" label + rounded select control.
+ * All values below are from getComputedStyle on the live source element.
+ *
+ * Decorated DOM (blocks/cards-product/cards-product.js):
+ *   .cards-product > ul > li            (one <li> per authored row / panel)
+ *     > .cards-product-card-image       (image/icon cell, when present)
+ *     > .cards-product-card-body        (text cell: label, digits, links)
+ */
+
+/* Full-width blue band — override EDS section max-width so the bar spans edge-to-edge */
+.cards-product-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.cards-product {
+  background-color: var(--brand-primary); /* rgb(0, 93, 172) == #005eac */
+  color: #fff;
+  margin: 24px 0 0;
+  padding: 14px;
+}
+
+/* Panel container — stacked on mobile, spread across the bar on desktop */
 .cards-product > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 24px;
-}
-
-.cards-product > ul > li {
   display: flex;
   flex-direction: column;
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  gap: 20px;
 }
 
-.cards-product .cards-product-card-body {
-  margin: 16px;
+@media (width >= 900px) {
+  .cards-product {
+    padding: 14px;
+  }
+
+  .cards-product > ul {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
 
+/* Each panel (li) — horizontal: label + content */
+.cards-product > ul > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Optional icon/image cell */
 .cards-product .cards-product-card-image {
   line-height: 0;
+  flex: 0 0 auto;
 }
 
 .cards-product .cards-product-card-image img {
-  width: 100%;
-  object-fit: cover;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Text cell — label + digit tiles / help control */
+.cards-product .cards-product-card-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Labels ("Number of Claims Settled*", "How can we help you today?") */
+.cards-product .cards-product-card-body p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  color: #fff;
+}
+
+/* Digit tiles — the plain text digits become inline white rounded chips.
+   Applied to any bare <strong> / marked numerals authored in the panel. */
+.cards-product .cards-product-card-body strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgb(20 48 87) 0 4px 16px 0;
+  color: rgb(30 94 135);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--body-font-family);
+}
+
+/* Help control — authored links/select rendered inside a rounded white box */
+.cards-product .cards-product-card-body a {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--brand-primary);
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
 }
