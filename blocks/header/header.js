@@ -220,10 +220,26 @@ export default async function decorate(block) {
 
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
-    }
+    // Render the top-right utility links as icons (matching the live page):
+    // Search → search icon, Login/Account → avatar icon.
+    const ICON_BASE = 'https://main--bli--bansaljitendra.aem.live/icons';
+    const toolIcons = [
+      { match: /search/i, icon: 'nav-search-light.webp', label: 'Search' },
+      { match: /login|account|customer/i, icon: 'nav-avatar.webp', label: 'Login' },
+    ];
+    navTools.querySelectorAll('a').forEach((a) => {
+      const text = a.textContent.trim();
+      const spec = toolIcons.find((t) => t.match.test(text) || t.match.test(a.href));
+      if (!spec) return;
+      a.setAttribute('aria-label', spec.label);
+      a.title = spec.label;
+      a.textContent = '';
+      const img = document.createElement('img');
+      img.src = `${ICON_BASE}/${spec.icon}`;
+      img.alt = spec.label;
+      img.className = 'nav-tools-icon';
+      a.append(img);
+    });
   }
 
   // hamburger for mobile

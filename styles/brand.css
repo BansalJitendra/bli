@@ -29,7 +29,8 @@
   /* spacing */
   --section-padding: 48px;
   --nav-height: 54px;
-  --header-height: var(--nav-height);
+  --call-to-buy-height: 46px;
+  --header-height: calc(var(--nav-height) + var(--call-to-buy-height));
   --content-max-width: 1200px;
 
   /* heading sizes (desktop) */

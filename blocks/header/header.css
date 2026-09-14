@@ -351,17 +351,22 @@ header nav .nav-hamburger button {
 }
 
 /* "Call to Buy" strip — thin band below the nav bar, above the hero (matches
-   the live page). Right-aligned dark text on a light background. */
+   the live page). Left-aligned pill with a light-blue background. */
 header .nav-call-to-buy {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   margin: auto;
   max-width: 1248px;
-  padding: 8px 24px;
+  padding: 6px 24px;
+  background-color: #fff;
 }
 
 header .nav-call-to-buy a:any-link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: rgb(244 250 255);
   color: rgb(19 22 25);
   font-size: 14px;
   font-weight: 600;
@@ -371,6 +376,14 @@ header .nav-call-to-buy a:any-link {
 
 header .nav-call-to-buy a:hover {
   text-decoration: underline;
+}
+
+/* top-right utility icons (search, login/avatar) */
+header nav .nav-tools .nav-tools-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
 }
 
 /* tools row: call/search/login, right-aligned, white */
