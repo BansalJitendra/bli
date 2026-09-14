@@ -234,7 +234,7 @@ main > .section {
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: 1324px;   /* match the live page content width (~58px side gutters at 1440) */
   margin: auto;
   padding: 0 24px;
 }
