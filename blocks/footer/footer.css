@@ -111,12 +111,15 @@ footer .footer > div > div:nth-child(4) a:hover {
 
 /* --- 5) contact / reg-office / download / social bar --- */
 footer .footer > div > div:nth-child(5) {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px 32px;
   border-top: 1px solid rgb(255 255 255 / 25%);
   padding-top: 32px;
   padding-bottom: 32px;
+}
+
+footer .footer > div > div:nth-child(5) .default-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px 32px;
 }
 
 footer .footer > div > div:nth-child(5) h3 {
@@ -153,16 +156,20 @@ footer .footer > div > div:nth-child(5) img {
 
 /* --- 6) sitemap link columns --- */
 footer .footer > div > div:nth-child(6) {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px 32px;
   border-top: 1px solid rgb(255 255 255 / 25%);
   padding-top: 32px;
   padding-bottom: 24px;
 }
 
-footer .footer > div > div:nth-child(6) h3 {
-  margin: 20px 0 8px;
+footer .footer > div > div:nth-child(6) .default-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 32px;
+  align-items: start;
+}
+
+footer .footer > div > div:nth-child(6) .footer-col h3 {
+  margin: 0 0 8px;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -199,11 +206,11 @@ footer .footer > div > div:nth-child(7) {
 }
 
 @media (width >= 600px) {
-  footer .footer > div > div:nth-child(5) {
+  footer .footer > div > div:nth-child(5) .default-content-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  footer .footer > div > div:nth-child(6) {
+  footer .footer > div > div:nth-child(6) .default-content-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -214,17 +221,17 @@ footer .footer > div > div:nth-child(7) {
     padding-right: 32px;
   }
 
-  footer .footer > div > div:nth-child(5) {
+  footer .footer > div > div:nth-child(5) .default-content-wrapper {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  footer .footer > div > div:nth-child(6) {
+  footer .footer > div > div:nth-child(6) .default-content-wrapper {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (width >= 1200px) {
-  footer .footer > div > div:nth-child(6) {
+  footer .footer > div > div:nth-child(6) .default-content-wrapper {
     grid-template-columns: repeat(5, 1fr);
   }
 }
