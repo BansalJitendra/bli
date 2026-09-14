@@ -55,8 +55,8 @@ footer .footer > div > div:nth-child(2) {
 footer .footer > div > div:nth-child(2) h3 {
   margin: 20px 0 8px;
   color: #fff;
-  font-size: var(--body-font-size-s);
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 footer .footer > div > div:nth-child(2) ul {
@@ -69,15 +69,19 @@ footer .footer > div > div:nth-child(2) ul {
 }
 
 footer .footer > div > div:nth-child(2) ul li {
-  font-size: var(--body-font-size-xs);
+  font-size: 14px;
   font-weight: 300;
+}
+
+footer .footer > div > div:nth-child(2) a:any-link {
+  color: #f4faff;
 }
 
 /* --- notice / copyright (third section) --- */
 footer .footer > div > div:last-child {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
-  color: rgb(255 255 255 / 85%);
+  color: #f2f2f2;
 }
 
 footer .footer > div > div:last-child p {
