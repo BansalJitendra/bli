@@ -704,12 +704,12 @@ main .section.app-promo .default-content-wrapper p:last-child img {
     padding: 36px 200px 36px 340px;   /* left gutter for phone, right for QR */
   }
 
-  /* phone mockup — bottom-left, overlapping the card edge */
+  /* phone mockup — tall portrait, bottom-left, overlapping the card edge */
   main .section.app-promo .default-content-wrapper > p:first-child {
     position: absolute;
-    left: 20px;
+    left: 36px;
     bottom: 0;
-    width: 320px;
+    width: 280px;
     margin: 0;
   }
 
