@@ -251,6 +251,47 @@ export default async function decorate(block) {
       img.className = 'nav-tools-icon';
       a.append(img);
     });
+
+    // Live page shows a phone-call icon between search and login. Inject it if
+    // not already present, linking to the Call to Buy number.
+    const toolsList = navTools.querySelector('ul');
+    if (toolsList && !navTools.querySelector('.nav-tools-phone')) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = 'tel:02261241800';
+      a.setAttribute('aria-label', 'Call to Buy');
+      a.title = 'Call to Buy';
+      const img = document.createElement('img');
+      img.src = `${ICON_BASE}/nav-telephone.webp`;
+      img.alt = 'Call to Buy';
+      img.className = 'nav-tools-icon nav-tools-phone';
+      a.append(img);
+      li.append(a);
+      // place before the Login/avatar item so order is search, phone, avatar
+      const loginImg = navTools.querySelector('img[alt="Login"]');
+      const loginLi = loginImg ? loginImg.closest('li') : null;
+      if (loginLi) toolsList.insertBefore(li, loginLi);
+      else toolsList.append(li);
+    }
+
+    // Live page also shows a hamburger icon at the far right of the tools row
+    // (after avatar). Add it as the rightmost tools item; it toggles the nav.
+    if (toolsList && !navTools.querySelector('.nav-tools-hamburger')) {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'nav-tools-hamburger';
+      btn.setAttribute('aria-label', 'Menu');
+      const img = document.createElement('img');
+      img.src = `${ICON_BASE}/nav-hamburger.webp`;
+      img.alt = 'Menu';
+      img.className = 'nav-tools-icon';
+      btn.append(img);
+      // eslint-disable-next-line no-use-before-define
+      btn.addEventListener('click', () => toggleMenu(nav, navSections));
+      li.append(btn);
+      toolsList.append(li);
+    }
   }
 
   // hamburger for mobile
