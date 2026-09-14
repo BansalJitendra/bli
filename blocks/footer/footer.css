@@ -1,6 +1,7 @@
 /* Bajaj Life footer — dark-blue, matches live page section order:
-   1) link columns  2) policy links row  3) copyright  4) BEWARE notice
-   5) fraud CTA buttons  6) regulatory line  7) contact / reg-office / app / social */
+   1) policy links row  2) copyright  3) BEWARE notice  4) fraud CTA buttons
+   5) contact / reg-office / app / social bar  6) sitemap link columns
+   7) regulatory / ISO line */
 footer {
   background-color: var(--brand-primary, #005eac);
   color: #fff;
@@ -26,47 +27,12 @@ footer .footer a:hover {
   text-decoration: underline;
 }
 
-/* --- 1) link columns (first section) --- */
+/* --- 1) policy links row (Unclaimed Data … Blacklisted Agents) --- */
 footer .footer > div > div:nth-child(1) {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px 32px;
   padding-top: 40px;
-  padding-bottom: 32px;
-}
-
-footer .footer > div > div:nth-child(1) h3 {
-  margin: 20px 0 8px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 footer .footer > div > div:nth-child(1) ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-footer .footer > div > div:nth-child(1) ul li {
-  font-size: 14px;
-  font-weight: 300;
-}
-
-footer .footer > div > div:nth-child(1) a:any-link {
-  color: #f4faff;
-}
-
-/* --- 2) policy links row (Unclaimed Data … Blacklisted Agents) --- */
-footer .footer > div > div:nth-child(2) {
-  border-top: 1px solid rgb(255 255 255 / 25%);
-  padding-top: 24px;
-}
-
-footer .footer > div > div:nth-child(2) ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -76,17 +42,17 @@ footer .footer > div > div:nth-child(2) ul {
   gap: 12px 32px;
 }
 
-footer .footer > div > div:nth-child(2) ul li {
+footer .footer > div > div:nth-child(1) ul li {
   font-size: 14px;
   font-weight: 500;
 }
 
-footer .footer > div > div:nth-child(2) a:any-link {
+footer .footer > div > div:nth-child(1) a:any-link {
   text-decoration: underline;
 }
 
-/* --- 3) copyright --- */
-footer .footer > div > div:nth-child(3) {
+/* --- 2) copyright --- */
+footer .footer > div > div:nth-child(2) {
   border-top: 1px solid rgb(255 255 255 / 25%);
   padding-top: 20px;
   padding-bottom: 4px;
@@ -95,8 +61,8 @@ footer .footer > div > div:nth-child(3) {
   font-weight: 600;
 }
 
-/* --- 4) BEWARE notice box (bordered) --- */
-footer .footer > div > div:nth-child(4) {
+/* --- 3) BEWARE notice box (bordered) --- */
+footer .footer > div > div:nth-child(3) {
   border: 1px solid rgb(255 255 255 / 45%);
   border-radius: 8px;
   padding: 20px 24px;
@@ -104,32 +70,32 @@ footer .footer > div > div:nth-child(4) {
   line-height: 1.5;
 }
 
-footer .footer > div > div:nth-child(4) p:first-child {
+footer .footer > div > div:nth-child(3) p:first-child {
   margin-bottom: 8px;
   font-size: 15px;
   letter-spacing: 0.3px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-footer .footer > div > div:nth-child(4) p {
+footer .footer > div > div:nth-child(3) p {
   font-size: 14px;
 }
 
-/* --- 5) fraud CTA buttons (outlined pill row) --- */
-footer .footer > div > div:nth-child(5) {
+/* --- 4) fraud CTA buttons (outlined pill row) --- */
+footer .footer > div > div:nth-child(4) {
   padding-top: 24px;
   padding-bottom: 8px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-footer .footer > div > div:nth-child(5) p {
+footer .footer > div > div:nth-child(4) p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
 }
 
-footer .footer > div > div:nth-child(5) a:any-link {
+footer .footer > div > div:nth-child(4) a:any-link {
   padding: 12px 24px;
   border: 1px solid rgb(255 255 255 / 60%);
   border-radius: 8px;
@@ -139,31 +105,21 @@ footer .footer > div > div:nth-child(5) a:any-link {
   white-space: nowrap;
 }
 
-footer .footer > div > div:nth-child(5) a:hover {
+footer .footer > div > div:nth-child(4) a:hover {
   background-color: rgb(255 255 255 / 12%);
 }
 
-/* --- 6) regulatory / ISO line --- */
-footer .footer > div > div:nth-child(6) {
-  border-top: 1px solid rgb(255 255 255 / 25%);
-  padding-top: 24px;
-  padding-bottom: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* --- 7) bottom bar: contact / reg-office / download / social --- */
-footer .footer > div > div:nth-child(7) {
+/* --- 5) contact / reg-office / download / social bar --- */
+footer .footer > div > div:nth-child(5) {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px 32px;
   border-top: 1px solid rgb(255 255 255 / 25%);
   padding-top: 32px;
-  padding-bottom: 40px;
+  padding-bottom: 32px;
 }
 
-footer .footer > div > div:nth-child(7) h3 {
+footer .footer > div > div:nth-child(5) h3 {
   margin: 0 0 12px;
   color: #fff;
   font-size: 16px;
@@ -171,36 +127,83 @@ footer .footer > div > div:nth-child(7) h3 {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-footer .footer > div > div:nth-child(7) p {
+footer .footer > div > div:nth-child(5) p {
   margin: 0 0 6px;
   font-size: 14px;
   line-height: 1.5;
 }
 
-footer .footer > div > div:nth-child(7) a:any-link {
+footer .footer > div > div:nth-child(5) a:any-link {
   color: #f4faff;
 }
 
-/* app-store + social icon rows inside the bottom bar */
+/* app-store + social icon rows inside the bar */
 /* stylelint-disable-next-line no-descending-specificity */
-footer .footer > div > div:nth-child(7) p:has(img) {
+footer .footer > div > div:nth-child(5) p:has(img) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
 }
 
-footer .footer > div > div:nth-child(7) img {
+footer .footer > div > div:nth-child(5) img {
   height: 36px;
   width: auto;
 }
 
+/* --- 6) sitemap link columns --- */
+footer .footer > div > div:nth-child(6) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 32px;
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 32px;
+  padding-bottom: 24px;
+}
+
+footer .footer > div > div:nth-child(6) h3 {
+  margin: 20px 0 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer > div > div:nth-child(6) ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer > div > div:nth-child(6) ul li {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+footer .footer > div > div:nth-child(6) a:any-link {
+  color: #f4faff;
+}
+
+/* --- 7) regulatory / ISO line --- */
+footer .footer > div > div:nth-child(7) {
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 24px;
+  padding-bottom: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 @media (width >= 600px) {
-  footer .footer > div > div:nth-child(1) {
+  footer .footer > div > div:nth-child(5) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  footer .footer > div > div:nth-child(7) {
+  footer .footer > div > div:nth-child(6) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -211,17 +214,17 @@ footer .footer > div > div:nth-child(7) img {
     padding-right: 32px;
   }
 
-  footer .footer > div > div:nth-child(1) {
+  footer .footer > div > div:nth-child(5) {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  footer .footer > div > div:nth-child(7) {
+  footer .footer > div > div:nth-child(6) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (width >= 1200px) {
-  footer .footer > div > div:nth-child(1) {
+  footer .footer > div > div:nth-child(6) {
     grid-template-columns: repeat(5, 1fr);
   }
 }
