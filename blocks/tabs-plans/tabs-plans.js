@@ -95,6 +95,35 @@ function groupCards(panel) {
 
   carousel.append(prev, track, next);
   cell.appendChild(carousel);
+
+  // Pagination dots below the track — one per card, matching the live page.
+  // Clicking a dot scrolls that card into view; scrolling highlights the dot
+  // nearest the track's left edge.
+  const dots = document.createElement('div');
+  dots.className = 'tabs-plans-dots';
+  cards.forEach((c, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'tabs-plans-dot';
+    dot.setAttribute('aria-label', `Go to plan ${i + 1}`);
+    dot.addEventListener('click', () => {
+      track.scrollTo({ left: c.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    });
+    dots.appendChild(dot);
+  });
+  const dotEls = [...dots.children];
+  const syncDots = () => {
+    let active = 0;
+    let min = Infinity;
+    cards.forEach((c, i) => {
+      const d = Math.abs(c.offsetLeft - track.offsetLeft - track.scrollLeft);
+      if (d < min) { min = d; active = i; }
+    });
+    dotEls.forEach((d, i) => d.setAttribute('aria-current', i === active ? 'true' : 'false'));
+  };
+  track.addEventListener('scroll', () => window.requestAnimationFrame(syncDots), { passive: true });
+  syncDots();
+  cell.appendChild(dots);
 }
 
 export default async function decorate(block) {
