@@ -244,6 +244,19 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
+  // "Call to Buy" renders as a thin strip below the nav bar (matching the live
+  // page), not as a nav-tools item. Move that link into its own header strip.
+  const callToBuy = [...nav.querySelectorAll('.nav-tools a')]
+    .find((a) => /call to buy/i.test(a.textContent));
+  if (callToBuy) {
+    const li = callToBuy.closest('li');
+    const strip = document.createElement('div');
+    strip.className = 'nav-call-to-buy';
+    strip.append(callToBuy);
+    if (li) li.remove();
+    navWrapper.append(strip);
+  }
+
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     navWrapper.append(await buildBreadcrumbs());
   }

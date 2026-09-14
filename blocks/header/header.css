@@ -350,6 +350,29 @@ header nav .nav-hamburger button {
   color: #fff;
 }
 
+/* "Call to Buy" strip — thin band below the nav bar, above the hero (matches
+   the live page). Right-aligned dark text on a light background. */
+header .nav-call-to-buy {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: auto;
+  max-width: 1248px;
+  padding: 8px 24px;
+}
+
+header .nav-call-to-buy a:any-link {
+  color: rgb(19 22 25);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+header .nav-call-to-buy a:hover {
+  text-decoration: underline;
+}
+
 /* tools row: call/search/login, right-aligned, white */
 header nav .nav-tools ul {
   list-style: none;
