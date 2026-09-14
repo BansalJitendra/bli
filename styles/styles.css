@@ -349,37 +349,65 @@ main .section.accordion-faq-container .default-content-wrapper img {
   height: auto;
 }
 
-/* ---- "Plans For Your Every Life Goal" — tall image on the left, tabs +
-   card carousel on the right (matches the live page). Only the FIRST two
-   blocks of this section (title/image wrapper + tabs carousel) form the
-   2-column row; the "Why Bajaj" stats below stay full width. ---- */
+/* ---- Combined "Plans For Your Every Life Goal" + "Why Bajaj Life Insurance"
+   section. Two 2-column rows on the live page:
+   Row 1 — tall image (left) + tabs/plan carousel (right).
+   Row 2 — "Why Bajaj" title (full width), then 6 stat cards (left) +
+           Claim-Settlement-Ratio image (right).
+   A 12-column grid handles the different column splits per row. ---- */
 @media (width >= 900px) {
   main .section.tabs-plans-container.cards-stat-container {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: repeat(12, 1fr);
     column-gap: 24px;
     align-items: start;
   }
 
-  /* title + tall image occupy the left column, top row */
+  /* Row 1: title + tall image (left ~third) */
   main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:first-child {
-    grid-column: 1;
+    grid-column: 1 / 4;
     grid-row: 1;
     align-self: start;
   }
 
-  /* tabs + plan carousel occupy the right column, top row */
+  /* Row 1: tabs + plan carousel (right) */
   main .section.tabs-plans-container.cards-stat-container > .tabs-plans-wrapper {
-    grid-column: 2;
+    grid-column: 4 / 13;
     grid-row: 1;
-    min-width: 0;   /* allow the carousel to shrink within the column */
+    min-width: 0;
   }
 
-  /* everything after (Why Bajaj heading, stats, disclaimer) spans full width */
-  main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:not(:first-child),
-  main .section.tabs-plans-container.cards-stat-container > .cards-stat-wrapper {
-    grid-column: 1 / -1;
+  /* Row 2: "Why Bajaj" heading + intro spans full width */
+  main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:nth-child(3) {
+    grid-column: 1 / 13;
+    grid-row: 2;
   }
+
+  /* Row 3: 6 stat cards on the left */
+  main .section.tabs-plans-container.cards-stat-container > .cards-stat-wrapper {
+    grid-column: 1 / 8;
+    grid-row: 3;
+    min-width: 0;
+  }
+
+  /* Row 3: Claim-Settlement-Ratio image on the right */
+  main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:nth-child(5) {
+    grid-column: 8 / 13;
+    grid-row: 3;
+    align-self: center;
+  }
+
+  /* stats sit in a narrow left column now → 3 per row (2 rows of 3), not 6 */
+  main .section.tabs-plans-container.cards-stat-container .cards-stat > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Claim-Settlement-Ratio image fills its right column */
+main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:nth-child(5) img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
