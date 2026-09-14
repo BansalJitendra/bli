@@ -47,6 +47,13 @@ export default function decorate(block) {
     img.closest('picture').replaceWith(optimizedPic);
   });
 
+  // If the cards are numbered (step numbers, no icons), ensure the "numbered"
+  // variant styling applies even when that variant class was stripped during
+  // the content round-trip (the JCR conversion drops block modifiers).
+  if (ul.querySelector('.cards-benefit-card-num')) {
+    block.classList.add('numbered');
+  }
+
   block.textContent = '';
   block.append(ul);
 }

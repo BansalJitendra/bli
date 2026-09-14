@@ -310,7 +310,13 @@ main .section.cards-stat-container > .default-content-wrapper > h2,
 main .section.video-gallery-container > .default-content-wrapper > h2,
 main .section.carousel-review-container > .default-content-wrapper > h2,
 main .section.cards-contact-container > .default-content-wrapper > h2,
+main .section.cards-benefit-container > .default-content-wrapper > h2,
 main .section.guide-text > .default-content-wrapper > h2 {
+  text-align: center;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.cards-benefit-container > .default-content-wrapper > p {
   text-align: center;
 }
 
@@ -320,6 +326,7 @@ main .section.disclaimer {
   padding: 12px 0 24px;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.disclaimer p {
   margin: 0;
   color: #5c666e;
@@ -358,6 +365,7 @@ main .section.claims-bar .default-content-wrapper {
   gap: 16px;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.claims-bar p {
   margin: 0;
   font-size: 18px;
