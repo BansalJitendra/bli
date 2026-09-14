@@ -299,6 +299,22 @@ main .section.blue-gradient h3 {
   color: #fff;
 }
 
+/* Section-header alignment — match the live page: most section titles are
+   centered; a few (Types/Benefits of Life Insurance, Life Insurance Guide,
+   FAQ) stay left-aligned. Center the section-header H2 (and the Life Insurance
+   intro paragraph) per section container. The guide-text body stays left. */
+main .section.cards-category-container > .default-content-wrapper > h2,
+main .section.tabs-plans-container > .default-content-wrapper > h2,
+main .section.cards-quicklink-container > .default-content-wrapper > h2,
+main .section.cards-stat-container > .default-content-wrapper > h2,
+main .section.video-gallery-container > .default-content-wrapper > h2,
+main .section.carousel-review-container > .default-content-wrapper > h2,
+main .section.cards-contact-container > .default-content-wrapper > h2,
+main .section.guide-text > .default-content-wrapper > h2 {
+  text-align: center;
+}
+
+
 /* disclaimer — small muted footnote text (e.g. the "Why Bajaj" stat notes) */
 main .section.disclaimer {
   padding: 12px 0 24px;
@@ -350,6 +366,7 @@ main .section.claims-bar p {
 /* guide-text — explanatory prose sections (e.g. "Understanding How Life
    Insurance Works"). Smaller, lighter type scale than the global headings,
    matching the source .titleText component. */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.guide-text h2 {
   margin: 0;
   color: #000;
@@ -366,6 +383,7 @@ main .section.guide-text h3 {
   line-height: 1.2;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.guide-text p {
   margin: 10px 0 0;
   color: #131619;
@@ -374,6 +392,7 @@ main .section.guide-text p {
   line-height: 1.375;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.guide-text h2 + p {
   margin-top: 10px;
 }
@@ -448,6 +467,7 @@ main .section.app-promo .default-content-wrapper {
   color: #fff;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper p {
   margin: 8px 0;
   font-size: 16px;
@@ -558,3 +578,11 @@ main .section.form-container .default-content-wrapper p img {
     margin-left: auto;
   }
 }
+
+/* center the intro paragraph under the Life Insurance / Why Bajaj titles */
+/* stylelint-disable no-descending-specificity */
+main .section.cards-category-container > .default-content-wrapper > h2 ~ p,
+main .section.cards-stat-container > .default-content-wrapper > h2 ~ p {
+  text-align: center;
+}
+/* stylelint-enable no-descending-specificity */
