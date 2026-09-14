@@ -356,32 +356,33 @@ main .section.guide-text h2 + p {
   margin-top: 10px;
 }
 
-/* ---- Hero band — banner artwork on the left, lead form on the right ----
-   Source: the hero is one cohesive band with the banner occupying the left
-   and the "Get a Call Back" form beside it on the right (no empty gap). */
+/* ---- Hero band — full-width banner with the lead form overlaid on the right ----
+   Source: the banner artwork spans the full band width (tall, ~1322/300 ratio)
+   and the "Get a Call Back" form floats over its right side. */
 @media (width >= 900px) {
   main .section.carousel-hero-container {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    position: relative;
     max-width: var(--section-width, 1200px);
     margin: 0 auto;
-    padding: 12px 24px;
+    padding: 24px;
   }
 
-  /* banner takes the remaining width (override the block's full-bleed rule) */
+  /* banner fills the full band width so it renders tall like the source */
   main .section.carousel-hero-container > .carousel-hero-wrapper {
-    flex: 1 1 auto;
-    min-width: 0;
     max-width: none !important;
+    padding: 0 !important;
   }
 
-  /* form sits on the right as a fixed-width card */
+  /* form floats over the right side of the banner */
   main .section.carousel-hero-container > .form-wrapper {
-    flex: 0 0 320px;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    z-index: 2;
     width: 320px;
     margin: 0;
     padding: 0;
+    transform: translateY(-50%);
   }
 }
 
