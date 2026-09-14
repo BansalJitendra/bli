@@ -320,6 +320,35 @@ main .section.cards-benefit-container > .default-content-wrapper > p {
   text-align: center;
 }
 
+/* ---- FAQ section — accordion bars on the left, illustration on the right
+   (matches the live page). The image lives in the title wrapper; pin it to the
+   top-right and inset the accordion so it fills the left column. ---- */
+@media (width >= 900px) {
+  main .section.accordion-faq-container {
+    position: relative;
+  }
+
+  /* illustration pinned to the right, aligned with the accordion band */
+  main .section.accordion-faq-container > .default-content-wrapper:first-child p:has(img) {
+    position: absolute;
+    top: 64px;
+    right: 0;
+    width: 320px;
+    margin: 0;
+  }
+
+  /* accordion bars occupy the left column, clearing the pinned image */
+  main .section.accordion-faq-container > .accordion-faq-wrapper {
+    margin-right: 372px;
+  }
+}
+
+main .section.accordion-faq-container .default-content-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* ---- "Plans For Your Every Life Goal" — tall image on the left, tabs +
    card carousel on the right (matches the live page). Only the FIRST two
    blocks of this section (title/image wrapper + tabs carousel) form the
