@@ -90,16 +90,22 @@ export default async function decorate(block) {
     slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-hero-slide-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
+
+    // Bottom controls row: prev arrow · dots · next arrow (matches live page).
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'slide-prev';
+    prevBtn.setAttribute('aria-label', placeholders.previousSlide || 'Previous Slide');
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'slide-next';
+    nextBtn.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-hero-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class="slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
-      <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
-    `;
-    container.append(slideNavButtons);
+    slideNavButtons.append(prevBtn, slideIndicators, nextBtn);
+    slideIndicatorsNav.append(slideNavButtons);
+    block.append(slideIndicatorsNav);
   }
 
   rows.forEach((row, idx) => {
