@@ -15,14 +15,20 @@ function buildCards(panel) {
   const isHeading = (el) => /^H[1-6]$/.test(el.tagName);
   const hasImage = (el) => el.querySelector && el.querySelector('picture, img');
 
-  // A new resource card begins at a card image OR a heading (the thumbnails are
-  // dropped during import to keep md2jcr happy, so heading is the reliable
-  // per-card boundary — otherwise every item collapses into one card).
+  // A new resource card begins at a card image, or at a heading only when the
+  // card wasn't already started by its leading image. This keeps an
+  // image + heading pair together in one card (when images are present) while
+  // still splitting on headings alone (when thumbnails were dropped on import).
+  let startedByImage = false;
   nodes.forEach((node) => {
-    if (hasImage(node) || isHeading(node)) {
+    const img = hasImage(node);
+    if (img || (isHeading(node) && !startedByImage)) {
       current = document.createElement('div');
       current.className = 'tabs-guide-card';
       cards.push(current);
+      startedByImage = !!img;
+    } else if (!isHeading(node)) {
+      startedByImage = false;
     }
     if (!current) {
       current = document.createElement('div');
