@@ -60,12 +60,18 @@
   display: none;
 }
 
-/* ---- Card carousel (horizontal scroll + arrows, matches source) ---- */
+/* ---- Card carousel (horizontal scroll; arrows sit in the controls row) ---- */
 .tabs-plans .tabs-plans-carousel {
   position: relative;
+}
+
+/* bottom controls row: prev · dots · next, centered */
+.tabs-plans .tabs-plans-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .tabs-plans .tabs-plans-cards {
@@ -86,7 +92,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 20px 0 0;
+  margin: 0;
 }
 
 .tabs-plans .tabs-plans-dot {

@@ -287,8 +287,7 @@ export default async function decorate(block) {
       img.alt = 'Menu';
       img.className = 'nav-tools-icon';
       btn.append(img);
-      // eslint-disable-next-line no-use-before-define
-      btn.addEventListener('click', () => toggleMenu(nav, navSections));
+      btn.dataset.menuToggle = 'true';
       li.append(btn);
       toolsList.append(li);
     }
@@ -320,9 +319,55 @@ export default async function decorate(block) {
     const li = callToBuy.closest('li');
     const strip = document.createElement('div');
     strip.className = 'nav-call-to-buy';
+    // phone icon before the "Call to Buy" text (matches the live page)
+    if (!callToBuy.querySelector('img')) {
+      const icon = document.createElement('img');
+      icon.src = 'https://main--bli--bansaljitendra.aem.live/icons/call-to-buy.webp';
+      icon.alt = '';
+      icon.className = 'nav-call-to-buy-icon';
+      callToBuy.prepend(icon);
+    }
     strip.append(callToBuy);
     if (li) li.remove();
     navWrapper.append(strip);
+  }
+
+  // Hamburger menu panel: a dropdown box listing the main nav links, opened by
+  // the tools-row hamburger (matches the live page's menu). Built from the
+  // nav-sections top-level items so it stays in sync with the nav content.
+  const menuToggle = nav.querySelector('[data-menu-toggle]');
+  if (menuToggle && navSections) {
+    const panel = document.createElement('div');
+    panel.className = 'nav-menu-panel';
+    panel.setAttribute('aria-hidden', 'true');
+    const list = document.createElement('ul');
+    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((item) => {
+      const link = item.querySelector(':scope > a');
+      const label = link ? link.textContent.trim() : (getDirectTextContent(item) || '').trim();
+      if (!label) return;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = link ? link.getAttribute('href') : '#';
+      a.textContent = label;
+      li.append(a);
+      list.append(li);
+    });
+    panel.append(list);
+    navWrapper.append(panel);
+
+    const closePanel = () => {
+      panel.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    };
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = panel.getAttribute('aria-hidden') === 'false';
+      panel.setAttribute('aria-hidden', open ? 'true' : 'false');
+      menuToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && !menuToggle.contains(e.target)) closePanel();
+    });
   }
 
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {

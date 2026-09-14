@@ -93,12 +93,13 @@ function groupCards(panel) {
   prev.addEventListener('click', () => scrollByCard(-1));
   next.addEventListener('click', () => scrollByCard(1));
 
-  carousel.append(prev, track, next);
+  // The track spans full width; prev/next arrows live in the bottom controls
+  // row alongside the dots (matches the live page) rather than flanking it.
+  carousel.append(track);
   cell.appendChild(carousel);
 
-  // Pagination dots below the track — one per card, matching the live page.
-  // Clicking a dot scrolls that card into view; scrolling highlights the dot
-  // nearest the track's left edge.
+  // Pagination dots — one per card. Clicking a dot scrolls that card into
+  // view; scrolling highlights the dot nearest the track's left edge.
   const dots = document.createElement('div');
   dots.className = 'tabs-plans-dots';
   cards.forEach((c, i) => {
@@ -123,7 +124,12 @@ function groupCards(panel) {
   };
   track.addEventListener('scroll', () => window.requestAnimationFrame(syncDots), { passive: true });
   syncDots();
-  cell.appendChild(dots);
+
+  // bottom controls row: prev arrow · dots · next arrow (centered)
+  const controls = document.createElement('div');
+  controls.className = 'tabs-plans-controls';
+  controls.append(prev, dots, next);
+  cell.appendChild(controls);
 }
 
 export default async function decorate(block) {
