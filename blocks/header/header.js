@@ -199,6 +199,17 @@ export default async function decorate(block) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
   }
+  // The brand logo <img> is stripped during the nav content round-trip
+  // (external image inside the home link), so the delivery nav has an empty
+  // link. Inject the logo here if the brand link has no image.
+  const brandAnchor = navBrand && navBrand.querySelector('a');
+  if (brandAnchor && !brandAnchor.querySelector('img')) {
+    const logo = document.createElement('img');
+    logo.src = 'https://main--bli--bansaljitendra.aem.live/icons/bajaj-life-logo.gif';
+    logo.alt = 'Bajaj Life Insurance Limited Logo';
+    logo.className = 'nav-brand-logo';
+    brandAnchor.append(logo);
+  }
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
