@@ -174,15 +174,27 @@ function decorateAppPromo(main) {
   main.querySelectorAll('.section.app-promo .default-content-wrapper').forEach((wrapper) => {
     if (wrapper.dataset.appPromoDecorated) return;
     wrapper.dataset.appPromoDecorated = 'true';
-    [...wrapper.querySelectorAll('p')].forEach((p) => {
+    // A feature-bullet is a small icon (no app-store/QR badge, no link). We
+    // detect an icon-only <p> and pair it with its label; or a paired <p> that
+    // already holds icon + text. Exclude the app-store badges (inside <a>) and
+    // the QR (last child).
+    const isBulletIcon = (p) => {
       const img = p.querySelector('img');
-      if (!img || !/favorite|star/i.test(img.src)) return;
+      if (!img || p.querySelector('a')) return false;
+      if (p === p.parentElement.lastElementChild) return false; // QR
+      return true;
+    };
+    [...wrapper.querySelectorAll('p')].forEach((p) => {
+      if (!isBulletIcon(p)) return;
       const iconOnly = !p.textContent.trim();
       if (iconOnly) {
-        // Split case (deployed content): icon is alone in its own <p>, after
-        // its label. Move the icon to the front of the preceding label <p>.
-        const label = p.previousElementSibling;
-        if (label && label.tagName === 'P' && label.textContent.trim() && !label.querySelector('a')) {
+        // Split case (deployed content): icon alone in its own <p>. Pair it
+        // with the adjacent label <p> (previous, else next).
+        const usable = (el) => el && el.tagName === 'P' && el.textContent.trim()
+          && !el.querySelector('a') && !el.querySelector('img');
+        let label = p.previousElementSibling;
+        if (!usable(label)) label = p.nextElementSibling;
+        if (usable(label)) {
           label.classList.add('app-promo-feature');
           label.insertBefore(p.firstElementChild, label.firstChild);
           p.remove();
