@@ -1,4 +1,6 @@
-/* Bajaj Life footer — dark-blue, multi-column link grid, social row, notice */
+/* Bajaj Life footer — dark-blue, matches live page section order:
+   1) link columns  2) policy links row  3) copyright  4) BEWARE notice
+   5) fraud CTA buttons  6) regulatory line  7) contact / reg-office / app / social */
 footer {
   background-color: var(--brand-primary, #005eac);
   color: #fff;
@@ -8,7 +10,7 @@ footer {
 footer .footer > div > div {
   margin: auto;
   max-width: 1400px;
-  padding: 32px 24px;
+  padding: 24px;
 }
 
 footer .footer p {
@@ -24,42 +26,23 @@ footer .footer a:hover {
   text-decoration: underline;
 }
 
-/* --- social / app-store row (first section) --- */
-footer .footer > div > div:first-child {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px;
-  border-bottom: 1px solid rgb(255 255 255 / 25%);
-}
-
-footer .footer > div > div:first-child p {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-footer .footer > div > div:first-child img {
-  height: 32px;
-  width: auto;
-}
-
-/* --- link columns (second section) --- */
-footer .footer > div > div:nth-child(2) {
+/* --- 1) link columns (first section) --- */
+footer .footer > div > div:nth-child(1) {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px 32px;
-  border-bottom: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 40px;
+  padding-bottom: 32px;
 }
 
-footer .footer > div > div:nth-child(2) h3 {
+footer .footer > div > div:nth-child(1) h3 {
   margin: 20px 0 8px;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
 }
 
-footer .footer > div > div:nth-child(2) ul {
+footer .footer > div > div:nth-child(1) ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -68,49 +51,173 @@ footer .footer > div > div:nth-child(2) ul {
   gap: 6px;
 }
 
-footer .footer > div > div:nth-child(2) ul li {
+footer .footer > div > div:nth-child(1) ul li {
   font-size: 14px;
   font-weight: 300;
 }
 
-footer .footer > div > div:nth-child(2) a:any-link {
+footer .footer > div > div:nth-child(1) a:any-link {
   color: #f4faff;
 }
 
-/* --- notice / copyright (third section) --- */
-footer .footer > div > div:last-child {
+/* --- 2) policy links row (Unclaimed Data … Blacklisted Agents) --- */
+footer .footer > div > div:nth-child(2) {
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 24px;
+}
+
+footer .footer > div > div:nth-child(2) ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 32px;
+}
+
+footer .footer > div > div:nth-child(2) ul li {
   font-size: 14px;
-  line-height: 1.5;
-  color: #f2f2f2;
+  font-weight: 500;
 }
 
-footer .footer > div > div:last-child p {
-  margin: 0 0 10px;
-}
-
-footer .footer > div > div:last-child a:any-link {
-  color: #fff;
+footer .footer > div > div:nth-child(2) a:any-link {
   text-decoration: underline;
 }
 
+/* --- 3) copyright --- */
+footer .footer > div > div:nth-child(3) {
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 20px;
+  padding-bottom: 4px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* --- 4) BEWARE notice box (bordered) --- */
+footer .footer > div > div:nth-child(4) {
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 8px;
+  padding: 20px 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+footer .footer > div > div:nth-child(4) p:first-child {
+  margin-bottom: 8px;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+footer .footer > div > div:nth-child(4) p {
+  font-size: 14px;
+}
+
+/* --- 5) fraud CTA buttons (outlined pill row) --- */
+footer .footer > div > div:nth-child(5) {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+footer .footer > div > div:nth-child(5) p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer .footer > div > div:nth-child(5) a:any-link {
+  padding: 12px 24px;
+  border: 1px solid rgb(255 255 255 / 60%);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+footer .footer > div > div:nth-child(5) a:hover {
+  background-color: rgb(255 255 255 / 12%);
+}
+
+/* --- 6) regulatory / ISO line --- */
+footer .footer > div > div:nth-child(6) {
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 24px;
+  padding-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* --- 7) bottom bar: contact / reg-office / download / social --- */
+footer .footer > div > div:nth-child(7) {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px 32px;
+  border-top: 1px solid rgb(255 255 255 / 25%);
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+footer .footer > div > div:nth-child(7) h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+footer .footer > div > div:nth-child(7) p {
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+footer .footer > div > div:nth-child(7) a:any-link {
+  color: #f4faff;
+}
+
+/* app-store + social icon rows inside the bottom bar */
+footer .footer > div > div:nth-child(7) p:has(img) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+footer .footer > div > div:nth-child(7) img {
+  height: 36px;
+  width: auto;
+}
+
 @media (width >= 600px) {
-  footer .footer > div > div:nth-child(2) {
+  footer .footer > div > div:nth-child(1) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  footer .footer > div > div:nth-child(7) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (width >= 900px) {
   footer .footer > div > div {
-    padding: 40px 32px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
-  footer .footer > div > div:nth-child(2) {
+  footer .footer > div > div:nth-child(1) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  footer .footer > div > div:nth-child(7) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (width >= 1200px) {
-  footer .footer > div > div:nth-child(2) {
+  footer .footer > div > div:nth-child(1) {
     grid-template-columns: repeat(5, 1fr);
   }
 }
