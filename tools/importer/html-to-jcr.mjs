@@ -244,6 +244,25 @@ function collectRefDefs(md) {
   return refs;
 }
 
+/**
+ * Replace surviving reference-style image markers `![alt][id]` in converted XML
+ * with inline `<img>` HTML (properly XML-escaped so it lives inside a richtext
+ * attribute value). Used after a fragment was converted with stripRefDefs, so
+ * the images the big-table repair left unresolved still render.
+ */
+function resolveImageRefs(xml, allRefs) {
+  return xml.replace(/!\[([^\]]*)\]\[([^\]]+)\]/g, (full, alt, id) => {
+    if (!allRefs.has(id)) return full;
+    const a = alt
+      .replace(/\\\|/g, '|')
+      .replace(/&(?!amp;|lt;|gt;|quot;)/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+    return `&lt;img src=&quot;${allRefs.get(id)}&quot; alt=&quot;${a}&quot;&gt;`;
+  });
+}
+
 /** Append the ref definitions a fragment references (`![x][id]` / `[x][id]`). */
 function appendRefs(frag, allRefs) {
   const ids = new Set();
@@ -256,22 +275,46 @@ function appendRefs(frag, allRefs) {
   return `${frag}\n\n${defs}\n`;
 }
 
+// True when md2jcr output leaked raw grid-table markdown into a field value
+// (borders `+---+` survive as literal text) — the block did not map cleanly.
+function xmlLeaksTable(xml) {
+  return /text="(&lt;p&gt;)?\s*\+-{3,}/.test(xml)
+    || /_richtext="(&lt;p&gt;)?\s*\+-{3,}/.test(xml)
+    || /="[^"]*\+-{4,}\+/.test(xml);
+}
+
+// Drop `[id]: url` reference definitions but KEEP `![alt][id]` image markers.
+// Large tables (e.g. tabs-guide with 20+ tiles) mis-parse in md2jcr when the
+// image URLs resolve into the grid cells, but map cleanly when the images stay
+// as unresolved ref markers. We resolve those markers to <img> tags afterwards
+// (see resolveImageRefs), so no image is lost.
+function stripRefDefs(md) {
+  return md.replace(/^\[[^\]]+\]:\s+\S+\s*$/gm, '').replace(/\n{3,}/g, '\n\n');
+}
+
 async function convertFragment(md, opts, label) {
-  // Keep reference-style images (md2jcr resolves those; inline images are dropped).
+  // Try, in order: (1) as-is with resolved ref images; (2) inline images;
+  // (3) ref markers with NO definitions (parses the big tables md2jcr otherwise
+  // corrupts — images resolved later). Prefer the first NON-LEAKY result;
+  // fall back to the first that at least parsed without throwing.
   const repairs = [
     (s) => s,
-    (s) => inlineRefs(s), // fallback for blocks that prefer inline
+    (s) => inlineRefs(s),
+    (s) => stripRefDefs(s),
   ];
   let lastErr;
+  let firstParsed = null;
   for (const repair of repairs) {
     try {
       // eslint-disable-next-line no-await-in-loop
       const xml = await md2jcr(repair(md), opts);
-      return xml;
+      if (firstParsed === null) firstParsed = xml;
+      if (!xmlLeaksTable(xml)) return xml;
     } catch (e) {
       lastErr = e;
     }
   }
+  if (firstParsed !== null) return firstParsed;
   console.warn(`  ⚠️  section "${label}" failed all repairs: ${lastErr?.message?.split('\n')[0]}`);
   return null;
 }
@@ -402,7 +445,9 @@ async function main() {
   // "section". Sibling JCR nodes MUST have unique names or AEM keeps only the
   // last — so renumber every top-level <section ...> across the assembled body
   // to section, section_1, section_2, ... (matching AEM's own convention).
-  const bodyChildren = renumberSections(parts.join('\n'));
+  // Resolve any image ref markers that survived the stripRefDefs repair path
+  // (large tables converted without resolved images) into inline <img> tags.
+  const bodyChildren = resolveImageRefs(renumberSections(parts.join('\n')), allRefs);
 
   const esc = (s) => (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const pageProps = [
