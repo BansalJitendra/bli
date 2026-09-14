@@ -634,13 +634,14 @@ main .section.app-promo {
   padding: 0 32px;
 }
 
-/* rounded blue card holding all the content (matches the live card) */
+/* rounded blue card holding all the content (matches the live card):
+   dark navy on the left (behind the phone), lighter blue on the right. */
 main .section.app-promo .default-content-wrapper {
   max-width: var(--section-width, 1200px);
   margin: 0 auto;
   padding: 32px;
   border-radius: 20px;
-  background: linear-gradient(120deg, #003b73 0%, #005eac 55%, #2a83d4 100%);
+  background: linear-gradient(276deg, #52aee2 6%, #0d438d 101%);
   color: #fff;
 }
 
@@ -693,63 +694,55 @@ main .section.app-promo .default-content-wrapper p:last-child img {
   margin: 0;
 }
 
-/* ---- Desktop 3-column layout: phone mockup | text | QR code ----
-   A CSS grid where the phone (left) and QR (right) span all rows, and the
-   middle text column packs its rows compactly at the vertical centre so the
-   card stays short (matching the live ~400px height). ---- */
+/* ---- Desktop layout (matches live): phone pinned bottom-left, text column
+   top-aligned in the middle, "Scan to Download" + QR pinned bottom-right.
+   The card is a fixed ~400px tall band. ---- */
 @media (width >= 900px) {
   main .section.app-promo .default-content-wrapper {
-    display: grid;
-    grid-template-columns: 340px 1fr 160px;
-    grid-auto-rows: min-content;
-    align-content: center;
-    justify-items: start;
-    gap: 4px 40px;
-    padding: 28px 48px;
+    position: relative;
+    min-height: 400px;
+    padding: 36px 200px 36px 340px;   /* left gutter for phone, right for QR */
   }
 
-  /* phone mockup — first paragraph, left column, spans all rows, centred */
+  /* phone mockup — bottom-left, overlapping the card edge */
   main .section.app-promo .default-content-wrapper > p:first-child {
-    grid-column: 1;
-    grid-row: 1 / -1;
-    place-self: center;
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    width: 320px;
     margin: 0;
   }
 
   main .section.app-promo .default-content-wrapper > p:first-child img {
-    width: 340px;
+    display: block;
+    width: 100%;
     max-width: none;
     height: auto;
   }
 
-  /* title spans the centre column */
-  main .section.app-promo .default-content-wrapper > h2 {
-    grid-column: 2;
-    align-self: end;
+  /* middle text column — top-aligned, left of the QR */
+  main .section.app-promo .default-content-wrapper > h2,
+  main .section.app-promo .default-content-wrapper > p:not(:first-child, :last-child, :nth-last-child(2)) {
+    margin: 0 0 10px;
   }
 
-  /* QR image — last paragraph, right column, spans all rows, centred */
-  main .section.app-promo .default-content-wrapper > p:last-child {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    place-self: center;
-    margin: 0;
-  }
-
-  /* "Scan to Download" label — sits above the QR on the right */
+  /* "Scan to Download" label — above the QR, bottom-right */
   main .section.app-promo .default-content-wrapper > p:nth-last-child(2) {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    place-self: start center;
-    margin-top: 40px;
+    position: absolute;
+    right: 32px;
+    bottom: 158px;
+    width: 130px;
+    margin: 0;
     font-size: 14px;
     text-align: center;
   }
 
-  /* everything else flows down the centre column, tightly spaced */
-  main .section.app-promo .default-content-wrapper > p:not(:first-child, :last-child, :nth-last-child(2)) {
-    grid-column: 2;
-    justify-self: start;
+  /* QR image — bottom-right corner */
+  main .section.app-promo .default-content-wrapper > p:last-child {
+    position: absolute;
+    right: 32px;
+    bottom: 24px;
+    width: 124px;
     margin: 0;
   }
 }
