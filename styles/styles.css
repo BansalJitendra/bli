@@ -325,6 +325,28 @@ main .section.disclaimer a:hover {
   text-decoration: underline;
 }
 
+/* claims-bar — dark-blue stats strip under the storefront row
+   ("Number of Claims Settled" + "How can we help you today?"). */
+main .section.claims-bar {
+  margin: 0;
+  padding: 20px 0;
+  background-color: var(--background-dark-blue, #003b73);
+  color: #fff;
+}
+
+main .section.claims-bar .default-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+main .section.claims-bar p {
+  margin: 0;
+  font-size: 18px;
+}
+
 /* guide-text — explanatory prose sections (e.g. "Understanding How Life
    Insurance Works"). Smaller, lighter type scale than the global headings,
    matching the source .titleText component. */

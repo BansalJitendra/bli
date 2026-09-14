@@ -87,3 +87,36 @@
     row-gap: 12px;
   }
 }
+
+/* ---- storefront variant — product promo row under the hero ----
+   icon on top, dark-blue eyebrow pill, blue title (link), green benefit pill. */
+.cards-category.storefront .cards-category-card-body h3 {
+  margin: 12px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--brand-primary, #005eac);
+}
+
+.cards-category.storefront .cards-category-card-body h3 a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* eyebrow pill — first plain paragraph */
+.cards-category.storefront .cards-category-card-body p:first-of-type {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  background-color: var(--brand-primary, #005eac);
+}
+
+/* benefit line — last plain paragraph (green pill, reuse base look) */
+.cards-category.storefront .cards-category-card-body p:last-of-type {
+  margin: 10px 0 0;
+}
