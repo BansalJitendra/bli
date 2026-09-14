@@ -92,6 +92,28 @@ main .cards-contact a.button:any-link {
   text-align: center;
 }
 
+/* Phone/email links must NOT be CTAs (only "Locate Branch" is) — even though
+   decorateButtons tags standalone links as .button, render tel:/mailto: as
+   plain inline links. */
+main .cards-contact .button-container:has(a[href^="tel:"]),
+main .cards-contact .button-container:has(a[href^="mailto:"]) {
+  margin: 0 0 8px;
+}
+
+main .cards-contact a.button[href^="tel:"]:any-link,
+main .cards-contact a.button[href^="mailto:"]:any-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+
 /* image cell (only used if a card carries a picture) */
 .cards-contact .cards-contact-card-image {
   line-height: 0;
