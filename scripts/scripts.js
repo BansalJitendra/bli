@@ -163,6 +163,38 @@ function decorateClaimsBar(main) {
   });
 }
 
+/**
+ * Re-pair the app-promo feature rows. The content conversion splits each
+ * "<img> label" feature into two separate paragraphs (label first, then the
+ * bullet icon). Merge each feature icon back in front of its label as a single
+ * flex row so the icon and text sit on one line (matching the live page).
+ * @param {Element} main The main element
+ */
+function decorateAppPromo(main) {
+  main.querySelectorAll('.section.app-promo .default-content-wrapper').forEach((wrapper) => {
+    if (wrapper.dataset.appPromoDecorated) return;
+    wrapper.dataset.appPromoDecorated = 'true';
+    [...wrapper.querySelectorAll('p')].forEach((p) => {
+      const img = p.querySelector('img');
+      if (!img || !/favorite|star/i.test(img.src)) return;
+      const iconOnly = !p.textContent.trim();
+      if (iconOnly) {
+        // Split case (deployed content): icon is alone in its own <p>, after
+        // its label. Move the icon to the front of the preceding label <p>.
+        const label = p.previousElementSibling;
+        if (label && label.tagName === 'P' && label.textContent.trim() && !label.querySelector('a')) {
+          label.classList.add('app-promo-feature');
+          label.insertBefore(p.firstElementChild, label.firstChild);
+          p.remove();
+        }
+      } else {
+        // Paired case (local preview): icon + label already in one <p>.
+        p.classList.add('app-promo-feature');
+      }
+    });
+  });
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
@@ -172,6 +204,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateClaimsBar(main);
+  decorateAppPromo(main);
   // add aria-label to links
   a11yLinks(main);
 }

@@ -659,11 +659,13 @@ main .section.app-promo .default-content-wrapper h2 {
   line-height: 1.2;
 }
 
-/* feature-list rows: icon + label on one aligned line */
-main .section.app-promo .default-content-wrapper p:has(picture):not(:last-child) {
+/* feature-list rows: icon + label on one aligned line (JS re-pairs the
+   split icon/label paragraphs into .app-promo-feature) */
+main .section.app-promo .default-content-wrapper p.app-promo-feature {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 8px 0;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
