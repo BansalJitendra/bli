@@ -320,6 +320,47 @@ main .section.cards-benefit-container > .default-content-wrapper > p {
   text-align: center;
 }
 
+/* ---- "Plans For Your Every Life Goal" — tall image on the left, tabs +
+   card carousel on the right (matches the live page). Only the FIRST two
+   blocks of this section (title/image wrapper + tabs carousel) form the
+   2-column row; the "Why Bajaj" stats below stay full width. ---- */
+@media (width >= 900px) {
+  main .section.tabs-plans-container.cards-stat-container {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  /* title + tall image occupy the left column, top row */
+  main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  /* tabs + plan carousel occupy the right column, top row */
+  main .section.tabs-plans-container.cards-stat-container > .tabs-plans-wrapper {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;   /* allow the carousel to shrink within the column */
+  }
+
+  /* everything after (Why Bajaj heading, stats, disclaimer) spans full width */
+  main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:not(:first-child),
+  main .section.tabs-plans-container.cards-stat-container > .cards-stat-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.tabs-plans-container.cards-stat-container > .default-content-wrapper:first-child img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+}
+
 
 /* disclaimer — small muted footnote text (e.g. the "Why Bajaj" stat notes) */
 main .section.disclaimer {
@@ -497,6 +538,7 @@ main .section.app-promo .default-content-wrapper h2 {
 }
 
 /* feature-list rows: green star icon inline with the label */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper p img {
   width: 22px;
   height: 22px;
@@ -506,6 +548,7 @@ main .section.app-promo .default-content-wrapper p img {
 }
 
 /* app-store badges */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper a img {
   width: auto;
   height: 44px;
@@ -513,6 +556,7 @@ main .section.app-promo .default-content-wrapper a img {
 }
 
 /* QR code image */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper p:last-child img {
   width: 130px;
   height: 130px;
