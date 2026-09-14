@@ -356,28 +356,33 @@ main .section.guide-text h2 + p {
   margin-top: 10px;
 }
 
-/* ---- Hero band — full-width banner with the lead form overlaid on the right ----
-   Source: the banner artwork spans the full band width (tall, ~1322/300 ratio)
-   and the "Get a Call Back" form floats over its right side. */
+/* ---- Hero band — wide banner with the lead form overlaid on the right ----
+   Source: a wide banner (~1410px, 1322/300 ratio) sits on the white page
+   background with small side gutters — NO dark band behind it — and the
+   "Get a Call Back" form floats over its right side. */
+main .section.carousel-hero-container {
+  background: none;   /* no dark-blue band peeking around the banner */
+}
+
 @media (width >= 900px) {
   main .section.carousel-hero-container {
     position: relative;
-    max-width: var(--section-width, 1200px);
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 0 15px;
   }
 
-  /* banner fills the full band width so it renders tall like the source */
+  /* banner spans the full width so it renders tall like the source */
   main .section.carousel-hero-container > .carousel-hero-wrapper {
     max-width: none !important;
     padding: 0 !important;
   }
 
-  /* form floats over the right side of the banner */
+  /* form floats over the right side of the banner, inset from the edge */
   main .section.carousel-hero-container > .form-wrapper {
     position: absolute;
     top: 50%;
-    right: 24px;
+    right: 40px;
     z-index: 2;
     width: 320px;
     margin: 0;
