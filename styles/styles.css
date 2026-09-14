@@ -659,14 +659,20 @@ main .section.app-promo .default-content-wrapper h2 {
   line-height: 1.2;
 }
 
-/* feature-list rows: green star icon inline with the label */
+/* feature-list rows: icon + label on one aligned line */
+main .section.app-promo .default-content-wrapper p:has(picture):not(:last-child) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper p img {
   width: 22px;
   height: 22px;
-  margin-right: 8px;
+  margin-right: 0;
   object-fit: contain;
-  vertical-align: middle;
+  flex: 0 0 auto;
 }
 
 /* app-store badges */
