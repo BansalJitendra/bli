@@ -90,6 +90,35 @@
 
 /* ---- storefront variant — product promo row under the hero ----
    icon on top, dark-blue eyebrow pill, blue title (link), green benefit pill. */
+
+/* icon sits in normal flow at the top of the card (not the base circular
+   overhanging badge) — otherwise it overlaps the title text. */
+.cards-category.storefront > ul > li {
+  overflow: visible;
+  text-align: center;
+}
+
+.cards-category.storefront .cards-category-card-image {
+  position: static;
+  transform: none;
+  width: auto;
+  height: auto;
+  margin: 0 auto 8px;
+  line-height: 0;
+}
+
+.cards-category.storefront .cards-category-card-image img {
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  object-fit: contain;
+  background: none;
+}
+
+.cards-category.storefront .cards-category-card-body {
+  padding: 16px 12px 18px;
+}
+
 .cards-category.storefront .cards-category-card-body h3 {
   margin: 12px 0 0;
   font-size: 15px;

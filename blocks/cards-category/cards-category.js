@@ -14,6 +14,16 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {
+    // Only EDS-optimize same-origin images. External CDN images (e.g. the
+    // Bajaj DAM absolute URLs) cannot be optimized by EDS — rewriting them
+    // produces a relative srcset that 404s — so leave those untouched.
+    let sameOrigin = false;
+    try {
+      sameOrigin = new URL(img.src, window.location.href).origin === window.location.origin;
+    } catch (e) {
+      sameOrigin = false;
+    }
+    if (!sameOrigin) return;
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
