@@ -99,6 +99,70 @@ function a11yLinks(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
+/**
+ * Decorate the "claims-bar" section to match the live page: render the claims
+ * number as individual digit chips and turn the "I want to" link list into a
+ * dropdown selector that navigates on change.
+ * @param {Element} main The main element
+ */
+function decorateClaimsBar(main) {
+  main.querySelectorAll('.section.claims-bar').forEach((section) => {
+    const wrapper = section.querySelector('.default-content-wrapper');
+    if (!wrapper || wrapper.dataset.claimsDecorated) return;
+    wrapper.dataset.claimsDecorated = 'true';
+
+    // 1. digit chips for the claims number (e.g. "3,16,171" → chips 3 1 6 1 7 1)
+    const numP = [...wrapper.querySelectorAll('p')]
+      .find((p) => /Number of Claims Settled/i.test(p.textContent));
+    if (numP) {
+      const m = numP.innerHTML.match(/([\d,]+)\s*$/);
+      if (m) {
+        const digits = m[1].replace(/[^\d]/g, '');
+        const chips = document.createElement('span');
+        chips.className = 'claims-bar-digits';
+        [...digits].forEach((d) => {
+          const chip = document.createElement('span');
+          chip.className = 'claims-bar-digit';
+          chip.textContent = d;
+          chips.append(chip);
+        });
+        numP.innerHTML = numP.innerHTML.replace(/([\d,]+)\s*$/, '');
+        numP.append(chips);
+      }
+    }
+
+    // 2. "I want to" dropdown from the link list
+    const list = wrapper.querySelector('ul');
+    if (list) {
+      const links = [...list.querySelectorAll('a')];
+      const dd = document.createElement('div');
+      dd.className = 'claims-bar-iwantto';
+      const label = document.createElement('span');
+      label.className = 'claims-bar-iwantto-label';
+      label.textContent = 'I want to';
+      const select = document.createElement('select');
+      select.setAttribute('aria-label', 'I want to');
+      const ph = document.createElement('option');
+      ph.value = '';
+      ph.textContent = 'Select an option';
+      ph.selected = true;
+      ph.disabled = true;
+      select.append(ph);
+      links.forEach((a) => {
+        const opt = document.createElement('option');
+        opt.value = a.getAttribute('href');
+        opt.textContent = a.textContent.trim();
+        select.append(opt);
+      });
+      select.addEventListener('change', () => {
+        if (select.value) window.location.href = select.value;
+      });
+      dd.append(label, select);
+      list.replaceWith(dd);
+    }
+  });
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
@@ -107,6 +171,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateClaimsBar(main);
   // add aria-label to links
   a11yLinks(main);
 }

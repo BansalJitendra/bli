@@ -460,12 +460,13 @@ main .section.disclaimer a:hover {
   text-decoration: underline;
 }
 
-/* claims-bar — dark-blue stats strip under the storefront row
-   ("Number of Claims Settled" + "How can we help you today?"). */
+/* claims-bar — dark-blue strip under the storefront row: claims count (left),
+   "How can we help you today?" (middle) + "I want to" dropdown (right).
+   Matches the live page. */
 main .section.claims-bar {
   margin: 0;
-  padding: 20px 0;
-  background-color: var(--background-dark-blue, #003b73);
+  padding: 14px 0;
+  background-color: var(--brand-primary, #005dac);
   color: #fff;
 }
 
@@ -474,13 +475,63 @@ main .section.claims-bar .default-content-wrapper {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 16px 24px;
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.claims-bar p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
+  font-size: 20px;
+}
+
+/* claims number as individual white digit chips */
+main .section.claims-bar .claims-bar-digits {
+  display: inline-flex;
+  gap: 6px;
+}
+
+main .section.claims-bar .claims-bar-digit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: var(--brand-primary, #005dac);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* "I want to [Select an option]" dropdown on the right */
+main .section.claims-bar .claims-bar-iwantto {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-size: 18px;
+}
+
+main .section.claims-bar .claims-bar-iwantto select {
+  min-width: 240px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--text-color, #131619);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+@media (width >= 900px) {
+  main .section.claims-bar .default-content-wrapper {
+    flex-wrap: nowrap;
+  }
 }
 
 /* guide-text — explanatory prose sections (e.g. "Understanding How Life
