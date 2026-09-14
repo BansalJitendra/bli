@@ -458,7 +458,7 @@ main .section.carousel-hero-container .form .selection-wrapper label {
    stack with oversized/blob images). */
 main .section.app-promo {
   margin: 0;
-  padding: 48px 0;
+  padding: 40px 0;
   background: linear-gradient(135deg, #005eac 0%, #003b73 100%);
   color: #fff;
 }
@@ -475,24 +475,10 @@ main .section.app-promo .default-content-wrapper p {
 
 /* feature-list icons (favorite.svg) sit small, inline-ish */
 main .section.app-promo .default-content-wrapper p img {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   vertical-align: middle;
-}
-
-/* heading + subtitle */
-main .section.app-promo .default-content-wrapper > p:first-child {
-  margin: 0 0 4px;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-main .section.app-promo .default-content-wrapper > p:nth-child(2) {
-  margin: 0 0 24px;
-  font-size: 16px;
-  opacity: 0.9;
 }
 
 /* app-store badges */
@@ -501,10 +487,57 @@ main .section.app-promo .default-content-wrapper a img {
   height: 44px;
 }
 
-/* QR code */
+/* ---- Desktop 3-column layout: phone mockup | text | QR code ----
+   The section is a flat run of <p>s. Grid places the phone image (first p)
+   in column 1 spanning all rows, the QR (last p) in column 3, and every
+   other paragraph flows down the centre column. */
+@media (width >= 900px) {
+  main .section.app-promo .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr 160px;
+    align-items: center;
+    column-gap: 32px;
+  }
+
+  /* phone mockup — first paragraph, left column, full height */
+  main .section.app-promo .default-content-wrapper > p:first-child {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    margin: 0;
+  }
+
+  main .section.app-promo .default-content-wrapper > p:first-child img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+  }
+
+  /* QR block — last paragraph, right column */
+  main .section.app-promo .default-content-wrapper > p:last-child {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    justify-self: center;
+    margin: 0;
+  }
+
+  /* centre column: every paragraph except the phone (col 1) and QR (col 3) */
+  main .section.app-promo .default-content-wrapper > p:not(:first-child, :last-child) {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* section title (the "All your Life Insurance..." p) reads as a heading */
+main .section.app-promo .default-content-wrapper > p:nth-child(2) {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* QR code image */
 main .section.app-promo .default-content-wrapper p:last-child img {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
 }
 
 /* ---- Need Assistance — two-column layout ----
