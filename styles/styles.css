@@ -457,26 +457,40 @@ main .section.carousel-hero-container .form .selection-wrapper label {
    readable layout with properly-sized icons/badges (was rendering as a broken
    stack with oversized/blob images). */
 main .section.app-promo {
-  margin: 0;
-  padding: 40px 0;
-  background: linear-gradient(135deg, #005eac 0%, #003b73 100%);
-  color: #fff;
+  margin: 40px 0;
+  padding: 0 32px;
 }
 
+/* rounded blue card holding all the content (matches the live card) */
 main .section.app-promo .default-content-wrapper {
+  max-width: var(--section-width, 1200px);
+  margin: 0 auto;
+  padding: 32px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #003b73 0%, #005eac 55%, #2a83d4 100%);
   color: #fff;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.app-promo .default-content-wrapper p {
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 16px;
 }
 
-/* feature-list icons (favorite.svg) sit small, inline-ish */
+/* section title */
+main .section.app-promo .default-content-wrapper h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* feature-list rows: green star icon inline with the label */
 main .section.app-promo .default-content-wrapper p img {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
   object-fit: contain;
   vertical-align: middle;
 }
@@ -485,24 +499,31 @@ main .section.app-promo .default-content-wrapper p img {
 main .section.app-promo .default-content-wrapper a img {
   width: auto;
   height: 44px;
+  margin: 4px 12px 0 0;
 }
 
-/* ---- Desktop 3-column layout: phone mockup | text | QR code ----
-   The section is a flat run of <p>s. Grid places the phone image (first p)
-   in column 1 spanning all rows, the QR (last p) in column 3, and every
-   other paragraph flows down the centre column. */
+/* QR code image */
+main .section.app-promo .default-content-wrapper p:last-child img {
+  width: 130px;
+  height: 130px;
+  margin: 0;
+}
+
+/* ---- Desktop 3-column layout: phone mockup | text | QR code ---- */
 @media (width >= 900px) {
   main .section.app-promo .default-content-wrapper {
     display: grid;
-    grid-template-columns: 300px 1fr 160px;
+    grid-template-columns: 300px 1fr 150px;
     align-items: center;
-    column-gap: 32px;
+    column-gap: 40px;
+    padding: 24px 48px;
   }
 
   /* phone mockup — first paragraph, left column, full height */
   main .section.app-promo .default-content-wrapper > p:first-child {
     grid-column: 1;
     grid-row: 1 / -1;
+    align-self: center;
     margin: 0;
   }
 
@@ -512,32 +533,34 @@ main .section.app-promo .default-content-wrapper a img {
     max-width: 300px;
   }
 
-  /* QR block — last paragraph, right column */
+  /* title spans the centre column */
+  main .section.app-promo .default-content-wrapper > h2 {
+    grid-column: 2;
+  }
+
+  /* QR image — last paragraph, right column */
   main .section.app-promo .default-content-wrapper > p:last-child {
     grid-column: 3;
     grid-row: 1 / -1;
-    justify-self: center;
+    place-self: center;
     margin: 0;
   }
 
-  /* centre column: every paragraph except the phone (col 1) and QR (col 3) */
-  main .section.app-promo .default-content-wrapper > p:not(:first-child, :last-child) {
+  /* "Scan to Download" label — sits with the QR on the right */
+  main .section.app-promo .default-content-wrapper > p:nth-last-child(2) {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    place-self: center;
+    margin-top: -150px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* everything else flows down the centre column */
+  main .section.app-promo .default-content-wrapper > p:not(:first-child, :last-child, :nth-last-child(2)) {
     grid-column: 2;
     justify-self: start;
   }
-}
-
-/* section title (the "All your Life Insurance..." p) reads as a heading */
-main .section.app-promo .default-content-wrapper > p:nth-child(2) {
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-/* QR code image */
-main .section.app-promo .default-content-wrapper p:last-child img {
-  width: 130px;
-  height: 130px;
 }
 
 /* ---- Need Assistance — two-column layout ----
