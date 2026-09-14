@@ -1,13 +1,37 @@
-/* video-gallery — featured player + vertical playlist (structural only) */
-.video-gallery {
-  display: grid;
-  grid-template-columns: 1fr;
+/* video-gallery — horizontal carousel of portrait video testimonial cards
+   (matches the live "Videos" section). */
+.video-gallery .video-gallery-carousel {
+  position: relative;
+}
+
+.video-gallery .video-gallery-track {
+  display: flex;
   gap: 24px;
+  padding: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.video-gallery .video-gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- portrait card --- */
+.video-gallery .video-gallery-card {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .video-gallery .video-gallery-stage {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
   background-color: #000;
 }
 
@@ -36,6 +60,7 @@
   object-fit: cover;
 }
 
+/* play button — orange circle with white triangle (matches live) */
 .video-gallery .video-gallery-play {
   position: absolute;
   inset: 0;
@@ -45,66 +70,131 @@
 }
 
 .video-gallery .video-gallery-play button {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
+  border: 0;
   border-radius: 50%;
   padding: 0;
+  background-color: var(--brand-accent, #ff8900);
   cursor: pointer;
+  position: relative;
 }
 
-.video-gallery .video-gallery-playlist {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
+.video-gallery .video-gallery-play button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent #fff;
 }
 
-.video-gallery .video-gallery-playlist > li {
-  flex: 0 0 220px;
-  cursor: pointer;
-  border: 1px solid #dadada;
-}
-
-.video-gallery .video-gallery-playlist > li.video-gallery-active {
-  border-color: var(--text-color);
-}
-
-.video-gallery .video-gallery-thumb img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-
+/* caption: name + date/duration below the card */
 .video-gallery .video-gallery-caption {
-  padding: 8px 12px;
+  padding: 0 2px;
 }
 
-/* the link cell only carries the video href (used by JS) — never show the raw URL */
+.video-gallery .video-gallery-caption p {
+  margin: 0;
+}
+
+.video-gallery .video-gallery-caption p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color, #131619);
+}
+
+.video-gallery .video-gallery-caption p:last-child {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #5c666e;
+}
+
+/* the link cell only carries the video href (used by JS) — never show it */
 .video-gallery .video-gallery-link {
   display: none;
 }
 
+/* --- bottom controls: prev · dots · next --- */
+.video-gallery .video-gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.video-gallery .video-gallery-arrow {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  border: 1px solid var(--brand-primary, #005eac);
+  border-radius: 50%;
+  padding: 0;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.video-gallery .video-gallery-arrow:hover {
+  background-color: var(--brand-primary, #005eac);
+}
+
+.video-gallery .video-gallery-arrow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--brand-primary, #005eac);
+  border-width: 2px 2px 0 0;
+  transition: border-color 0.2s;
+}
+
+.video-gallery .video-gallery-arrow:hover::after {
+  border-color: #fff;
+}
+
+.video-gallery .video-gallery-prev::after {
+  transform: translate(-30%, -50%) rotate(-135deg);
+}
+
+.video-gallery .video-gallery-next::after {
+  transform: translate(-70%, -50%) rotate(45deg);
+}
+
+.video-gallery .video-gallery-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.video-gallery .video-gallery-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #c7ced3;
+  cursor: pointer;
+  transition: background-color 0.2s, width 0.2s;
+}
+
+.video-gallery .video-gallery-dot[aria-current='true'] {
+  width: 22px;
+  border-radius: 4px;
+  background-color: var(--brand-primary, #005eac);
+}
+
 @media (width >= 900px) {
-  .video-gallery {
-    grid-template-columns: 2fr 1fr;
-    align-items: start;
-  }
-
-  .video-gallery .video-gallery-playlist {
-    flex-direction: column;
-    max-height: 480px;
-  }
-
-  .video-gallery .video-gallery-playlist > li {
-    flex: 0 0 auto;
-    display: flex;
-    gap: 12px;
-  }
-
-  .video-gallery .video-gallery-playlist .video-gallery-thumb {
-    flex: 0 0 120px;
+  .video-gallery .video-gallery-card {
+    flex: 0 0 240px;
   }
 }
