@@ -408,9 +408,9 @@ main .section.carousel-hero-container {
 @media (width >= 900px) {
   main .section.carousel-hero-container {
     position: relative;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 15px;
+    max-width: none;   /* full-bleed banner, edge-to-edge like the live page */
+    margin: 0;
+    padding: 0;
   }
 
   /* banner spans the full width so it renders tall like the source */
@@ -419,11 +419,13 @@ main .section.carousel-hero-container {
     padding: 0 !important;
   }
 
-  /* form floats over the right side of the banner, inset from the edge */
+  /* form floats over the right side of the banner. The banner is now full
+     bleed, so anchor the form to a centered max content width instead of the
+     raw viewport edge — keeps it over the artwork on ultra-wide screens. */
   main .section.carousel-hero-container > .form-wrapper {
     position: absolute;
     top: 50%;
-    right: 40px;
+    right: max(40px, calc((100vw - 1360px) / 2));
     z-index: 2;
     width: 320px;
     margin: 0;

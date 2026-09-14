@@ -350,16 +350,21 @@ header nav .nav-hamburger button {
   color: #fff;
 }
 
-/* "Call to Buy" strip — thin band below the nav bar, above the hero (matches
-   the live page). Left-aligned pill with a light-blue background. */
+/* "Call to Buy" strip — full-width white band below the nav bar, above the
+   hero (matches the live page). The pill is left-aligned within a centered
+   content area; the white background spans the whole viewport width. */
 header .nav-call-to-buy {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: auto;
-  max-width: 1248px;
-  padding: 6px 24px;
+  padding: 6px max(24px, calc((100% - 1200px) / 2));
   background-color: #fff;
+}
+
+@media (width >= 900px) {
+  header .nav-call-to-buy {
+    padding: 6px max(32px, calc((100% - 1200px) / 2));
+  }
 }
 
 header .nav-call-to-buy a:any-link {
