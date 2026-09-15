@@ -40,12 +40,8 @@ header nav[aria-expanded='true'] {
     padding: 0 32px;
   }
 
-  /* logo + nav links group at the left; tools pushed to the right (matches
-     the live page). */
-  header nav .nav-sections {
-    flex: 0 1 auto;
-  }
-
+  /* tools pushed to the right; logo + nav links stay grouped at the left
+     (matches the live page). */
   header nav .nav-tools {
     margin-left: auto;
   }
@@ -163,7 +159,7 @@ header nav .nav-brand img {
 /* sections */
 header nav .nav-sections {
   grid-area: sections;
-  flex: 1 1 auto;
+  flex: 0 1 auto;   /* hug the brand on the left; tools pushed right */
   display: none;
   visibility: hidden;
 }
