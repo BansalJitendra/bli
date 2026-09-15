@@ -33,10 +33,21 @@ header nav[aria-expanded='true'] {
 @media (width >= 900px) {
   header nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     gap: 0 32px;
     max-width: 1264px;
     padding: 0 32px;
+  }
+
+  /* logo + nav links group at the left; tools pushed to the right (matches
+     the live page). */
+  header nav .nav-sections {
+    flex: 0 1 auto;
+  }
+
+  header nav .nav-tools {
+    margin-left: auto;
   }
 
   header nav[aria-expanded='true'] {
@@ -339,9 +350,6 @@ header nav a:any-link {
 
 header .nav-brand img {
   width: 88px;
-  background: #fff;
-  border-radius: 4px;
-  padding: 4px;
 }
 
 /* hamburger visible on the blue bar */
