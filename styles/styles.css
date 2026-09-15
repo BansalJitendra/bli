@@ -320,6 +320,15 @@ main .section.cards-benefit-container > .default-content-wrapper > p {
   text-align: center;
 }
 
+/* Quick Links sub-heading — centered under the title (matches live) */
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.cards-quicklink-container > .default-content-wrapper > p {
+  margin: 4px 0 0;
+  text-align: center;
+  color: #5c666e;
+  font-size: 16px;
+}
+
 /* ---- FAQ section — accordion bars on the left, illustration on the right
    (matches the live page). The image lives in the title wrapper; pin it to the
    top-right and inset the accordion so it fills the left column. ---- */
