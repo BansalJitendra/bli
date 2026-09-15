@@ -752,23 +752,24 @@ main .section.app-promo .default-content-wrapper p:last-child img {
   main .section.app-promo .default-content-wrapper {
     position: relative;
     min-height: 400px;
-    padding: 36px 200px 36px 340px;   /* left gutter for phone, right for QR */
+    padding: 36px 200px 36px 380px;   /* left gutter for phone, right for QR */
   }
 
-  /* phone mockup — tall portrait, bottom-left, overlapping the card edge */
+  /* phone mockup — tall portrait, top-aligned, filling the card height with a
+     small equal margin top and bottom (matches the live page) */
   main .section.app-promo .default-content-wrapper > p:first-child {
     position: absolute;
     left: 36px;
-    bottom: 0;
-    width: 280px;
+    top: 18px;
+    bottom: 18px;
     margin: 0;
   }
 
   main .section.app-promo .default-content-wrapper > p:first-child img {
     display: block;
-    width: 100%;
+    width: auto;
     max-width: none;
-    height: auto;
+    height: 100%;
   }
 
   /* middle text column — top-aligned, left of the QR */
