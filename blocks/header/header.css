@@ -1,7 +1,10 @@
 /* header and nav layout */
 header .nav-wrapper {
   width: 100%;
-  z-index: 2;
+
+  /* above the hero's absolutely-positioned form (z-index 2) so the hamburger
+     menu panel opens over it, not behind it */
+  z-index: 10;
   position: fixed;
 }
 
