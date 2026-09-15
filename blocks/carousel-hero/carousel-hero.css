@@ -65,6 +65,15 @@
   box-shadow: none;     /* source none */
 }
 
+/* On mobile the slide uses the portrait banner variant (JS swaps in a
+   <source media>), so switch to its near-square aspect ratio instead of the
+   wide desktop strip (matches the live page). */
+@media (width < 900px) {
+  .carousel-hero .carousel-hero-slide .carousel-hero-slide-image picture > img {
+    aspect-ratio: 360 / 384;
+  }
+}
+
 /* Content cell overlays the banner (empty in this instance → invisible).
  * Kept for slides that carry copy. */
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {

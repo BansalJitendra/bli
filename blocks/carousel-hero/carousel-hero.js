@@ -1,6 +1,34 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
+// Portrait/near-square banner variants used on mobile (matches the live page,
+// which swaps the wide desktop banner for a tall mobile-specific image). Keyed
+// by slide index; served from the git-tracked /icons folder on delivery.
+const MOBILE_BANNER_BASE = 'https://main--bli--bansaljitendra.aem.live/icons';
+const MOBILE_BANNERS = [
+  'hero-mobile-1.jpg',
+  'hero-mobile-2.webp',
+  'hero-mobile-3.webp',
+];
+
+/**
+ * Swap the wide desktop banner for the portrait mobile variant below 900px by
+ * prepending a <source media> to the slide's <picture>.
+ * @param {Element} slide The slide element
+ * @param {number} slideIndex Zero-based slide index
+ */
+function addMobileBannerSource(slide, slideIndex) {
+  const variant = MOBILE_BANNERS[slideIndex];
+  if (!variant) return;
+  const picture = slide.querySelector('picture');
+  if (!picture || picture.querySelector('source[data-mobile-banner]')) return;
+  const source = document.createElement('source');
+  source.dataset.mobileBanner = 'true';
+  source.media = '(width < 900px)';
+  source.srcset = `${MOBILE_BANNER_BASE}/${variant}`;
+  picture.prepend(source);
+}
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-hero');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
@@ -72,6 +100,7 @@ function createSlide(row, slideIndex, id) {
       img.loading = 'lazy';
     }
   }
+  addMobileBannerSource(slide, slideIndex);
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   return slide;
