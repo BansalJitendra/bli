@@ -207,6 +207,70 @@ function decorateAppPromo(main) {
   });
 }
 
+/**
+ * Add the three hero tabs (Term Plans / ULIPs / NRI Investment Plans) above
+ * the lead form and wire each to the matching hero carousel slide, matching
+ * the live page. Clicking a tab switches the carousel; the carousel's own
+ * navigation keeps the active tab in sync.
+ * @param {Element} main The main element
+ */
+function decorateHeroFormTabs(main) {
+  const section = main.querySelector('.section.carousel-hero-container.form-container');
+  if (!section) return;
+  const formWrapper = section.querySelector('.form-wrapper');
+  const hero = section.querySelector('.carousel-hero');
+  if (!formWrapper || !hero || formWrapper.previousElementSibling?.classList.contains('hero-form-tabs')) return;
+
+  const labels = ['Term Plans', 'ULIPs', 'NRI Investment Plans'];
+
+  const build = () => {
+    const indicators = [...hero.querySelectorAll('.carousel-hero-slide-indicator')];
+    if (!indicators.length) return false;
+
+    const tabsEl = document.createElement('div');
+    tabsEl.className = 'hero-form-tabs';
+    const tabs = labels.slice(0, indicators.length).map((label, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'hero-form-tab';
+      btn.textContent = label;
+      btn.addEventListener('click', () => {
+        const dot = indicators[i].querySelector('button');
+        if (dot) dot.click();
+      });
+      tabsEl.append(btn);
+      return btn;
+    });
+    formWrapper.parentElement.insertBefore(tabsEl, formWrapper);
+
+    // keep the active tab in sync with the carousel (indicator of the active
+    // slide is disabled).
+    const sync = () => {
+      indicators.forEach((ind, i) => {
+        const active = ind.querySelector('button')?.hasAttribute('disabled');
+        if (tabs[i]) tabs[i].setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    };
+    sync();
+    const mo = new MutationObserver(sync);
+    indicators.forEach((ind) => {
+      const b = ind.querySelector('button');
+      if (b) mo.observe(b, { attributes: true, attributeFilter: ['disabled'] });
+    });
+    return true;
+  };
+
+  // The carousel block decorates asynchronously; retry until its indicators
+  // exist (bounded), then build the tabs.
+  if (!build()) {
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries += 1;
+      if (build() || tries > 40) clearInterval(timer);
+    }, 100);
+  }
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
@@ -217,6 +281,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateClaimsBar(main);
   decorateAppPromo(main);
+  decorateHeroFormTabs(main);
   // add aria-label to links
   a11yLinks(main);
 }

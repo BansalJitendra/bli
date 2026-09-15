@@ -603,6 +603,44 @@ main .section.carousel-hero-container {
     padding: 0;
     transform: translateY(-50%);
   }
+
+  /* hero form tabs — sit as a small tab strip on top of the form card */
+  main .section.carousel-hero-container > .hero-form-tabs {
+    position: absolute;
+    top: calc(50% - 175px);
+    right: max(40px, calc((100vw - 1360px) / 2));
+    z-index: 3;
+    width: 320px;
+    display: flex;
+    gap: 4px;
+    padding: 8px 10px 0;
+    background-color: #fff;
+    border-radius: 12px 12px 0 0;
+  }
+}
+
+/* hero form tab buttons — active is blue/bold, inactive grey (matches live) */
+main .section.carousel-hero-container .hero-form-tabs .hero-form-tab {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 8px 4px;
+  background: none;
+  color: #5c666e;
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+
+main .section.carousel-hero-container .hero-form-tabs .hero-form-tab[aria-selected='true'] {
+  color: var(--brand-primary, #005eac);
+  font-weight: 700;
+  border-bottom-color: var(--brand-primary, #005eac);
 }
 
 /* compact lead card inside the hero band (styling keyed off the hero section,
