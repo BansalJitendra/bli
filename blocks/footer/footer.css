@@ -161,28 +161,38 @@ footer .footer > div > div:nth-child(6) {
   padding-bottom: 24px;
 }
 
+/* Live layout: each category is a full-width stacked block — title on its
+   own line, links flowing in a horizontal wrapping row below it. */
 footer .footer > div > div:nth-child(6) .default-content-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px 32px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: stretch;
+}
+
+footer .footer > div > div:nth-child(6) .footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 footer .footer > div > div:nth-child(6) .footer-col h3 {
-  margin: 0 0 8px;
+  margin: 0;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
+  text-align: left;
 }
 
+/* links flow in a single horizontal wrapping row under the title */
 /* stylelint-disable-next-line no-descending-specificity */
 footer .footer > div > div:nth-child(6) ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex-flow: row wrap;
+  gap: 8px 15px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -209,10 +219,6 @@ footer .footer > div > div:nth-child(7) {
   footer .footer > div > div:nth-child(5) .default-content-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  footer .footer > div > div:nth-child(6) .default-content-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (width >= 900px) {
@@ -223,15 +229,5 @@ footer .footer > div > div:nth-child(7) {
 
   footer .footer > div > div:nth-child(5) .default-content-wrapper {
     grid-template-columns: repeat(4, 1fr);
-  }
-
-  footer .footer > div > div:nth-child(6) .default-content-wrapper {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (width >= 1200px) {
-  footer .footer > div > div:nth-child(6) .default-content-wrapper {
-    grid-template-columns: repeat(5, 1fr);
   }
 }
