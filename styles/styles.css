@@ -839,6 +839,52 @@ main .section.form-container .default-content-wrapper p img {
   object-fit: contain;
 }
 
+/* ---- Need Assistance stat cards ----
+   Each stat: icon inline-left of the number on one row, label below.
+   Cards sit side by side (matches the live page). */
+main .section.form-container .default-content-wrapper .need-assistance-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  margin: 24px 0;
+}
+
+main .section.form-container .default-content-wrapper .need-assistance-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+main .section.form-container .default-content-wrapper .need-assistance-stat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.form-container .default-content-wrapper .need-assistance-stat-head img {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.form-container .default-content-wrapper .need-assistance-stat-number {
+  margin: 0;
+  color: #131619;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.form-container .default-content-wrapper .need-assistance-stat-label {
+  margin: 0;
+  color: #363c41;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
 @media (width >= 900px) {
   /* place the info block and the form side by side (Need Assistance only —
      NOT the hero, which also carries form-container but has its own layout) */

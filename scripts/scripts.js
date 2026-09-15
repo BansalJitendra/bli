@@ -208,6 +208,59 @@ function decorateAppPromo(main) {
 }
 
 /**
+ * Group the "Need Assistance?" stats into cards. The content conversion emits
+ * each stat as three separate paragraphs (icon, number, label) stacked
+ * vertically. Live renders each stat as: icon inline-left of the number on one
+ * row, with the label below — and the stats sit side by side. Re-group them.
+ * @param {Element} main The main element
+ */
+function decorateNeedAssistance(main) {
+  const heading = main.querySelector('#need-assistance');
+  if (!heading) return;
+  const wrapper = heading.closest('.default-content-wrapper');
+  if (!wrapper || wrapper.dataset.needAssistanceDecorated) return;
+  wrapper.dataset.needAssistanceDecorated = 'true';
+
+  // Stat icons are icon-only <p>s that appear after the heading (the dot image
+  // before the heading is decorative and excluded).
+  const isIconOnly = (el) => el && el.tagName === 'P'
+    && el.querySelector('img') && !el.textContent.trim();
+
+  const stats = document.createElement('div');
+  stats.className = 'need-assistance-stats';
+
+  const children = [...wrapper.children];
+  const headingIdx = children.indexOf(heading);
+
+  [...wrapper.querySelectorAll('p')].forEach((p) => {
+    // only stats after the heading (the dot image before it is decorative)
+    if (children.indexOf(p) < headingIdx) return;
+    if (!isIconOnly(p)) return;
+    const numberP = p.nextElementSibling;
+    const labelP = numberP && numberP.nextElementSibling;
+    if (!numberP || numberP.tagName !== 'P' || !labelP || labelP.tagName !== 'P') return;
+
+    const stat = document.createElement('div');
+    stat.className = 'need-assistance-stat';
+    const head = document.createElement('div');
+    head.className = 'need-assistance-stat-head';
+    // icon inline-left of the number
+    head.append(p.firstElementChild || p, numberP);
+    numberP.classList.add('need-assistance-stat-number');
+    labelP.classList.add('need-assistance-stat-label');
+    stat.append(head, labelP);
+    stats.append(stat);
+    p.remove();
+  });
+
+  if (stats.children.length) {
+    const anchor = wrapper.querySelector('.form-wrapper, .form')
+      || wrapper.querySelector('sup')?.closest('p');
+    wrapper.insertBefore(stats, anchor || null);
+  }
+}
+
+/**
  * Add the three hero tabs (Term Plans / ULIPs / NRI Investment Plans) above
  * the lead form and wire each to the matching hero carousel slide, matching
  * the live page. Clicking a tab switches the carousel; the carousel's own
@@ -281,6 +334,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateClaimsBar(main);
   decorateAppPromo(main);
+  decorateNeedAssistance(main);
   decorateHeroFormTabs(main);
   // add aria-label to links
   a11yLinks(main);
