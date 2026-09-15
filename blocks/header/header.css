@@ -1,12 +1,14 @@
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: var(--brand-primary, #005eac);
   width: 100%;
   z-index: 2;
   position: fixed;
 }
 
+/* only the nav bar carries the blue band; the "Call to Buy" pill row below it
+   stays transparent so the pill floats over the hero (matches the live page) */
 header nav {
+  background-color: var(--brand-primary, #005eac);
   box-sizing: border-box;
   display: grid;
   grid-template:
