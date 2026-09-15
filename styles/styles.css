@@ -688,6 +688,7 @@ main .section.app-promo {
 /* rounded blue card holding all the content (matches the live card):
    dark navy on the left (behind the phone), lighter blue on the right. */
 main .section.app-promo .default-content-wrapper {
+  box-sizing: border-box;   /* keep padding inside the width cap (no overflow) */
   max-width: var(--section-width, 1200px);
   margin: 0 auto;
   padding: 32px;
