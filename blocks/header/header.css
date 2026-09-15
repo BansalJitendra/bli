@@ -335,7 +335,8 @@ header .breadcrumbs ol li[aria-current] {
    ============================================================ */
 
 header nav {
-  max-width: 1400px;
+  max-width: none;   /* full-width bar, left-aligned like the live page */
+  margin: 0;
   color: #fff;
 }
 
