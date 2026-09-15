@@ -493,6 +493,16 @@ main .section.claims-bar .default-content-wrapper {
   padding: 0 24px;
 }
 
+/* left group (claims label + digits) and right group ("How can we help" +
+   dropdown) — each a vertically-centered flex row, matching the live page */
+main .section.claims-bar .claims-bar-left,
+main .section.claims-bar .claims-bar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 main .section.claims-bar p {
   display: flex;

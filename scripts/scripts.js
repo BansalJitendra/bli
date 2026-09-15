@@ -160,6 +160,27 @@ function decorateClaimsBar(main) {
       dd.append(label, select);
       list.replaceWith(dd);
     }
+
+    // 3. Group into left (claims label + digits) and right ("How can we help"
+    //    + dropdown) so they sit at opposite ends, matching the live page.
+    if (!wrapper.querySelector('.claims-bar-left')) {
+      const paras = wrapper.querySelectorAll(':scope > p');
+      const dd = wrapper.querySelector('.claims-bar-iwantto');
+      const claimsP = [...paras].find((p) => /Number of Claims Settled/i.test(p.textContent));
+      const helpP = [...paras].find((p) => /help you today/i.test(p.textContent));
+      if (claimsP) {
+        const left = document.createElement('div');
+        left.className = 'claims-bar-left';
+        claimsP.replaceWith(left);
+        left.append(claimsP);
+      }
+      if (helpP && dd) {
+        const right = document.createElement('div');
+        right.className = 'claims-bar-right';
+        helpP.replaceWith(right);
+        right.append(helpP, dd);
+      }
+    }
   });
 }
 
