@@ -586,13 +586,17 @@ main .section.guide-text h2 + p {
    "Get a Call Back" form floats over its right side. */
 main .section.carousel-hero-container {
   background: none;   /* no dark-blue band peeking around the banner */
+
+  /* white band between the nav bar and the hero (matches the live page); the
+     Call-to-Buy pill floats in this gap and slightly overlaps the hero */
+  margin-top: 30px;
 }
 
 @media (width >= 900px) {
   main .section.carousel-hero-container {
     position: relative;
     max-width: none;   /* full-bleed banner, edge-to-edge like the live page */
-    margin: 0;
+    margin: 30px 0 0;
     padding: 0;
   }
 
