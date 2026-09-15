@@ -610,6 +610,7 @@ main .section.carousel-hero-container {
     top: calc(50% - 175px);
     right: max(40px, calc((100vw - 1360px) / 2));
     z-index: 3;
+    box-sizing: border-box;
     width: 320px;
     display: flex;
     gap: 4px;
