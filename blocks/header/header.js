@@ -208,6 +208,9 @@ export default async function decorate(block) {
     logo.src = 'https://main--bli--bansaljitendra.aem.live/icons/bajaj-life-logo.gif';
     logo.alt = 'Bajaj Life Insurance Limited Logo';
     logo.className = 'nav-brand-logo';
+    logo.width = 130;
+    logo.height = 68;
+    logo.fetchPriority = 'high';
     brandAnchor.append(logo);
   }
 
@@ -249,6 +252,9 @@ export default async function decorate(block) {
       img.src = `${ICON_BASE}/${spec.icon}`;
       img.alt = spec.label;
       img.className = 'nav-tools-icon';
+      img.width = 22;
+      img.height = 22;
+      img.loading = 'lazy';
       a.append(img);
     });
 
@@ -265,6 +271,9 @@ export default async function decorate(block) {
       img.src = `${ICON_BASE}/nav-telephone.webp`;
       img.alt = 'Call to Buy';
       img.className = 'nav-tools-icon nav-tools-phone';
+      img.width = 22;
+      img.height = 22;
+      img.loading = 'lazy';
       a.append(img);
       li.append(a);
       // place before the Login/avatar item so order is search, phone, avatar
@@ -286,6 +295,9 @@ export default async function decorate(block) {
       img.src = `${ICON_BASE}/nav-hamburger.webp`;
       img.alt = 'Menu';
       img.className = 'nav-tools-icon';
+      img.width = 26;
+      img.height = 26;
+      img.loading = 'lazy';
       btn.append(img);
       btn.dataset.menuToggle = 'true';
       li.append(btn);
@@ -325,6 +337,9 @@ export default async function decorate(block) {
       icon.src = 'https://main--bli--bansaljitendra.aem.live/icons/call-to-buy.webp';
       icon.alt = '';
       icon.className = 'nav-call-to-buy-icon';
+      icon.width = 22;
+      icon.height = 22;
+      icon.loading = 'lazy';
       callToBuy.prepend(icon);
     }
     strip.append(callToBuy);

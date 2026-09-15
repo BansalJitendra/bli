@@ -61,6 +61,17 @@ function createSlide(row, slideIndex, id) {
     column.classList.add(`carousel-hero-slide-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
   });
+  // The first slide's image is the LCP element — load it eagerly with high
+  // priority; keep later slides lazy.
+  const img = slide.querySelector('img');
+  if (img) {
+    if (slideIndex === 0) {
+      img.loading = 'eager';
+      img.setAttribute('fetchpriority', 'high');
+    } else {
+      img.loading = 'lazy';
+    }
+  }
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   return slide;
