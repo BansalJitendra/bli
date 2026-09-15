@@ -30,7 +30,10 @@
   --section-padding: 48px;
   --nav-height: 54px;
   --call-to-buy-height: 46px;
-  --header-height: calc(var(--nav-height) + var(--call-to-buy-height));
+
+  /* reserve only the nav bar so the hero starts right below it and the
+     "Call to Buy" pill overlaps the top of the hero (matches the live page) */
+  --header-height: var(--nav-height);
   --content-max-width: 1200px;
 
   /* heading sizes (desktop) */

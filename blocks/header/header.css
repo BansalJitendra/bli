@@ -355,20 +355,22 @@ header nav .nav-hamburger button {
   color: #fff;
 }
 
-/* "Call to Buy" strip — full-width white band below the nav bar, above the
-   hero (matches the live page). The pill is left-aligned within a centered
-   content area; the white background spans the whole viewport width. */
+/* "Call to Buy" — a standalone left-aligned pill just below the nav bar that
+   overlaps onto the hero (matches the live page). Not a full-width band. */
 header .nav-call-to-buy {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 6px max(24px, calc((100% - 1200px) / 2));
-  background-color: #fff;
+  padding: 0 24px;
+  margin-top: -1px;   /* let the pill overlap the top of the hero below */
+  pointer-events: none;   /* only the pill itself is interactive */
 }
 
 @media (width >= 900px) {
   header .nav-call-to-buy {
-    padding: 6px max(32px, calc((100% - 1200px) / 2));
+    /* align the pill with the section content edge (58px gutter, matching
+       main > .section > div { width: min(100% - 116px, 1804px) }) */
+    padding: 0 max(58px, calc((100% - 1804px) / 2));
   }
 }
 
@@ -376,14 +378,15 @@ header .nav-call-to-buy a:any-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 8px 14px;
+  border-radius: 0 0 10px 10px;   /* rounded bottom corners, like live */
   background-color: rgb(244 250 255);
   color: rgb(19 22 25);
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
+  pointer-events: auto;
 }
 
 header .nav-call-to-buy a:hover {
